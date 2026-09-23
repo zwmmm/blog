@@ -6,6 +6,7 @@
 <title>每日新闻 · 思考与记录</title>
 <meta name="description" content="每日 AI 智能体、开发工具、Apple 生态与中推极客热点动态整理。">
 <meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
   @font-face {
     font-family: "TsangerJinKai02";
@@ -146,6 +147,57 @@
     margin: 0 auto;
   }
 
+  /* Post Cards */
+  .post-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    transition: border-color 0.15s ease;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+  .post-card:hover {
+    border-color: var(--brand);
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 8.5pt;
+    color: var(--stone);
+    margin-bottom: 6px;
+  }
+  .post-title {
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--near-black);
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+  .post-card:hover .post-title {
+    color: var(--brand);
+  }
+  .post-excerpt {
+    font-size: 9.5pt;
+    color: var(--olive);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-right: 4px;
+    font-family: var(--mono);
+  }
+
   /* Footer */
   .footer {
     margin-top: 60px;
@@ -193,13 +245,26 @@
     <div class="subtitle">精选并整理全球 AI 智能体、开发工具、Apple 生态与中推极客热点</div>
   </div>
 
-  <div class="wip-card">
-    <div class="wip-badge">栏目规划中 · 建设中</div>
-    <div class="wip-title">每日纪事报搭建中</div>
-    <div class="wip-desc">
-      本栏目每天定期更新 AI Agent、开发工具、macOS 小而美软件与极客圈热点动态。自动化更新流程正在部署中，敬请期待。
-    </div>
-  </div>
+  <!-- Daily News List -->
+  <section>
+    <a class="post-card" href="news/2026-09-23.html">
+      <div class="post-meta">
+        <span>2026-09-23</span>
+        <span>·</span>
+        <span>第 085 期</span>
+      </div>
+      <h2 class="post-title">Claude Opus 5.5 首发、Ghostty 终端测评与 MCP 生态动态</h2>
+      <p class="post-excerpt">
+        Anthropic 发布 Claude Opus 5.5 旗舰模型；macOS 原生 GPU 加速终端 Ghostty 深度测评；MCP 移交 Linux 基金会托管；Cursor Projects Coordinator 多智能体沙箱架构；WhisperKit 本地听写工具出海复盘。
+      </p>
+      <div>
+        <span class="tag">大模型</span>
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </a>
+  </section>
 
   <!-- FOOTER -->
   <footer class="footer">
