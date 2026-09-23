@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 不止写代码：生图与 Suno 音乐折腾记</title>
+<title>AI 不止写代码：生图、音乐与自动化日报折腾记</title>
 <meta name="author" content="Kami">
-<meta name="description" content="记录写代码之外，我用 AI 尝试生图和 Suno 编曲创作的一些经验与作品。">
-<meta name="keywords" content="AI, Suno, 音乐生成, 生图, 经验分享">
+<meta name="description" content="记录写代码之外，我用 AI 尝试生图、Suno 编曲以及搭建自动化每日新闻系统的一些经验。">
+<meta name="keywords" content="AI, Suno, 音乐生成, 生图, 自动化日报, 经验分享">
 <meta name="generator" content="Kami">
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
@@ -304,12 +304,12 @@
   <!-- HEADER -->
   <header class="header">
     <div class="eyebrow">个人随笔</div>
-    <h1 class="title">AI 不止写代码：生图与 Suno 音乐折腾记</h1>
-    <div class="subtitle">记录写代码之外，我用 AI 尝试生图和 Suno 编曲创作的一些体验</div>
+    <h1 class="title">AI 不止写代码：生图、音乐与自动化日报折腾记</h1>
+    <div class="subtitle">记录写代码之外，我用 AI 尝试生图、Suno 编曲以及搭建自动化每日新闻系统的一些体验</div>
     <div class="meta-bar">
       <div class="meta-item">发布时间：<strong>2026-09-23</strong></div>
       <div class="meta-item">分类：<strong>个人随笔</strong></div>
-      <div class="meta-item">涉及工具：<strong>Suno, 生图知识库</strong></div>
+      <div class="meta-item">涉及工具：<strong>Suno, 生图知识库, 自动化任务</strong></div>
     </div>
   </header>
 
@@ -421,9 +421,28 @@
       <li>卡字数与修韵脚：听着旋律数节拍，要求 AI 把每句话的字数严格限制在固定区间（例如 7 到 9 个字），统一押韵，去掉拗口书面语。</li>
       <li>重新填词与试唱：根据 Suno 生成后的实际听感，哪一句唱得别扭就针对性让 AI 换词重写，慢慢磨到词曲自然融合的程度。</li>
     </ul>
+    <!-- 2.3 自动化每日新闻系统 -->
+    <h3>3. 自动化每日新闻系统</h3>
+    <p>除了偶尔创作图片和音乐，我还用 AI 搭建了一套全自动的每日新闻流。每天各处刷信息容易过载，不如让 Agent 每天定时按照我的关注偏好和排版规范把前沿动态整理出来：</p>
+
+    <p><strong>我的采集源偏好</strong></p>
+    <ul style="margin: 4px 0 12px 20px; line-height: 1.55; color: var(--dark-warm); font-size: 9.5pt;">
+      <li>AI 智能体与代码工具：Claude Code、Cursor、Windsurf 等前沿进展与工程落地实操。</li>
+      <li>大模型首发与开源项目：Hugging Face、arXiv 核心论文、GitHub 趋势榜高星项目。</li>
+      <li>Apple 生态与小而美软件：macOS 和 iOS 原生轻量工具、独立出海项目。</li>
+      <li>极客社区深度讨论：中文推特、Linux.do、少数派与 Hacker News 的实战避坑与商业账本。</li>
+    </ul>
+
+    <p><strong>自动化输出流水线</strong></p>
+    <ul style="margin: 4px 0 14px 20px; line-height: 1.55; color: var(--dark-warm); font-size: 9.5pt;">
+      <li>定时触发：每天早上 9 点由调度任务自动唤醒 Agent 执行。</li>
+      <li>信源检索与真实落地页清洗：检索 24 小时动态，强制提取具体 GitHub 仓库全路径、官方 Release 或 App Store 落地页，剔除空链接。</li>
+      <li>Kami 排版渲染：按照 Kami 羊皮纸设计系统，直接输出独立的单日静态网页 <code>news/YYYY-MM-DD.html</code>。</li>
+      <li>双向索引与自动部署：更新 <code>news.html</code> 列表和首页每日新闻板块，自动执行 Git 提交并推送至 GitHub，触发 Vercel 秒级构建上线。</li>
+    </ul>
 
     <div class="note">
-      用 AI 写歌和写代码有些相通的地方，比如结构划分、参数调整和反复试错。多尝试不同领域，做出来的东西还是挺有成就感的。
+      把写代码的工程化和自动化思维用在多模态创作与信息流上，不仅省去了人工维护的繁琐，每天早上醒来还能得到一份排版干净、没有噪音的前沿内参。
     </div>
   </section>
 
