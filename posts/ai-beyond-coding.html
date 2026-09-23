@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 不止写代码：生图与 Suno 音乐折腾记</title>
+<meta name="author" content="Kami">
+<meta name="description" content="记录写代码之外，我用 AI 尝试生图和 Suno 编曲创作的一些经验与作品。">
+<meta name="keywords" content="AI, Suno, 音乐生成, 生图, 经验分享">
+<meta name="generator" content="Kami">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 12pt;
+    color: var(--olive);
+    line-height: 1.5;
+    margin-bottom: 16px;
+  }
+  .meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+  }
+  .meta-item strong {
+    color: var(--dark-warm);
+  }
+
+  /* Headings */
+  h2 {
+    font-size: 16pt;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 38px 0 16px 0;
+    color: var(--near-black);
+    border-bottom: 0.8px solid var(--border);
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-size: 13pt;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 24px 0 10px 0;
+    color: var(--near-black);
+  }
+  h4 {
+    font-size: 11pt;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 16px 0 8px 0;
+    color: var(--dark-warm);
+  }
+
+  p {
+    margin: 0 0 12px 0;
+    color: var(--near-black);
+    line-height: 1.55;
+  }
+
+  a {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  a:hover {
+    color: var(--dark-warm);
+  }
+
+  /* News Cards */
+  .news-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin: 16px 0 24px 0;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 14px 18px;
+  }
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .news-title {
+    font-size: 11.5pt;
+    font-weight: 500;
+    color: var(--near-black);
+  }
+  .news-tag {
+    font-size: 8.5pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .news-desc {
+    font-size: 9.5pt;
+    color: var(--olive);
+    margin-bottom: 6px;
+    line-height: 1.5;
+  }
+  .news-link {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+
+  /* Recommendation Box */
+  .rec-box {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 18px;
+    margin: 16px 0;
+  }
+  .rec-title {
+    font-size: 11pt;
+    font-weight: 500;
+    color: var(--near-black);
+    margin-bottom: 6px;
+  }
+
+  /* Note / Callout */
+  .note {
+    background: var(--ivory);
+    border-left: 3px solid var(--brand);
+    padding: 12px 16px;
+    margin: 18px 0;
+    line-height: 1.55;
+    color: var(--dark-warm);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin: 0 2px;
+    font-family: var(--mono);
+  }
+
+  /* Profile Card */
+  .profile-card {
+    background: var(--ivory);
+    border: 1px solid var(--brand);
+    border-radius: 6px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .profile-card h3 {
+    margin: 0 0 6px 0;
+    font-size: 13pt;
+    color: var(--brand);
+  }
+  .profile-btn {
+    display: inline-block;
+    margin-top: 12px;
+    background: var(--brand);
+    color: var(--ivory);
+    padding: 8px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 9.5pt;
+    font-weight: 500;
+  }
+  .profile-btn:hover {
+    background: var(--dark-warm);
+    color: var(--ivory);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 9pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 16px 40px 16px; }
+    .title { font-size: 18pt; }
+    .subtitle { font-size: 10.5pt; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <a class="back-link" href="../index.html">← 返回首页</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="eyebrow">个人随笔</div>
+    <h1 class="title">AI 不止写代码：生图与 Suno 音乐折腾记</h1>
+    <div class="subtitle">记录写代码之外，我用 AI 尝试生图和 Suno 编曲创作的一些体验</div>
+    <div class="meta-bar">
+      <div class="meta-item">发布时间：<strong>2026-09-23</strong></div>
+      <div class="meta-item">分类：<strong>个人随笔</strong></div>
+      <div class="meta-item">涉及工具：<strong>Suno, 生图知识库</strong></div>
+    </div>
+  </header>
+
+  <!-- 第一章: AI 跨界新闻 -->
+  <section>
+    <h2>第一章：AI 跨界新闻</h2>
+    <p>平时大家用 AI 大多是让它补全代码或查错。前段时间看到几个非技术背景的人用 AI 做开发的新闻，很有意思：</p>
+
+    <div class="news-grid">
+      <!-- Card 1 -->
+      <div class="news-card">
+        <div class="news-header">
+          <span class="news-title">歌手胡彦斌用 AI 开发并上线粉丝社区 App</span>
+          <span class="news-tag">音乐人</span>
+        </div>
+        <div class="news-desc">
+          胡彦斌使用 VS Code 和 Claude Code，花了一个多月把粉丝社区 App「彦火」开发出来，并且通过了 App Store 审核正式上架。
+        </div>
+        <a class="news-link" href="https://m.36kr.com/p/3839604788853378" target="_blank" rel="noopener noreferrer">
+          36氪报道链接
+        </a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="news-card">
+        <div class="news-header">
+          <span class="news-title">生化危机女主在 GitHub 开源 AI 记忆项目</span>
+          <span class="news-tag">演员</span>
+        </div>
+        <div class="news-desc">
+          好莱坞演员米拉·乔沃维奇在业余做个人游戏时，因为遇到大模型上下文遗忘问题，和朋友用 Claude 协作开发了分层长期记忆项目 MemPalace，开源在 GitHub 上。
+        </div>
+        <a class="news-link" href="https://github.com/mempalace/mempalace" target="_blank" rel="noopener noreferrer">
+          GitHub 仓库链接
+        </a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="news-card">
+        <div class="news-header">
+          <span class="news-title">日本前 AV 女优引退后用 AI 转行前端接单</span>
+          <span class="news-tag">自由职业</span>
+        </div>
+        <div class="news-desc">
+          日本前成人影视演员 Noa 在退圈后，用 Claude 学习做网页和自动化，目前在社交平台上承接前端开发项目。
+        </div>
+        <a class="news-link" href="https://noaonlyonly.com/" target="_blank" rel="noopener noreferrer">
+          Noa 个人官网 (noaonlyonly.com)
+        </a>
+      </div>
+    </div>
+
+    <div class="note">
+      看到其他人用 AI 写出实际项目，我也开始尝试用 AI 做写代码之外的事情，比如摄影生图和音乐制作。
+    </div>
+  </section>
+
+  <!-- 第二章: 我跨界做了什么？ -->
+  <section>
+    <h2>第二章：我跨界做了什么？</h2>
+
+    <!-- 2.1 摄影和生图 -->
+    <h3>1. 摄影和生图</h3>
+    <p>生图如果想做得自然，人物脸型、光影和机位控制比较讲究。分享一个我日常学习和参考的宝藏站点：</p>
+    
+    <div class="rec-box">
+      <div class="rec-title">南鸢 AI 创作实践知识库</div>
+      <p style="font-size: 9.5pt; color: var(--olive); margin-bottom: 8px;">
+        南鸢的知识库把人像写真的打光、构图、表情控制和提示词写法整理得很系统，想深入了解生图的话推荐看看。
+      </p>
+      <a class="news-link" href="https://knowledge.nuyoahonline.com/" target="_blank" rel="noopener noreferrer">
+        南鸢 nuyoah 知识库 (knowledge.nuyoahonline.com)
+      </a>
+    </div>
+
+    <!-- 2.2 AI 音乐制作 -->
+    <h3>2. AI 音乐制作</h3>
+    
+    <h4>作品试听</h4>
+    <p>在聊具体制作前，可以先听听我最近用 Suno 折腾出来的几首作品：</p>
+    <div class="profile-card">
+      <h3>Suno 音乐主页</h3>
+      <p style="color: var(--olive); max-width: 540px; margin: 6px auto 0 auto; font-size: 9.5pt;">
+        主页里放了我用 Suno 制作的几首曲子，涵盖了 K-Pop、摇滚、爵士、Rap 等不同风格，欢迎直接点击试听：
+      </p>
+      <a class="profile-btn" href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">
+        打开主页试听：suno.com/@pgwei
+      </a>
+    </div>
+
+    <h4>制作过程</h4>
+    <p>听完曲子，很多人会好奇没有乐理基础是怎么做出来的。如果只是把一段词丢给 Suno 盲猜，很容易词曲不搭。我常用的制作流程是：<strong>曲子先行 ➔ Cover 锁定 ➔ AI 对话迭代填词</strong>。</p>
+
+    <p><strong>第 1 步：找曲子（找纯音乐或开盲盒）</strong></p>
+    <ul style="margin: 4px 0 12px 20px; line-height: 1.55; color: var(--dark-warm); font-size: 9.5pt;">
+      <li>找现成伴奏：去网上找一些自己觉得好听的免费纯音乐素材。</li>
+      <li>Suno 风格开盲盒：在 Suno 里尝试不同风格词抽卡，直到随机摇出一段自己满意的旋律或伴奏。</li>
+    </ul>
+
+    <p><strong>第 2 步：用 Suno 的 Cover 功能锁定旋律</strong></p>
+    <p style="font-size: 9.5pt; color: var(--dark-warm);">
+      找到中意的曲子后，核心技巧是使用 Suno 的 Cover（翻唱/重构）功能。这样可以在保证曲子旋律和伴奏走向基本不变的前提下，把精力完全放在后续的歌词替换与演唱调整上。
+    </p>
+
+    <p><strong>第 3 步：与 AI 对话填词，反复调试词曲融合</strong></p>
+    <ul style="margin: 4px 0 14px 20px; line-height: 1.55; color: var(--dark-warm); font-size: 9.5pt;">
+      <li>明确情境：先给 AI 一个具体的故事背景或情绪冲突（比如深夜机房的焦虑与释怀），避免生成假大空的词。</li>
+      <li>约束结构与标签：要求 AI 严格按 <code>[Intro]</code>, <code>[Verse]</code>, <code>[Pre-Chorus]</code>, <code>[Chorus]</code>, <code>[Bridge]</code>, <code>[Outro]</code> 输出，副歌控制在 4 句以内。</li>
+      <li>卡字数与修韵脚：听着旋律数节拍，要求 AI 把每句话的字数严格限制在固定区间（例如 7 到 9 个字），统一押韵，去掉拗口书面语。</li>
+      <li>重新填词与试唱：根据 Suno 生成后的实际听感，哪一句唱得别扭就针对性让 AI 换词重写，慢慢磨到词曲自然融合的程度。</li>
+    </ul>
+
+    <div class="note">
+      用 AI 写歌和写代码有些相通的地方，比如结构划分、参数调整和反复试错。多尝试不同领域，做出来的东西还是挺有成就感的。
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>

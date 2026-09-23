@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>思考与记录</title>
+<meta name="description" content="记录关于多模态 AI、生图、音乐制作与技术探索的随笔与思考。">
+<meta name="keywords" content="博客, AI, Suno, 生图, 随笔, 每周新闻">
+<meta name="generator" content="Kami">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .site-brand {
+    font-size: 16pt;
+    font-weight: 500;
+    color: var(--near-black);
+    text-decoration: none;
+    letter-spacing: -0.2pt;
+  }
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    font-size: 10pt;
+  }
+  .nav-link {
+    color: var(--olive);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .nav-link:hover, .nav-link.active {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  /* Hero Intro */
+  .hero {
+    margin-bottom: 44px;
+  }
+  .hero-eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  .hero-title {
+    font-size: 22pt;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .hero-desc {
+    font-size: 11pt;
+    color: var(--olive);
+    line-height: 1.55;
+    max-width: 720px;
+  }
+
+  /* Sections */
+  .section-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    margin: 36px 0 16px 0;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 0.6pt solid var(--border);
+    padding-bottom: 6px;
+  }
+  .section-count {
+    font-size: 9pt;
+    color: var(--stone);
+    font-weight: normal;
+  }
+
+  /* Post List & Cards */
+  .post-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+    transition: border-color 0.15s ease;
+    text-decoration: none;
+    display: block;
+    color: inherit;
+  }
+  .post-card:hover {
+    border-color: var(--brand);
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 8.5pt;
+    color: var(--stone);
+    margin-bottom: 6px;
+  }
+  .post-title {
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--near-black);
+    margin-bottom: 8px;
+    line-height: 1.35;
+  }
+  .post-card:hover .post-title {
+    color: var(--brand);
+  }
+  .post-excerpt {
+    font-size: 9.5pt;
+    color: var(--olive);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-right: 4px;
+    font-family: var(--mono);
+  }
+
+  /* Under Construction Card */
+  .wip-card {
+    background: var(--ivory);
+    border: 1px dashed var(--border-soft);
+    border-radius: 4px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .wip-badge {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  .wip-title {
+    font-size: 12pt;
+    font-weight: 500;
+    color: var(--dark-warm);
+    margin-bottom: 6px;
+  }
+  .wip-desc {
+    font-size: 9.5pt;
+    color: var(--stone);
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  a {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  a:hover {
+    color: var(--dark-warm);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .hero-title { font-size: 18pt; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- SITE HEADER -->
+  <header class="site-header">
+    <a class="site-brand" href="index.html">思考与记录</a>
+    <nav class="nav-links">
+      <a class="nav-link active" href="index.html">全部</a>
+      <a class="nav-link" href="#essays">个人随笔</a>
+      <a class="nav-link" href="news.html">每周新闻</a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">随笔与记录</div>
+    <h1 class="hero-title">记录技术探索、多模态 AI 与日常创作</h1>
+    <p class="hero-desc">
+      这里主要记录在软件开发、生图写真、Suno 音乐制作等跨界创作中的实践经验与随笔。
+    </p>
+  </section>
+
+  <!-- SECTION: 个人随笔 -->
+  <section id="essays">
+    <div class="section-title">
+      <span>个人随笔</span>
+      <span class="section-count">1 篇文章</span>
+    </div>
+
+    <!-- Article 1 -->
+    <a class="post-card" href="posts/ai-beyond-coding.html">
+      <div class="post-meta">
+        <span>2026-09-23</span>
+        <span>·</span>
+        <span>个人随笔</span>
+      </div>
+      <h2 class="post-title">AI 不止写代码：生图与 Suno 音乐折腾记</h2>
+      <p class="post-excerpt">
+        当外行都在用 AI 写代码，程序员也可以用 AI 跨界玩创作。记录写代码之外，我在生图与 Suno 音乐创作中的实践经验，包括曲子先行、Cover 锁定与 AI 迭代填词的全流程。
+      </p>
+      <div>
+        <span class="tag">AI 创作</span>
+        <span class="tag">Suno</span>
+        <span class="tag">生图实践</span>
+      </div>
+    </a>
+  </section>
+
+  <!-- SECTION: 每周新闻 -->
+  <section id="news" style="margin-top: 40px;">
+    <div class="section-title">
+      <span>每周新闻</span>
+      <span class="section-count">栏目筹备中</span>
+    </div>
+
+    <a class="wip-card" href="news.html" style="text-decoration: none; display: block;">
+      <div class="wip-badge">栏目规划中 · 开发中</div>
+      <div class="wip-title">每周 AI 与技术前沿资讯整理</div>
+      <div class="wip-desc">
+        每周精选全球 AI 跨界实践、开源项目与开发工具动态，内容整理与自动化流程正在搭建中，点击查看详情。
+      </div>
+    </a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="https://github.com/tw93/Kami" target="_blank" rel="noopener noreferrer">Parchment Design</a></div>
+    <div>Suno 音乐主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
