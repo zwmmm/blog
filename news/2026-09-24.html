@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 2026-09-24 · 思考与记录</title>
+<meta name="description" content="GPT-6 Sol 与 Luna 双架构首发、macOS 原生设计工具 Compositor 与千级智能体协同框架 Agensh。">
+<meta name="keywords" content="GPT-6, OpenAI, Compositor, Laya-MLX, Agensh, ZCode, 每日新闻">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 22pt;
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .subtitle {
+    font-size: 11.5pt;
+    color: var(--olive);
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  .meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+  }
+  .meta-item strong {
+    color: var(--dark-warm);
+  }
+
+  /* Headings */
+  h2 {
+    font-size: 15pt;
+    font-weight: 500;
+    line-height: 1.35;
+    margin: 36px 0 14px 0;
+    color: var(--near-black);
+    border-bottom: 0.8px solid var(--border);
+    padding-bottom: 6px;
+  }
+  h3 {
+    font-size: 12.5pt;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 20px 0 8px 0;
+    color: var(--near-black);
+  }
+
+  p {
+    margin: 0 0 12px 0;
+    color: var(--near-black);
+    line-height: 1.55;
+  }
+
+  a {
+    color: var(--brand);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  a:hover {
+    color: var(--dark-warm);
+  }
+
+  /* Cards */
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .news-title {
+    font-size: 12pt;
+    font-weight: 500;
+    color: var(--near-black);
+  }
+  .news-tag {
+    font-size: 8.5pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .news-desc {
+    font-size: 9.5pt;
+    color: var(--olive);
+    margin-bottom: 8px;
+    line-height: 1.55;
+  }
+  .news-link {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+
+  /* Note Box */
+  .note {
+    background: var(--ivory);
+    border-left: 3px solid var(--brand);
+    padding: 12px 16px;
+    margin: 18px 0;
+    line-height: 1.55;
+    color: var(--dark-warm);
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 1px 5px;
+    border-radius: 3px;
+    margin-right: 4px;
+    font-family: var(--mono);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 9pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 16px 40px 16px; }
+    .title { font-size: 18pt; }
+    .subtitle { font-size: 10.5pt; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="eyebrow">每日新闻 · 2026-09-24</div>
+    <h1 class="title">GPT-6 Sol 与 Luna 首发、macOS 原生设计工具 Compositor 与千级智能体框架</h1>
+    <div class="subtitle">汇总近 24 小时内大模型、开发工具、Apple 生态与出海实践核心要点</div>
+    <div class="meta-bar">
+      <div class="meta-item">发布日期：<strong>2026-09-24</strong></div>
+      <div class="meta-item">分类：<strong>每日新闻</strong></div>
+      <div>
+        <span class="tag">大模型</span>
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: 头条特写 -->
+  <section>
+    <h2>头条特写：大模型与核心突破</h2>
+    
+    <div class="news-card">
+      <div class="news-header">
+        <span class="news-title">OpenAI 正式发布 GPT-6 Sol 与 Luna 双模型架构</span>
+        <span class="news-tag">大模型 / AI前沿</span>
+      </div>
+      <div class="news-desc">
+        OpenAI 公布代号为 Sol 与 Luna 的全新双子模型架构。Sol 主打复杂逻辑推导、超长多模态跨文档深度推理与自主任务规划；Luna 则采用轻量化非自回归分支结构，专注极低延迟交互与端侧协同调用。两者通过自适应路由实现计算资源与响应时延的动态平衡。
+      </div>
+      <a class="news-link" href="https://openai.com/index/introducing-gpt-6-sol-and-luna/" target="_blank" rel="noopener noreferrer">
+        查看 OpenAI 官方发布公告 ➔
+      </a>
+    </div>
+
+    <div class="news-card">
+      <div class="news-header">
+        <span class="news-title">Anthropic 公布 Claude 在复杂生物分子酶系统的科学发现</span>
+        <span class="news-tag">大模型 / 科学计算</span>
+      </div>
+      <div class="news-desc">
+        Anthropic 披露研究进展，Claude 在分析庞大未标注基因组数据时自主定位并识别出一套具备 CRISPR 类重复序列的新型酶系统。该成果展示了大语言模型在生物信息学拓扑发现与结构预测中的严谨推理能力。
+      </div>
+      <a class="news-link" href="https://www.anthropic.com/news/claude-discovers-novel-enzyme-system" target="_blank" rel="noopener noreferrer">
+        查看 Anthropic 官方研究报告 ➔
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 2: Apple 焦点 -->
+  <section>
+    <h2>Apple 生态与精选工具</h2>
+    
+    <div class="news-card">
+      <div class="news-header">
+        <span class="news-title">macOS 原生高性能图形设计工具 Compositor 开源发布</span>
+        <span class="news-tag">Apple / 开发者工具</span>
+      </div>
+      <div class="news-desc">
+        专为 macOS 打造的原生轻量级图像编辑与排版工具 Compositor 引起社区关注。该软件完全基于 Swift 与 Metal 原生渲染管线开发，摆脱传统大型设计软件的庞大体积，启动迅速且深度适配 Apple Silicon 统一内存架构。
+      </div>
+      <a class="news-link" href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">
+        查看 Compositor GitHub 仓库 ➔
+      </a>
+    </div>
+
+    <div class="news-card">
+      <div class="news-header">
+        <span class="news-title">Laya-MLX：Apple Silicon 芯片上的微秒级端侧决策后端</span>
+        <span class="news-tag">Apple / AI编程</span>
+      </div>
+      <div class="news-desc">
+        开发者基于 Apple MLX 框架构建了原生推理后端 Laya-MLX。在搭载 M 系列芯片的 Mac 上，无需依赖 PyTorch 或云端 API，即可在 7 至 14 毫秒内完成系统级类型化判定与快速分类，极大降低了本地智能体路由的功耗与延迟。
+      </div>
+      <a class="news-link" href="https://github.com/mizorewww/laya-mlx" target="_blank" rel="noopener noreferrer">
+        查看 Laya-MLX GitHub 仓库 ➔
+      </a>
+    </div>
+
+    <div class="news-card">
+      <div class="news-header">
+        <span class="news-title">Here Wallpaper：将地理矢量数据渲染为原生壁纸</span>
+        <span class="news-tag">Apple / 独立开发</span>
+      </div>
+      <div class="news-desc">
+        少数派社区分享了一款将城市街道与地理测绘数据转化为极简壁纸的原生工具 Here Wallpaper，支持自定义色板与视网膜高分辨率导出，展现了小而美独立工具的打磨质感。
+      </div>
+      <a class="news-link" href="https://sspai.com/post/114211" target="_blank" rel="noopener noreferrer">
+        查看少数派工具评测 ➔
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION 3: 智能体与编程实践 -->
+  <section>
+    <h2>智能体前沿与独立开发</h2>
+
+    <div class="news-card">
+      <div class="news-header">
+        <span class="news-title">Agensh：千级智能体分布式组织协同框架</span>
+        <span class="news-tag">智能体 / 论文研究</span>
+      </div>
+      <div class="news-desc">
+        Hugging Face 每日精选论文收录 Agensh 框架研究。该研究探索了将组织智能扩展至 1,024 个并行智能体的拓扑编排体系，通过分层共识与状态去中心化机制，在复杂软件工程场景下验证了大规模 Agent 集群的一致性收敛能力。
+      </div>
+      <a class="news-link" href="https://huggingface.co/papers/2609.26781" target="_blank" rel="noopener noreferrer">
+        查看 Hugging Face 论文主页 ➔
+      </a>
+    </div>
+
+    <div class="news-card">
+      <div class="news-header">
+        <span class="news-title">ZCode：面向代码重构的高扩展开源 Coding Agent</span>
+        <span class="news-tag">AI编程 / 开源项目</span>
+      </div>
+      <div class="news-desc">
+        开源编程智能体框架 ZCode 正式发布，提供面向代码库 AST 分析、沙箱环境测试隔离与多轮工具调用的模块化流水线，支持在复杂工程中快速嵌入自动化重构能力。
+      </div>
+      <a class="news-link" href="https://github.com/zai-org/ZCode" target="_blank" rel="noopener noreferrer">
+        查看 ZCode GitHub 仓库 ➔
+      </a>
+    </div>
+
+    <div class="news-card">
+      <div class="news-header">
+        <span class="news-title">Fast-JEV：针对 Claude Code 的会话上下文压缩插件</span>
+        <span class="news-tag">AI编程 / 生产力</span>
+      </div>
+      <div class="news-desc">
+        社区开源插件 Fast-JEV 针对终端编程智能体在长任务下的上下文膨胀问题提供优化方案，通过对历史工具调用与返回值进行单次快速评分裁剪，保留关键代码上下文，大幅减少 Token 开销与延迟。
+      </div>
+      <a class="news-link" href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener noreferrer">
+        查看 Fast-JEV GitHub 仓库 ➔
+      </a>
+    </div>
+
+    <div class="note">
+      今日观察：模型架构正在向超深慢思考与超快端侧决策的两极分化演进，端侧 MLX 与轻量决策路由正在让本地智能体体验变得更为轻盈即时。
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
