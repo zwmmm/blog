@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-09-25 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-09-25 每日动态：非自回归决策引擎 Laya、原生图像编辑利器 Compositor 与多智能体协同前沿。">
+<meta name="keywords" content="每日新闻, AI编程, 智能体, 大模型, Apple, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-09-25</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-09-25</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">AI 智能体</span>
+      <span class="meta-tag">系统决策</span>
+      <span class="meta-tag">macOS 精品</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">开源架构 · 大模型</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/NandhaKishorM/laya" target="_blank" rel="noopener noreferrer">Laya：单次前向传播的高性能非自回归决策引擎</a>
+      </h2>
+      <p class="card-summary">
+        传统自回归大模型在进行简单分类、分支判断或评分任务时常受限于输出延迟与计算开销。Laya 提出非自回归决策引擎架构，支持多语言单次前向完成结构化判断，并通过动态路由机制挑选匹配模型权重。结合配套的 Apple Silicon MLX 运行时，能在本地实现毫秒级快速决策，为智能体决策循环提供了高效基础设施。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/NandhaKishorM/laya" target="_blank" rel="noopener noreferrer">https://github.com/NandhaKishorM/laya</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 生态 · 原生工具</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">Compositor：专为 macOS 打造的高性能原生图像设计工具</a>
+      </h2>
+      <p class="card-summary">
+        针对 macOS 桌面端图像处理需求，Compositor 基于 Apple 原生图形技术栈构建，提供轻量、无订阅负担的图像设计工作流。应用聚焦图层混合、矢量排版与非破坏性编辑，优化了内存占用与渲染流畅度，是近期 macOS 原生精品软件中值得关注的独立开源项目。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">https://github.com/robbietilton/Compositor</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体协同 · AI 编程</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener noreferrer">Fast Jev Compaction：基于决策评分的智能体上下文压缩插件</a>
+      </h2>
+      <p class="card-summary">
+        在长时间运行的代码智能体任务中，上下文窗口随着工具调用输出迅速膨胀。该插件将非自回归判定机制引入上下文清理流程，评估历史工具调用与执行结果的有效性，自动清理过期无效输出并保持关键原始信息不变，显著减少了上下文折叠带来的信息丢失与无效 Token 消耗。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener noreferrer">https://github.com/tamaratran/fast-jev-compaction</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">开源设计 · 开发环境</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/devdotfast/whiteboard" target="_blank" rel="noopener noreferrer">Whiteboard：面向深度软件设计的开源 IDE</a>
+      </h2>
+      <p class="card-summary">
+        作为入选 YC 孵化项目的开源 IDE，Whiteboard 主打从架构蓝图到代码实现的一致性设计。它将白板架构设计、数据流状态机与代码编辑器融为一体，帮助开发者在编写代码前理清模块边界与领域模型，减少由于过度编码引起的返工与架构腐化。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/devdotfast/whiteboard" target="_blank" rel="noopener noreferrer">https://github.com/devdotfast/whiteboard</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">前沿论文 · 智能体推理</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">大模型</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://huggingface.co/papers/2609.22682" target="_blank" rel="noopener noreferrer">Hugging Face 论文精选：自组织智能体团队的协同推理机制</a>
+      </h2>
+      <p class="card-summary">
+        最新论文《Self-Organizing Agent Teams Learn to Reason Together》探索了多智能体系统在无中心控制下的自主分工与协作推理机制。研究表明，通过动态声誉与角色协商机制，智能体团队在复杂推理和探索性任务上的表现明显优于单体大模型或预设固定链条的流水线系统。
+      </p>
+      <div class="card-link-box">
+        论文地址：<a href="https://huggingface.co/papers/2609.22682" target="_blank" rel="noopener noreferrer">https://huggingface.co/papers/2609.22682</a>
+      </div>
+    </article>
+
+    <!-- News Item 6 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">极客热议 · 中推社区</span>
+        <div class="card-tags">
+          <span class="card-tag">中推</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/zai-org/ZCode" target="_blank" rel="noopener noreferrer">ZCode 开源：终端与云端多 Agent 编码 Harness 架构实践</a>
+      </h2>
+      <p class="card-summary">
+        在开发者社区中，围绕终端 Agent 与多分支协同开发的讨论持续升温。ZCode 发布了最新的编码 Agent Harness 方案，支持从任务分解、分支隔离到自动化验证的全流程编排，进一步探索了多人协作与多智能体并行提交代码的工业级规范。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/zai-org/ZCode" target="_blank" rel="noopener noreferrer">https://github.com/zai-org/ZCode</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>© 2026 思考与记录 · 本站由 Kami 羊皮纸设计系统排版</div>
+    <div>
+      <a href="../news.html">新闻列表</a> ·
+      <a href="../index.html">博客首页</a>
+    </div>
+  </footer>
+
+</body>
+</html>
