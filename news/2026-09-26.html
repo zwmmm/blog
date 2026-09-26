@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-09-26 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-09-26 每日动态：极速网页智能体 jev-ultrafast、本地决策模型运行工具 Ollaya、Apple Silicon 原生决策运行时 Laya-MLX 与去中心化工单工具 git-bug。">
+<meta name="keywords" content="每日新闻, AI编程, 智能体, 大模型, Apple, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-09-26</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-09-26</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">智能体</span>
+      <span class="meta-tag">AI编程</span>
+      <span class="meta-tag">Apple</span>
+      <span class="meta-tag">大模型</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体协同 · 浏览器自动化</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/browser-use/jev-ultrafast" target="_blank" rel="noopener noreferrer">jev-ultrafast：基于轻量决策流的极速低成本网页智能体</a>
+      </h2>
+      <p class="card-summary">
+        针对传统网页操作智能体调用完整多模态大模型延迟高与 Token 开销巨大的痛点，browser-use 团队推出了 jev-ultrafast 框架。该框架将 DOM 元素筛选与动作执行拆解为非自回归快速决策步进，仅在关键语义理解环节调用重型视觉模型。实测在网页表单填写、数据抽取与链路跳转等场景中，单次任务开销下降逾 80%，响应速度显著提升。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/browser-use/jev-ultrafast" target="_blank" rel="noopener noreferrer">https://github.com/browser-use/jev-ultrafast</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">模型部署 · 本地推理</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://ollaya.dev/" target="_blank" rel="noopener noreferrer">Ollaya：面向本地非自回归决策模型的即插即用管理工具</a>
+      </h2>
+      <p class="card-summary">
+        作为针对决策类模型（Decision Models）的本地化运行工具，Ollaya 借鉴了 Ollama 的极简交互体验，专注于一键拉取、管理与本地运行单步决策和评分模型。开发者通过标准 CLI 或本地 HTTP API 即可调用结构化判定能力，无需配置复杂的 PyTorch 环境或依赖云端鉴权，降低了智能体系统本地化部署的门槛。
+      </p>
+      <div class="card-link-box">
+        官方主页：<a href="https://ollaya.dev/" target="_blank" rel="noopener noreferrer">https://ollaya.dev/</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">开源架构 · 模型蒸馏</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">大模型</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/jaredpalmer/kev" target="_blank" rel="noopener noreferrer">Kev：基于开源底座的高性能本地决策模型训练框架</a>
+      </h2>
+      <p class="card-summary">
+        由 Jared Palmer 发起的开源项目 Kev 探索了在主流开源大模型之上构建结构化决策模型的方法。Kev 提供了从数据集构建、轻量化 LoRA 微调到非自回归头部分类训练的完整工作流，帮助开发者针对专属代码库或垂直业务场景训练出千参数量级、响应速度在 10 毫秒内的私有决策模型。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/jaredpalmer/kev" target="_blank" rel="noopener noreferrer">https://github.com/jaredpalmer/kev</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 生态 · 端侧推理</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">大模型</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/mizorewww/laya-mlx" target="_blank" rel="noopener noreferrer">Laya-MLX：专为 Apple Silicon 优化的毫秒级原生决策运行时</a>
+      </h2>
+      <p class="card-summary">
+        紧随非自回归决策模型架构演进，Laya-MLX 针对 macOS 与 Apple Silicon 统一内存架构进行了底层算子优化。借助 Apple MLX 框架的 Metal 加速，在 M 系列芯片上将单次选择、打分与布尔判断的端到端耗时压缩至 7 至 14 毫秒，且完全规避了常驻内存开销，为 macOS 原生软件集成端侧智能体决策提供了基础设施。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/mizorewww/laya-mlx" target="_blank" rel="noopener noreferrer">https://github.com/mizorewww/laya-mlx</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">极客工具 · 协作架构</span>
+        <div class="card-tags">
+          <span class="card-tag">独立开发</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/git-bug/git-bug" target="_blank" rel="noopener noreferrer">git-bug：完全内嵌于 Git 对象的去中心化离线 Issue 追踪系统</a>
+      </h2>
+      <p class="card-summary">
+        在 Hacker News 获得广泛热议的 git-bug 实现了将 Bug 追踪与 Issue 讨论完全存储于 Git 仓库底层对象中。不同于依赖第三方托管平台的传统工单，git-bug 支持完全离线提交、随 Git 分支同步推送合并，并提供终端 TUI 与本地 Web 交互界面，为独立开发者与分布式开源协作提供了纯净、可控的项目管理方案。
+      </p>
+      <div class="card-link-box">
+        来源仓库：<a href="https://github.com/git-bug/git-bug" target="_blank" rel="noopener noreferrer">https://github.com/git-bug/git-bug</a>
+      </div>
+    </article>
+
+    <!-- News Item 6 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">前沿论文 · 智能体规划</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">大模型</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://huggingface.co/papers/2609.30233" target="_blank" rel="noopener noreferrer">Hugging Face 论文精选：面向通用任务与运动规划的代码智能体</a>
+      </h2>
+      <p class="card-summary">
+        最新入选 Hugging Face 每日论文的《Coding Agents for Generalized Task and Motion Planning Problems》探讨了如何将代码生成智能体与经典任务运动规划（TAMP）相结合。论文提出通过生成可执行的符号化规划代码与断言验证逻辑，智能体能够有效求解长程多物体操控与物理约束，表现优于传统黑盒策略。
+      </p>
+      <div class="card-link-box">
+        论文地址：<a href="https://huggingface.co/papers/2609.30233" target="_blank" rel="noopener noreferrer">https://huggingface.co/papers/2609.30233</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>© 2026 思考与记录 · 本站由 Kami 羊皮纸设计系统排版</div>
+    <div>
+      <a href="../news.html">新闻列表</a> ·
+      <a href="../index.html">博客首页</a>
+    </div>
+  </footer>
+
+</body>
+</html>
