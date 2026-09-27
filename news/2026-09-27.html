@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-09-27 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-09-27 每日动态：DeepSeek 弹性计算沙箱 DSec、LLM 线性叠加表征论文、编程智能体架构 ZCode、macOS 原生设计工具 Compositor 与 Cursor 独立开发流。">
+<meta name="keywords" content="每日新闻, AI编程, 智能体, 大模型, Apple, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-09-27</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-09-27</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">智能体</span>
+      <span class="meta-tag">AI编程</span>
+      <span class="meta-tag">Apple</span>
+      <span class="meta-tag">大模型</span>
+      <span class="meta-tag">独立开发</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体基建 · 大规模强化训练沙箱</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">大模型</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://arxiv.org/abs/2609.22978" target="_blank" rel="noopener noreferrer">DeepSeek 弹性计算架构 DSec：支持大规模智能体训练的高性能沙箱</a>
+      </h2>
+      <p class="card-summary">
+        DeepSeek 正式公开其自主智能体训练基础设施架构 DSec。该系统针对代码执行、多步环境交互与长程强化学习中的大规模算力调度瓶颈，构建了一套弹性沙箱隔离与快照恢复方案，大幅降低智能体在海量环境并发交互时的系统开销与状态漂移。
+      </p>
+      <div class="card-link-box">
+        论文链接：<a href="https://arxiv.org/abs/2609.22978" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2609.22978</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">大模型机理 · 线性叠加与表征</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://arxiv.org/abs/2609.29845" target="_blank" rel="noopener noreferrer">Transformer 双重思维表征：大语言模型中线性叠加现象的新证据</a>
+      </h2>
+      <p class="card-summary">
+        Hugging Face 高热论文揭示了 Transformer 隐藏层在处理复杂推理时的表征机制。研究发现模型能够在单个向量空间内同时保持多个并行的概念与决策假设，为可解释性研究及稀疏自编码器解析模型内部思维链路提供了实验支持。
+      </p>
+      <div class="card-link-box">
+        论文链接：<a href="https://arxiv.org/abs/2609.29845" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2609.29845</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">AI 编程 · 智能体工具框架</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/zai-org/ZCode" target="_blank" rel="noopener noreferrer">ZCode：面向工业级复杂工程的自主编程智能体架构</a>
+      </h2>
+      <p class="card-summary">
+        Z.ai 开源其自主编码智能体框架 ZCode。项目聚焦大型工程环境下的长上下文维护、模块化工具挂载与自动化测试闭环，提供开箱即用的多语言符号索引与上下文压缩策略，提升终端智能体处理复杂重构任务的准确率。
+      </p>
+      <div class="card-link-box">
+        源码仓库：<a href="https://github.com/zai-org/ZCode" target="_blank" rel="noopener noreferrer">https://github.com/zai-org/ZCode</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 原生生态 · macOS 独立软件</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">Compositor：基于 Swift 与 Metal 的 macOS 原生图像合成工具</a>
+      </h2>
+      <p class="card-summary">
+        专为 macOS 打造的高性能图形设计与图像合成应用 Compositor 持续迭代。采用纯 Swift 与 Metal 图形管线开发，提供即时响应的图层混合、非破坏性节点滤镜与轻量化单文件工程管理，展现了 Apple 原生桌面软件的质感与流畅度。
+      </p>
+      <div class="card-link-box">
+        源码仓库：<a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">https://github.com/robbietilton/Compositor</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">中推与极客热点 · 独立开发实战</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/reladraw/reladraw" target="_blank" rel="noopener noreferrer">Reladraw 声明式绘图与 AI 辅助编程工作流的结合实践</a>
+      </h2>
+      <p class="card-summary">
+        Hacker News 与中推技术圈热议 Reladraw 新型图表声明语言。与传统自动排版图表工具不同，Reladraw 允许开发者精确指定相对布局与空间约束，非常适合由 Cursor 等 AI 工具自动生成架构设计图与系统拓扑，缩短技术写作与产品出海的交付路径。
+      </p>
+      <div class="card-link-box">
+        项目主页：<a href="https://github.com/reladraw/reladraw" target="_blank" rel="noopener noreferrer">https://github.com/reladraw/reladraw</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
