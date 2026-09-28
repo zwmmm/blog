@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-09-28 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-09-28 每日动态：Fireworks AI 发布 Ember-1、代码智能体长周期规划论文、本地云仿真工具 Fakecloud、macOS 像素音律应用 Lofi Cities 与多智能体竞技场 TinyAIArena。">
+<meta name="keywords" content="每日新闻, AI编程, 智能体, 大模型, Apple, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-09-28</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-09-28</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">大模型</span>
+      <span class="meta-tag">智能体</span>
+      <span class="meta-tag">AI编程</span>
+      <span class="meta-tag">Apple</span>
+      <span class="meta-tag">独立开发</span>
+      <span class="meta-tag">中推</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">大模型首发 · 高性能推理框架</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://fireworks.ai/blog/ember-1" target="_blank" rel="noopener noreferrer">Fireworks AI 发布 Ember-1：面向极致吞吐与低延迟的多模态推理架构</a>
+      </h2>
+      <p class="card-summary">
+        Fireworks AI 正式公开 Ember-1 模型与推理平台架构。Ember-1 专注于优化端到端首字延迟与高并发吞吐瓶颈，通过重构注意力算子计算流水线与内核融合，显著降低显存占用与批量服务成本，为代码智能体与实时多模态交互提供高效后端支撑。
+      </p>
+      <div class="card-link-box">
+        官方公告：<a href="https://fireworks.ai/blog/ember-1" target="_blank" rel="noopener noreferrer">https://fireworks.ai/blog/ember-1</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体研究 · 具身与复杂规划</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://arxiv.org/abs/2609.30233" target="_blank" rel="noopener noreferrer">Coding Agents for TAMP：基于代码合成的通用任务与运动规划求解</a>
+      </h2>
+      <p class="card-summary">
+        Hugging Face 每日论文榜前列发布最新成果，研究团队将代码智能体架构引入物理任务与运动规划领域。智能体通过动态生成结构化约束代码与外部求解器交互验证，替代传统的单步离散策略生成，大幅提升在长周期、复杂环境中的推理稳定性与容错率。
+      </p>
+      <div class="card-link-box">
+        论文链接：<a href="https://arxiv.org/abs/2609.30233" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2609.30233</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">AI 编程基建 · 独立开发与测试</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://fakecloud.dev/" target="_blank" rel="noopener noreferrer">Fakecloud：面向独立开发者与集成测试的轻量级本地云服务仿真器</a>
+      </h2>
+      <p class="card-summary">
+        Hacker News 热榜开源工具 Fakecloud 受到广泛关注。该项目针对独立开发出海与 AI 辅助编程中云资源模拟繁重的痛点，提供零繁琐依赖的轻量级本地 AWS 模拟环境，支持快速启动 S3、DynamoDB 等核心服务，提升单测执行速度与离线开发体验。
+      </p>
+      <div class="card-link-box">
+        项目主页：<a href="https://fakecloud.dev/" target="_blank" rel="noopener noreferrer">https://fakecloud.dev/</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 原生生态 · 极客小而美应用</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://loficities.com/" target="_blank" rel="noopener noreferrer">Lofi Cities：基于算法合成的像素城市夜景与自适应环境音律</a>
+      </h2>
+      <p class="card-summary">
+        独立开发者打造的 Lofi Cities 登上极客圈热榜。该作品采用纯程序化像素渲染与原生音频算子实时合成无限延伸的 Lofi 伴奏，无需加载任何静态预录音频文件，资源占用极低且适配 macOS 沉浸式工作场景，展现了精细纯粹的独立设计美学。
+      </p>
+      <div class="card-link-box">
+        体验地址：<a href="https://loficities.com/" target="_blank" rel="noopener noreferrer">https://loficities.com/</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">中推与极客热点 · 智能体对战与评估</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">中推</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://tinyaiarena.com/" target="_blank" rel="noopener noreferrer">TinyAIArena：轻量级多智能体策略对抗沙盒与可视化演练场</a>
+      </h2>
+      <p class="card-summary">
+        中推圈与全球极客社区热议开源沙盒平台 TinyAIArena。项目构建了一个直观透明的多智能体博弈环境，支持不同模型智能体在既定规则下进行自主策略对抗、资源协商与决策演练，为量化不同大模型的推理深度与交互博弈水平提供了生动的评测工具。
+      </p>
+      <div class="card-link-box">
+        平台入口：<a href="https://tinyaiarena.com/" target="_blank" rel="noopener noreferrer">https://tinyaiarena.com/</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
