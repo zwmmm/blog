@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-09-29 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-09-29 每日动态：Anthropic 发布 Claude Sonnet 5.5、自进化代码智能体框架 TimeEvo、0.8B 极速决策模型 Jeff、随身对话副驾 jev-chat-jarvis 与 macOS 独立开发自动化实践。">
+<meta name="keywords" content="每日新闻, AI编程, 智能体, 大模型, Apple, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-09-29</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-09-29</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">大模型</span>
+      <span class="meta-tag">智能体</span>
+      <span class="meta-tag">AI编程</span>
+      <span class="meta-tag">Apple</span>
+      <span class="meta-tag">独立开发</span>
+      <span class="meta-tag">中推</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">大模型首发 · 混合推理架构</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener noreferrer">Anthropic 发布 Claude Sonnet 5.5：混合推理架构与编程智能体能力跃升</a>
+      </h2>
+      <p class="card-summary">
+        Anthropic 正式公布新一代 Claude Sonnet 5.5 模型。新版本引入动态混合推理架构，支持在单次请求中按需分配思考步数与生成预算，在多文件代码重构、长上下文工具调用及复杂系统排错等任务上表现优异，大幅降低复杂编程智能体在长调用链中的错误累积。
+      </p>
+      <div class="card-link-box">
+        官方公告：<a href="https://www.anthropic.com/claude-sonnet-5-5" target="_blank" rel="noopener noreferrer">https://www.anthropic.com/claude-sonnet-5-5</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体研究 · 具身自进化机制</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://arxiv.org/abs/2609.27277" target="_blank" rel="noopener noreferrer">TimeEvo：基于失败反馈驱动的代码智能体自进化框架</a>
+      </h2>
+      <p class="card-summary">
+        Hugging Face 每日论文榜前列发布自进化智能体研究 TimeEvo。该方案打破了传统预设固定工具库的约束，当智能体在多步执行与复杂分析中遭遇失败时，能够自主提取上下文特征、编写并测试新的专用工具函数，沉淀至本地工具库中形成闭环自进化能力。
+      </p>
+      <div class="card-link-box">
+        论文链接：<a href="https://arxiv.org/abs/2609.27277" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2609.27277</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">极客开源 · 毫秒级决策引擎</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/firelex/jeff" target="_blank" rel="noopener noreferrer">Jeff：面向轻量端侧的 0.8B 极速决策模型与训练方案</a>
+      </h2>
+      <p class="card-summary">
+        Hacker News 高赞开源项目 Jeff 正式发布。该项目基于 Jev 决策规范训练出仅 0.8B 参数量的超轻量决策模型，可在个人设备以约 30ms 超低时延完成分类、评分及布尔判断，大幅减轻主模型在高频条件分支中的算力开销与调用等待。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/firelex/jeff" target="_blank" rel="noopener noreferrer">https://github.com/firelex/jeff</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 生态 · 独立出海应用</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener noreferrer">jev-chat-jarvis：基于屏幕上下文感知的非侵入式随身对话副驾</a>
+      </h2>
+      <p class="card-summary">
+        独立开发者开源的随身对话智能体辅助工具 jev-chat-jarvis 受到关注。应用基于原生屏幕图像感知与端侧决策模型协同，无需注入或修改宿主应用数据包，即可在各类移动通讯界面实时理解上下文并生成候选回复，展现了端侧轻量智能体的交互潜力。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/jev-chat/jev-chat-jarvis" target="_blank" rel="noopener noreferrer">https://github.com/jev-chat/jev-chat-jarvis</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">中推与独立开发 · 编程工作流</span>
+        <div class="card-tags">
+          <span class="card-tag">中推</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/BigPizzaV3/CodexPlusPlus" target="_blank" rel="noopener noreferrer">Claude Code 驱动 macOS 独立开发新范式：全栈闭环与自动化构建</a>
+      </h2>
+      <p class="card-summary">
+        中推圈与独立开发者社区热议基于终端编程智能体的敏捷开发实践。借助命令行代码智能体与本地 API 路由管理工具，单人开发者实现了从需求拆解、全栈代码编写到本地 macOS 原生打包上线的自动化闭环，显著缩短了独立项目的验证周期。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/BigPizzaV3/CodexPlusPlus" target="_blank" rel="noopener noreferrer">https://github.com/BigPizzaV3/CodexPlusPlus</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
