@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-09-30 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-09-30 每日动态：OpenAI 发布 Dots 常驻智能体与 GPT 6.1 Sol、macOS 状态栏智能体路由工具 Magpie、自我博弈搜索蒸馏研究、异步调度 Harness Unreal-Agent 与自动化热点日报框架 AIHOT。">
+<meta name="keywords" content="每日新闻, AI编程, 智能体, 大模型, Apple, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-09-30</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-09-30</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">大模型</span>
+      <span class="meta-tag">智能体</span>
+      <span class="meta-tag">Apple</span>
+      <span class="meta-tag">AI编程</span>
+      <span class="meta-tag">独立开发</span>
+      <span class="meta-tag">中推</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">大模型首发 · 全天候智能体</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://openai.com/index/introducing-dots/" target="_blank" rel="noopener noreferrer">OpenAI 推出常驻智能体架构 Dots 与 GPT 6.1 Sol：探索长周期主动调度</a>
+      </h2>
+      <p class="card-summary">
+        OpenAI 正式公开常驻智能体系统 Dots 与高性价比推理模型 GPT 6.1 Sol。Dots 改变了单次单轮对话唤醒的被动模式，支持智能体在后台环境长周期保持监听与异步任务推进，依据外部事件与系统状态主动发起调度；配合仅为旗舰模型五分之一推理开销的 Sol，显著降低了常驻智能体多实例运行的算力门槛。
+      </p>
+      <div class="card-link-box">
+        官方公告：<a href="https://openai.com/index/introducing-dots/" target="_blank" rel="noopener noreferrer">https://openai.com/index/introducing-dots/</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 生态 · 开发者工具</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/yetone/magpie" target="_blank" rel="noopener noreferrer">Magpie：面向 macOS 菜单栏的多模型智能体路由与 API 中继工具</a>
+      </h2>
+      <p class="card-summary">
+        独立开发者开源 macOS 原生菜单栏智能体路由中枢 Magpie。该工具专为 Claude Code、Codex 等各类命令行与桌面编码智能体打造，常驻 macOS 状态栏，支持将不同编程智能体的请求透明中继并按需路由至 DeepSeek、Kimi 等多种上游推理模型，解决多端代码智能体模型切换与本地密钥分散管理痛点。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/yetone/magpie" target="_blank" rel="noopener noreferrer">https://github.com/yetone/magpie</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体研究 · 推理机制</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://arxiv.org/abs/2609.30936" target="_blank" rel="noopener noreferrer">Self-Play Search Distillation：基于自我博弈搜索蒸馏提升模型推理能力</a>
+      </h2>
+      <p class="card-summary">
+        Hugging Face 每日论文榜前列发布长链推理增强研究。论文提出基于自我博弈的蒙特卡洛树搜索（MCTS）蒸馏方案，针对高质量推理数据稀缺难题，让模型在探索过程中自主生成多分支竞争路径并评估决策后果，使轻量模型在无需庞大人工标注的前提下显著提升复杂逻辑与代码任务的推理鲁棒性。
+      </p>
+      <div class="card-link-box">
+        论文链接：<a href="https://arxiv.org/abs/2609.30936" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2609.30936</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">极客开源 · 智能体框架</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/unreallabsai/unreal-agent" target="_blank" rel="noopener noreferrer">Unreal-Agent：面向高并发多智能体协同的轻量级异步调度 Harness</a>
+      </h2>
+      <p class="card-summary">
+        GitHub 高星开源项目 Unreal-Agent 发布。该项目采用 Go 语言构建了专为异步设计的智能体 Harness，提供进程间非阻塞事件流、结构化 Tool Call 沙箱与轻量级上下文压缩机制，单节点可稳定支撑数百个后台代码智能体并发执行复杂分支任务。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/unreallabsai/unreal-agent" target="_blank" rel="noopener noreferrer">https://github.com/unreallabsai/unreal-agent</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">中推与独立开发 · 自动化流水线</span>
+        <div class="card-tags">
+          <span class="card-tag">独立开发</span>
+          <span class="card-tag">中推</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/KKKKhazix/AIHOT" target="_blank" rel="noopener noreferrer">AIHOT：基于多源抓取与语义精选的主动式热点日报开源框架</a>
+      </h2>
+      <p class="card-summary">
+        中推圈与独立开发者热议自动化热点聚合框架 AIHOT。项目通过集成 RSS、Hacker News 及社交媒体的多源清洗引擎，结合大模型自动化评分与结构化排版流水线，实现无需人工介入即可每日定时生成高干货密度行业日报与静态站点部署，展现了个人开发者构建垂直资讯站的自动化新模式。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/KKKKhazix/AIHOT" target="_blank" rel="noopener noreferrer">https://github.com/KKKKhazix/AIHOT</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
