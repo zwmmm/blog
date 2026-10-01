@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-01 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-01 每日动态：Google 发布 Gemini 4 Argon、非自回归决策引擎 Laya 与 MLX 本地推理、Compositor 原生 macOS 图像套件、AgentTell 浏览器智能体侧信道安全研究与 Claude Code 压缩优化流水线。">
+<meta name="keywords" content="每日新闻, 大模型, 智能体, Apple, AI编程, 独立开发, 中推, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-10-01</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-10-01</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">大模型</span>
+      <span class="meta-tag">智能体</span>
+      <span class="meta-tag">Apple</span>
+      <span class="meta-tag">AI编程</span>
+      <span class="meta-tag">独立开发</span>
+      <span class="meta-tag">中推</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">大模型首发 · 长上下文架构</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/" target="_blank" rel="noopener noreferrer">Google 发布 Gemini 4 Argon：超低首字延迟与长上下文代码推理架构</a>
+      </h2>
+      <p class="card-summary">
+        Google 官方正式发布轻量化高效能模型 Gemini 4 Argon。该模型在保持百万 Token 级超长上下文理解能力的同时，通过稀疏激活与新型 KV 缓存机制将首字响应时间（TTFT）大幅缩短，专为编码智能体高频工具调用与全仓库代码依赖检索场景优化，在 Hacker News 讨论榜高居前列。
+      </p>
+      <div class="card-link-box">
+        官方公告：<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/" target="_blank" rel="noopener noreferrer">https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体架构 · 本地推理</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">Apple</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/NandhaKishorM/laya" target="_blank" rel="noopener noreferrer">Laya：非自回归单步决策引擎开源，MLX 实现 Apple Silicon 毫秒级推理</a>
+      </h2>
+      <p class="card-summary">
+        GitHub 开源非自回归 System 1 决策模型框架 Laya。区别于传统自回归大模型单字生成的开销，Laya 通过单次前向传播直接输出高置信度的布尔判断与多分类决策，并配套专为 Apple Silicon 优化的 MLX 运行时，在 Mac 本地实现 7 到 14 毫秒的零 Token 消耗极速推理，用于智能体路由与守卫拦截。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/NandhaKishorM/laya" target="_blank" rel="noopener noreferrer">https://github.com/NandhaKishorM/laya</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 生态 · 原生效率</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">Compositor 开源与 2Do 重构：macOS 原生轻量设计工具与现代任务管理</a>
+      </h2>
+      <p class="card-summary">
+        macOS 平台迎来高质量原生工具更新。开源图像编辑套件 Compositor 采用 Metal 与 Swift 架构打造轻量流畅的 Mac 设计工具；同时经典任务管理工具 2Do 完成现代化重构，支持细粒度智能过滤与键盘驱动工作流，展现了苹果生态独立开发者对极简、高性能与离线优先体验的追求。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">https://github.com/robbietilton/Compositor</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体安全 · 隐私防护</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">大模型</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://arxiv.org/abs/2609.32915" target="_blank" rel="noopener noreferrer">AgentTell：揭示浏览器智能体（Browser-Use Agent）行为侧信道隐私泄漏机制</a>
+      </h2>
+      <p class="card-summary">
+        Hugging Face 每日论文榜发布关于网络浏览器智能体隐私安全的前沿研究 AgentTell。论文指出，随着多步跨站点自主操作普及，智能体在上下文窗口中携带的上下文状态可能在跨网站跳转中通过 DOM 交互与行为侧信道意外泄漏敏感信息，论文系统性分析了侧信道威胁面并提出了基于上下文隔离的安全边界加固方案。
+      </p>
+      <div class="card-link-box">
+        论文链接：<a href="https://arxiv.org/abs/2609.32915" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2609.32915</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">中推与独立开发 · AI编程范式</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">中推</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener noreferrer">Claude Code 插件生态与上下文压缩：独立开发者的高效 Vibe Coding 实践</a>
+      </h2>
+      <p class="card-summary">
+        中文推特圈与独立开发者社群深度探讨终端智能体的高效协同模式。开源项目 fast-jev-compaction 针对 Claude Code 上下文压缩进行插件化改造，利用决策模型快速打分裁剪陈旧工具调用结果；配合 MCP 协议对本地开发环境的无缝连接，使单人独立开发者能够以极高吞吐构建并维护复杂系统。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener noreferrer">https://github.com/tamaratran/fast-jev-compaction</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
