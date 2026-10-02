@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-02 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-02 每日动态：Cloudflare 发布开源决策模型 Clef 与 RL 微调平台、Earendil 发布 Pi 1.0 与长周期架构 Pi Durable、StreetComplete 登录 iOS 开启公测、browser-use 开源 Jev Ultrafast 网页智能体与 Z.ai 开源 ZCode 编程工作台。">
+<meta name="keywords" content="每日新闻, 大模型, 智能体, Apple, AI编程, 独立开发, 中推, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-10-02</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-10-02</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">大模型</span>
+      <span class="meta-tag">智能体</span>
+      <span class="meta-tag">Apple</span>
+      <span class="meta-tag">AI编程</span>
+      <span class="meta-tag">独立开发</span>
+      <span class="meta-tag">中推</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">大模型决策 · 强化学习微调</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://blog.cloudflare.com/clef-decision-models/" target="_blank" rel="noopener noreferrer">Cloudflare 发布 Clef 与 Clef-flash：开源非自回归决策模型与强化学习微调平台</a>
+      </h2>
+      <p class="card-summary">
+        Cloudflare 宣布推出开源决策模型 Clef（27B，集成视觉编码器）与 Clef-flash（9B 轻量超低延迟版）。与传统按 Token 逐字自回归生成的大模型不同，Clef 基于非自回归单次前向打分机制，直接返回布尔判断、多选概率与量化评分，全面兼容 Typesafe Jev 协议。配套推出的强化学习微调平台结合 AI Gateway，支持开发者使用实际流量进行针对性决策强化。
+      </p>
+      <div class="card-link-box">
+        官方公告：<a href="https://blog.cloudflare.com/clef-decision-models/" target="_blank" rel="noopener noreferrer">https://blog.cloudflare.com/clef-decision-models/</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体架构 · 长周期部署</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://earendil.com/posts/pi-1-0/" target="_blank" rel="noopener noreferrer">Earendil 发布 Pi 1.0 与 Pi Durable：极简终端编码智能体与长周期无人值守架构</a>
+      </h2>
+      <p class="card-summary">
+        极简智能体框架 Pi 正式迎来 1.0 稳定版，确立了以终端交互、高可塑性 TypeScript 扩展、Skills 机制与多模型支持为核心的轻量架构。同日推出的实验性架构 Pi Durable 进一步将智能体能力扩展至后台长周期、无人值守的部署场景，提供并发会话持久化、故障恢复与超长上下文管理支持，为构建复杂自治任务系统奠定基础。
+      </p>
+      <div class="card-link-box">
+        发布博客：<a href="https://earendil.com/posts/pi-1-0/" target="_blank" rel="noopener noreferrer">https://earendil.com/posts/pi-1-0/</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 生态 · 开源协作</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/streetcomplete/StreetComplete/issues/5421" target="_blank" rel="noopener noreferrer">StreetComplete 正式开启 iOS 公共测试：老牌开源地图众包应用迎来原生移植</a>
+      </h2>
+      <p class="card-summary">
+        在开源社区与 NLnet 基金会资助下，长期深耕 Android 生态的 OpenStreetMap 众包采集工具 StreetComplete 正式在 TestFlight 开启 iOS 公共测试。应用将复杂的地理要素编辑转化为直观的任务微步（Quest），支持离线缓存与现代化触控交互，方便苹果生态用户在日常出行中协同补充街区无障碍设施与商户信息。
+      </p>
+      <div class="card-link-box">
+        项目进展：<a href="https://github.com/streetcomplete/StreetComplete/issues/5421" target="_blank" rel="noopener noreferrer">https://github.com/streetcomplete/StreetComplete/issues/5421</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体技术 · 网页自动化</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/browser-use/jev-ultrafast" target="_blank" rel="noopener noreferrer">browser-use 开源 Jev Ultrafast：基于索引动作空间的极速低延迟网页智能体</a>
+      </h2>
+      <p class="card-summary">
+        开源网页智能体项目 Jev Ultrafast 提出索引动作空间架构，有效缓解了传统视觉大模型高频截图与坐标猜测带来的高延迟。框架将实时 DOM 抽象为轻量编号交互表格，点击与滚动等常规动作直接由策略模型单步决策，仅在文本输入环节按需调用大模型，将复杂多步网页操作延迟压缩至数秒级。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/browser-use/jev-ultrafast" target="_blank" rel="noopener noreferrer">https://github.com/browser-use/jev-ultrafast</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">AI编程工作台 · 极客开源</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">中推</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/zai-org/ZCode" target="_blank" rel="noopener noreferrer">Z.ai 正式开源 ZCode：全栈桌面编程智能体工作台与运行时架构</a>
+      </h2>
+      <p class="card-summary">
+        Z.ai 正式开源 AI 编程工作台 ZCode，包含桌面客户端、Web 工作区、后端协同服务与 Agent 运行时 CLI。ZCode 针对本地项目理解与多步代码迭代进行全链路打通，支持智能体自主规划、代码编写、终端验证与交互式审查，并通过第三方安全评测确保本地仓库代码与敏感环境访问的可审计性。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/zai-org/ZCode" target="_blank" rel="noopener noreferrer">https://github.com/zai-org/ZCode</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
