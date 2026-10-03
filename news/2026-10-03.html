@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-03 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-03 每日动态：Apple 推出官方 Pass Designer 可视化凭证编辑器、Black Forest Labs 发布多模态生成模型 FLUX 3 Image、OpenAI 推出 Sites in ChatGPT、Louis-CFM 开源刘海屏智能体监控工具 coucou 与 yetone 开源菜单栏模型路由工具 magpie。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, 中推, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-10-03</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-10-03</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">第 11 期</span>
+      <span>精选条目：5 条</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 生态 · 开发者工具</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://developer.apple.com/pass-designer/" target="_blank" rel="noopener noreferrer">Apple 推出 Pass Designer 与 Pass Builder：官方第一方 Wallet 凭证可视化设计套件</a>
+      </h2>
+      <p class="card-summary">
+        苹果在开发者平台正式推出 macOS 原生应用程序 Pass Designer 与配套的开源后端工具链 Pass Builder。开发者无需再手动编写繁琐的 pass.json 或凭空调试布局，即可通过 WYSIWYG 可视化编辑器设计登机牌、活动门票、会员卡等 Apple Wallet 凭证模板并实时预览原生渲染效果。配合 Swift 编写的 buildpass 命令行工具，可无缝打通后端自动化签名与分发流程。
+      </p>
+      <div class="card-link-box">
+        官方资源：<a href="https://developer.apple.com/pass-designer/" target="_blank" rel="noopener noreferrer">https://developer.apple.com/pass-designer/</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">大模型首发 · 多模态生成</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://bfl.ai/models/flux-3-image" target="_blank" rel="noopener noreferrer">Black Forest Labs 发布 FLUX 3 Image：支持细粒度画布区域控制与多参考图一致性生成</a>
+      </h2>
+      <p class="card-summary">
+        Black Forest Labs 正式发布新一代基座多模态生成模型 FLUX 3 Image。新模型不仅原生支持 2K 和 4K 超高清分辨率输出与更精准的文字排版渲染，还引入了细粒度画布区域编辑机制，允许开发者通过边界框定向修改画面局部而保持其余区域完全不变。同时模型支持单次生成中融合最多 10 张参考图进行风格与主体一致性保持，API 已全面上线，开源权重版本将在近期推出。
+      </p>
+      <div class="card-link-box">
+        模型主页：<a href="https://bfl.ai/models/flux-3-image" target="_blank" rel="noopener noreferrer">https://bfl.ai/models/flux-3-image</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体平台 · 全栈轻应用生成</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">大模型</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://chatgpt.com/features/sites/" target="_blank" rel="noopener noreferrer">OpenAI 推出 Sites in ChatGPT：自然语言零代码全栈轻应用生成与托管平台</a>
+      </h2>
+      <p class="card-summary">
+        OpenAI 在 ChatGPT 平台正式上线 Sites 功能，支持用户仅凭自然语言对话全自动构建、预览、迭代并一键部署交互式网页、内部业务工具与轻量游戏。生成的轻应用直接托管于平台云端并分配二级域名，内建轻量数据库、用户认证与表单处理支持，并允许团队成员多人协同编辑与绑定自定义域名，将智能体落地交付周期缩短至数分钟。
+      </p>
+      <div class="card-link-box">
+        功能介绍：<a href="https://chatgpt.com/features/sites/" target="_blank" rel="noopener noreferrer">https://chatgpt.com/features/sites/</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">AI编程伴侣 · macOS 精品</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">智能体</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/Louis-CFM/coucou" target="_blank" rel="noopener noreferrer">Louis-CFM 开源 coucou：基于 macOS 刘海屏与状态栏的 AI 编程智能体轻量监控伴侣</a>
+      </h2>
+      <p class="card-summary">
+        开源项目 coucou 为 macOS 开发者带来了一款常驻于屏幕刘海与状态栏的极简智能体交互伴侣。针对 Claude Code、Codex、Cursor、Gemini CLI 等终端与本地编程智能体，coucou 通过本地 Hook 机制实时捕获终端后台的工具调用与文件修改行为，将其转换为直观的图形化权限审批浮窗，并支持通过拖拽窗口与文件直接向智能体注入上下文。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/Louis-CFM/coucou" target="_blank" rel="noopener noreferrer">https://github.com/Louis-CFM/coucou</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">极客开源 · 模型路由</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">中推</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/yetone/magpie" target="_blank" rel="noopener noreferrer">yetone 开源 magpie：极简 macOS 菜单栏 AI 编程智能体多模型路由工具</a>
+      </h2>
+      <p class="card-summary">
+        Avante.nvim 作者 yetone 正式开源 macOS 菜单栏模型路由工具 magpie。项目旨在解决开发者在本地同时运行多个编程智能体时的模型配置割裂问题，通过菜单栏常驻面板统一管理与切换各个 Agent 的底层模型代理，支持一键将 Claude Code 切换路由至 Kimi、或将 Codex 路由至 DeepSeek 等高性价比国产大模型，降低多智能体协同开发的配置门槛。
+      </p>
+      <div class="card-link-box">
+        项目仓库：<a href="https://github.com/yetone/magpie" target="_blank" rel="noopener noreferrer">https://github.com/yetone/magpie</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>排版：Kami · <a href="../index.html">博客首页</a></div>
+    <div>Suno 主页：<a href="https://suno.com/@pgwei" target="_blank" rel="noopener noreferrer">点击试听</a></div>
+  </footer>
+
+</body>
+</html>
