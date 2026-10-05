@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-05 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-05 每日动态：Liao 剖析智能体文档契约设计、omlahore 开源 macOS 存储清理工具 RemoveMacAI、CopilotKit 开源常驻协同智能体 OpenDots、Hugging Face 论文探索模型思考深度激活机制、少数派深度复盘旅行规划 Agent 落地范式。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-10-05</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-10-05</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">第 13 期</span>
+      <span>精选条目：5 条</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体架构 · 上下文工程</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://liao.gg/blog/agents-dont-need-memory" target="_blank" rel="noopener noreferrer">Liao 发布智能体设计思考：智能体无需复杂记忆系统，详实文档与工具契约才是自驱执行关键</a>
+      </h2>
+      <p class="card-summary">
+        开发者 Liao 在 Hacker News 讨论热帖中指出，当前众多智能体框架在长期记忆与向量检索上存在过度工程化倾向。文章论述了智能体自主执行最可靠的基础并非不可控的记忆回放，而是高度精确的实时文档、确定性的工具入参契约以及单次任务内的确定性上下文裁剪。通过提供即时检索规范与可读文档，智能体在处理跨仓库重构与多步工作流时能显著降低幻觉并保持执行一致性。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://liao.gg/blog/agents-dont-need-memory" target="_blank" rel="noopener noreferrer">https://liao.gg/blog/agents-dont-need-memory</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 原生生态 · 极客工具</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/omlahore/RemoveMacAI" target="_blank" rel="noopener noreferrer">omlahore 开源 macOS 存储瘦身工具 RemoveMacAI：一键清理 Apple Intelligence 本地模型缓存</a>
+      </h2>
+      <p class="card-summary">
+        开发者 omlahore 在 GitHub 开源了轻量级系统维护工具 RemoveMacAI。针对 macOS 系统中 Apple Intelligence 默认在本地常驻的大模型权重、推理缓存和恢复分区，该工具通过安全的系统调用提供按需禁用与深度清理方案，帮助开发者在无需重装系统的前提下释放数十吉字节的磁盘空间，特别适合在小容量 Apple Silicon 设备上进行高负荷本地编译与开发。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://github.com/omlahore/RemoveMacAI" target="_blank" rel="noopener noreferrer">https://github.com/omlahore/RemoveMacAI</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体生态 · 协同工作流</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/CopilotKit/OpenDots" target="_blank" rel="noopener noreferrer">CopilotKit 开源常驻多智能体协作框架 OpenDots：打通终端对话、语音与 Slack 协同工作流</a>
+      </h2>
+      <p class="card-summary">
+        CopilotKit 正式开源了面向团队协作的长周期协同智能体架构 OpenDots。该框架支持开发者构建常驻后台的 AI 协作者，能够无缝穿梭于文本终端、实时语音通道与企业 Slack 群聊之间。OpenDots 提供了内置的人机协同确认机制、分布式状态持久化以及跨智能体事件总线，让编码与运维智能体在遇到高危操作或模糊需求时能够主动向团队成员发起会话求助。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://github.com/CopilotKit/OpenDots" target="_blank" rel="noopener noreferrer">https://github.com/CopilotKit/OpenDots</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">前沿大模型 · 推理机制</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://huggingface.co/papers/2609.36585" target="_blank" rel="noopener noreferrer">Hugging Face 论文揭示大模型推理过早截断机理：微型 LoRA 显著提升长链思考深度</a>
+      </h2>
+      <p class="card-summary">
+        Hugging Face 每日精选论文揭示了 Transformer 架构在多步复杂推理中的早停现象。研究发现，自回归模型在长链思考中容易过早收敛并输出最终结论，导致后半段推理步骤出现逻辑断层。作者提出通过在中间隐层轨迹注入极小参数量的定向 LoRA 适配层，在不增加端到端计算开销的前提下有效激活深层推理表征，显著提升了模型在代码编写与数学推理基准上的准确率。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://huggingface.co/papers/2609.36585" target="_blank" rel="noopener noreferrer">https://huggingface.co/papers/2609.36585</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">独立工作流 · 智能体落地</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://sspai.com/post/114945" target="_blank" rel="noopener noreferrer">少数派深度拆解智能体旅行规划实践：模块化 Prompt 与结构化工具调用构建真实落地工作流</a>
+      </h2>
+      <p class="card-summary">
+        少数派发布长假出行实战复盘，系统阐述了如何摆脱模糊大模型对话、利用 Agent 原生能力打造严密旅行规划工作流。作者放弃单一庞大提示词，采用任务解耦的方式拆分为行程路线计算、住宿筛选与动态天气预警等多个子任务，结合地图与交通 API 的结构化工具调用，实现了预算自动平衡与日程冲突校验，为独立开发者探索垂直场景 Agent 应用提供了扎实的工程范式。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://sspai.com/post/114945" target="_blank" rel="noopener noreferrer">https://sspai.com/post/114945</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>思考与记录 · 每日资讯</span>
+    <div>
+      <a href="../news.html">新闻归档</a> ·
+      <a href="../index.html">博客首页</a>
+    </div>
+  </footer>
+
+</body>
+</html>
