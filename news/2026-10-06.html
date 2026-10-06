@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-06 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-06 每日动态：Hugging Face 论文提出极简智能体接口 CUAWright、Reflection AI 开源 Beam 501B 大模型、robbietilton 开源 macOS 原生设计工具 Compositor、tamaratran 开源 Claude Code 上下文压缩插件 fast-jev-compaction、Cloudflare 推出 Web Search API。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px 24px 20px 24px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  }
+  .news-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--brand);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+  .card-category {
+    font-size: 9pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+  .card-tags {
+    display: flex;
+    gap: 6px;
+  }
+  .card-tag {
+    font-size: 8pt;
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 6px;
+    border-radius: 2px;
+  }
+  .card-title {
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .card-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .card-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+  .card-link-box {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 10px;
+    font-size: 9pt;
+  }
+  .card-link-box a {
+    color: var(--brand);
+    text-decoration: none;
+    word-break: break-all;
+    font-family: var(--mono);
+  }
+  .card-link-box a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer a {
+    color: var(--olive);
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .meta-bar { gap: 8px; }
+    .news-card { padding: 18px 16px; }
+    .card-top { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .card-title { font-size: 12.5pt; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="top-nav">
+    <a class="back-link" href="../news.html">← 每日新闻列表</a>
+    <a class="site-title" href="../index.html">思考与记录</a>
+  </nav>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="eyebrow">DAILY INTELLIGENCE · 每日资讯精选</div>
+    <h1 class="title">每日新闻：2026-10-06</h1>
+    <div class="meta-bar">
+      <span>发布日期：2026-10-06</span>
+      <span>整理：Kami</span>
+      <span class="meta-tag">第 14 期</span>
+      <span>精选条目：5 条</span>
+    </div>
+  </header>
+
+  <!-- Main Content Stream -->
+  <main class="news-stream">
+
+    <!-- News Item 1 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体架构 · 极简交互</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://huggingface.co/papers/2610.04116" target="_blank" rel="noopener noreferrer">Hugging Face 论文提出极简智能体接口 CUAWright：以 Bash 终端与自主演进文件系统替代复杂 Harness</a>
+      </h2>
+      <p class="card-summary">
+        针对当前计算机使用智能体普遍依赖繁重固定环境与预设工具调用的局限，最新研究提出约 3000 行代码的极简终端接口 CUAWright。该方案将 Bash 命令行作为智能体唯一的操作入口，并将文件系统作为动态生成工具与管理上下文的自主演进空间，大幅降低工程框架约束，在多项数字任务中展现出卓越的自主解决与动态工具构建能力。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://huggingface.co/papers/2610.04116" target="_blank" rel="noopener noreferrer">https://huggingface.co/papers/2610.04116</a>
+      </div>
+    </article>
+
+    <!-- News Item 2 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">大模型首发 · 开源架构</span>
+        <div class="card-tags">
+          <span class="card-tag">大模型</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://reflection.ai/blog/introducing-beam" target="_blank" rel="noopener noreferrer">Reflection AI 正式发布 Beam 501B 开放权重模型：聚焦长程推理验证与自省式思考能力</a>
+      </h2>
+      <p class="card-summary">
+        Reflection AI 正式开源 5010 亿参数超大规模开放权重模型 Beam。该模型在全流程训练中深度融合了自省式思考轨迹与长程推理验证机制，在处理复杂算法设计、多步数学推导及代码仓库级架构重构时显著降低逻辑漂移率，为开源社区探索前沿自省大模型提供了强劲基座。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://reflection.ai/blog/introducing-beam" target="_blank" rel="noopener noreferrer">https://reflection.ai/blog/introducing-beam</a>
+      </div>
+    </article>
+
+    <!-- News Item 3 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">Apple 原生生态 · 独立工具</span>
+        <div class="card-tags">
+          <span class="card-tag">Apple</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">robbietilton 开源 macOS 原生图形设计工具 Compositor：轻量极简的 Photoshop 原生替代方案</a>
+      </h2>
+      <p class="card-summary">
+        开发者 robbietilton 在 GitHub 开源专为 macOS 打造的原生图形设计软件 Compositor。该项目采用 Swift 与 Metal 原生开发，摒弃臃肿的跨平台框架，带来瞬时启动与流畅的图层渲染体验。Compositor 专注于核心位图编辑、非破坏性滤镜与矢量排版，为追求小而美工具链的 Mac 创作者与独立开发者提供了极简高效的本地工作台。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener noreferrer">https://github.com/robbietilton/Compositor</a>
+      </div>
+    </article>
+
+    <!-- News Item 4 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">智能体生态 · 上下文压缩</span>
+        <div class="card-tags">
+          <span class="card-tag">智能体</span>
+          <span class="card-tag">AI编程</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener noreferrer">tamaratran 开源 fast-jev-compaction：基于单次决策模型的 Claude Code 上下文智能压缩插件</a>
+      </h2>
+      <p class="card-summary">
+        针对终端 AI 编程工具在多轮交互中上下文快速膨胀的问题，开发者 tamaratran 开源了 Claude Code 插件 fast-jev-compaction。该插件引入快速非自回归决策模型替代传统的大模型总结式压缩，在单次请求中精准评估历史工具调用与输出的有效性，剔除失效中间态的同时完整保留关键代码与指令上下文，显著降低 Token 消耗并维持长任务记忆精度。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://github.com/tamaratran/fast-jev-compaction" target="_blank" rel="noopener noreferrer">https://github.com/tamaratran/fast-jev-compaction</a>
+      </div>
+    </article>
+
+    <!-- News Item 5 -->
+    <article class="news-card">
+      <div class="card-top">
+        <span class="card-category">开发者基建 · 智能体检索</span>
+        <div class="card-tags">
+          <span class="card-tag">AI编程</span>
+          <span class="card-tag">独立开发</span>
+        </div>
+      </div>
+      <h2 class="card-title">
+        <a href="https://developers.cloudflare.com/changelog/post/2026-10-02-introducing-web-search-api/" target="_blank" rel="noopener noreferrer">Cloudflare 推出 Web Search API：面向 AI 智能体与 Workers 生态的低延迟搜索基建</a>
+      </h2>
+      <p class="card-summary">
+        Cloudflare 宣布为其开发者平台上线专用的 Web Search API。该接口专为 AI 智能体、自主工作流与 Edge 计算场景设计，提供结构化、高清洗度且低延迟的实时网页检索结果。开发者无需维护复杂的爬虫与代理集群，即可在 Cloudflare Workers 及本地智能体 Harness 中一键集成可靠的实时网络世界知识检索。
+      </p>
+      <div class="card-link-box">
+        来源链接：<a href="https://developers.cloudflare.com/changelog/post/2026-10-02-introducing-web-search-api/" target="_blank" rel="noopener noreferrer">https://developers.cloudflare.com/changelog/post/2026-10-02-introducing-web-search-api/</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>思考与记录 · 每日资讯</span>
+    <a href="../index.html">博客首页</a>
+  </footer>
+
+</body>
+</html>
