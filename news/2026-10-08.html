@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-08 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-08 每日动态：OpenAI 开源 Lean 4 数学定理证明基准与预印本库、Anthropic 发布 Claude Haiku 5.5、Robbie Tilton 开源 macOS 原生设计工具 Compositor、Docker 官方开源 Docker Agent、NandhaKishorM 开源单步决策引擎 laya、Hugging Face 探索智能体计算理论。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-08</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月8日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. OpenAI Math -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/openai/math" target="_blank" rel="noopener">OpenAI 开源 Lean 4 数学定理证明形式化基准与预印本库</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      OpenAI 宣布在数学前沿推理研究中取得实质突破，并同步在 GitHub 正式开源 math 仓库。该项目系统整理了基于 Lean 4 形式化交互式证明系统的数学预印本库与自动验证工具链，涵盖代数、数论与拓扑领域的严谨形式化代码，为大语言模型解决高阶数学严密推导提供了透明且可复现的验证基准。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / OpenAI</span>
+      <a class="source-link" href="https://github.com/openai/math" target="_blank" rel="noopener">github.com/openai/math ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Claude Haiku 5.5 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.anthropic.com/claude-haiku-5-5" target="_blank" rel="noopener">Anthropic 发布 Claude Haiku 5.5：轻量级智能体与近零延迟端侧推理</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Anthropic 正式推出 Claude Haiku 5.5。作为 Haiku 家族的最新一代轻量模型，新版本在编码执行、JSON Schema 严格约束以及工具调用吞吐方面提升显著，同时保持了极低的 Token 定价与首字延迟，专门针对自动化高频智能体工作流与开发者日常代码补全场景进行了深度对齐。
+    </p>
+    <div class="news-meta">
+      <span>信源：Anthropic 官方发布</span>
+      <a class="source-link" href="https://www.anthropic.com/claude-haiku-5-5" target="_blank" rel="noopener">anthropic.com/claude-haiku-5-5 ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Compositor macOS -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener">Robbie Tilton 开源 Compositor：纯 Swift 构建的 macOS 原生轻量设计工具</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开发者 Robbie Tilton 在 GitHub 开源了名为 Compositor 的全新 macOS 原生图像编辑与设计工具。软件完全采用 Swift 与 Metal 原生框架打造，不依赖任何 Electron 或跨平台框架，主打毫秒级冷启动、极致低内存占用与高保真矢量排版体验，被社区评价为 macOS 平台上兼具性能与美感的独立软件代表。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / macOS 精选</span>
+      <a class="source-link" href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener">github.com/robbietilton/Compositor ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Docker Agent -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/docker/docker-agent" target="_blank" rel="noopener">Docker 官方开源 Docker Agent：沙箱化容器级自动化编码执行环境</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Docker 官方团队在 GitHub 发布开源项目 docker-agent。该工具旨在为各类自主编程智能体提供安全、受控、快速重置的容器沙箱运行时，支持智能体在独立虚拟环境中安全执行任意 Bash 脚本、运行测试套件与调试依赖，避免本地机器文件系统遭受未知代码破坏。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / Docker 官方</span>
+      <a class="source-link" href="https://github.com/docker/docker-agent" target="_blank" rel="noopener">github.com/docker/docker-agent ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Laya Non-autoregressive -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/NandhaKishorM/laya" target="_blank" rel="noopener">NandhaKishorM 开源 Laya：单步前向非自回归多语言决策引擎</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开发者 NandhaKishorM 开源了专注快思考的系统一决策引擎 laya。与传统自回归逐步生成 Token 的模型不同，laya 支持在单次前向传播中完成结构化分类、评分与布尔判定，支持 100 多种语言，并配备智能动态路由器，能够将智能体系统的分类与路由延迟缩短至数毫秒级。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending</span>
+      <a class="source-link" href="https://github.com/NandhaKishorM/laya" target="_blank" rel="noopener">github.com/NandhaKishorM/laya ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. HF Paper Agent Theory -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.05202" target="_blank" rel="noopener">Hugging Face 论文精选：图灵机与预言机视角下的智能体计算理论</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 今日高热论文《We Query, Therefore We Compute》从形式化计算理论出发，将大语言模型抽象为图灵预言机，并构建了双栈下推自动机模型统一解释智能体中的记忆堆叠、缓存优化与调度隔离机制。作者还提出了基于 RISC-V 扩展指令集与 Linux 风格架构的 ArchNights 开源参考实现。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face Daily Papers</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.05202" target="_blank" rel="noopener">huggingface.co/papers/2610.05202 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>© 2026 思考与记录</span>
+  <span>基于 Kami 羊皮纸系统排版</span>
+</footer>
+
+</body>
+</html>
