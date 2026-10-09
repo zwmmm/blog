@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-09 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-09 每日动态：Cactus Compute 开源 16.9MB 端侧语音模型 Whistle、storytold 开源纯 Rust 重构 Photoshop 项目 Photocraft、DuckDB 发布轻量数据湖架构 DuckLake、rehan-remade 开源基于 Claude Code 的游戏逆向套件 universal-modder、少数派分享 Mac 原生付费应用 Mole 独立开发经验、Hugging Face 论文探索 5000 万 Token 智能体长程记忆。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-09</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月9日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Cactus Whistle -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://cactuscompute.com/blog/whistle" target="_blank" rel="noopener">Cactus Compute 开源 Whistle：16.9MB 单文件纯 CPU 端侧语音转文本模型</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Cactus Compute 正式开源轻量级端侧自动语音识别模型 Whistle。模型以仅 16.9 MB 的单文件发布，采用 CQ2bit 量化技术与 36M 激活参数，完全在普通 CPU 上流畅运行，无需 GPU 或云端网络。Whistle 支持 7 种语言的自动检测与毫秒级词级时间戳对齐，首字延迟仅 11 毫秒，并在清晰语音测试集上取得了优于标准 Whisper 的识别准确率，适合嵌入各类边缘设备与智能体实时输入流。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / Cactus Compute</span>
+      <a class="source-link" href="https://cactuscompute.com/blog/whistle" target="_blank" rel="noopener">cactuscompute.com/blog/whistle ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Photocraft Rust -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/storytold/photocraft" target="_blank" rel="noopener">storytold 开源 Photocraft：纯 Rust 与 wgpu 构建的开源图像处理工作台</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">独立开发</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开源组织 storytold 在 GitHub 正式开源项目 Photocraft。该项目采用纯 Rust 语言对经典图像编辑软件 Adobe Photoshop 进行了净室重构，底层基于 wgpu 框架实现高性能 GPU 渲染合成。Photocraft 完整支持 PSD 文件的双向读写与多种相机 RAW 格式无损解码，并内置原生 Model Context Protocol 控制协议，方便 AI 智能体通过自动化信道直接编排和操作图层。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / Hacker News</span>
+      <a class="source-link" href="https://github.com/storytold/photocraft" target="_blank" rel="noopener">github.com/storytold/photocraft ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. DuckDB DuckLake -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/duckdb/ducklake" target="_blank" rel="noopener">DuckDB 官方发布 DuckLake：基于原生 SQL 与 Parquet 的现代化轻量数据湖</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      DuckDB 官方团队在 GitHub 发布开源数据湖规范与扩展 DuckLake。不同于传统依赖庞大 Avro 与 JSON 元数据目录树的方案，DuckLake 创新性地采用标准 SQL 数据库作为元数据目录，直接管理底层的标准 Parquet 数据文件。系统全面支持 ACID 事务安全、版本快照、表结构动态演化以及原生 SQL 时间旅行查询，大幅降低了中小团队与独立开发者构建分析型数据湖的维护门槛。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / DuckDB</span>
+      <a class="source-link" href="https://github.com/duckdb/ducklake" target="_blank" rel="noopener">github.com/duckdb/ducklake ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Universal Modder -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/rehan-remade/universal-modder" target="_blank" rel="noopener">rehan-remade 开源 Universal Modder：基于 Claude Code 的 PC 游戏全自动逆向工具链</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开发者 rehan-remade 开源了面向自主编程智能体的游戏修改套件 universal-modder。该工具集成了专用 Skills、逆向工程工具链以及 fal MCP 多模态资产生成桥接，使 Claude Code 能够自主分析 PC 游戏可执行文件、提取资源资产、生成 3D 模型与音频替换包，并自动注入补丁完成游戏内回归测试，展示了编程智能体在复杂二进制逆向工程与资产制作场景下的全流程协同能力。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / 开源趋势</span>
+      <a class="source-link" href="https://github.com/rehan-remade/universal-modder" target="_blank" rel="noopener">github.com/rehan-remade/universal-modder ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. SSPAI Mac Mole -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/113843" target="_blank" rel="noopener">少数派独立开发精选：从开源 CLI 工具到 Mac 原生付费应用的产品演进思考</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发者在少数派社区分享了从零打造 Mac 工具 Mole 的完整历程。文章详细梳理了产品从最初的开源命令行垃圾清理工具逐步演化为原生 macOS 状态栏图形应用的关键节点，总结了独立开发者在功能取舍、交互设计、付费定价模型以及海外 App Store 推广中的真实经验，为 Apple 生态与工具软件创作者提供了务实的商业化参考路径。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 SSPAI / 独立开发</span>
+      <a class="source-link" href="https://sspai.com/post/113843" target="_blank" rel="noopener">sspai.com/post/113843 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. HF Long-Term Memory -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.10845" target="_blank" rel="noopener">Hugging Face 论文精选：5000 万 Token 窗口下的智能体真实长程记忆架构</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 今日推荐论文《Real Long-Term Memory for AI》提出了一种面向大语言模型智能体的新型持久化长程记忆系统。该研究突破了传统反复重计算全量键值缓存的高昂成本瓶颈，构建了支持高达 5000 万 Token 上下文的高速外部键值检索与增量融合机制，在保持极低推理延迟的同时实现了跨多轮会话的精准事实回忆与连贯推演。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face Daily Papers</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.10845" target="_blank" rel="noopener">huggingface.co/papers/2610.10845 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>© 2026 思考与记录</span>
+  <span>基于 Kami 羊皮纸系统排版</span>
+</footer>
+
+</body>
+</html>
