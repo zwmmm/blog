@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-10 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-10 每日动态：Cloudflare 宣布收购 Deno 推动边缘运行时融合、Franz Enzenhofer 开源 macOS 屏幕指引工具 big-arrow-on-the-screen、shihabal3amri 开源 Android 车机原生 CarPlay 应用 DiPlay、Anyway.FM 推出中文排版字体预览工具 Anyway.Fonts、Hugging Face 论文发布长程编程智能体批评框架 Opera 与 Agent Skills 供应链全景研究。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-10</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月10日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Cloudflare Deno -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://deno.com/blog/cloudflare" target="_blank" rel="noopener">Cloudflare 宣布收购 Deno：推进 Workers 融合，JSR 迁移至全球边缘网络</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Cloudflare 与 Deno 官方联合宣布达成收购协议，Deno 全体核心团队将加入 Cloudflare，推动 Cloudflare Workers、Durable Objects 与 Deno 在下一代 celld 架构上的深度融合。独立 Deno 运行时将继续获得一年的安全维护并保持开源，Deno Deploy 计划在未来半年内停运，而 JSR 现代包注册中心的基础设施将整体平移至 Cloudflare 全球网络，为全栈开发与智能体边缘部署提供更强大的底层支撑。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / Deno 官方博客</span>
+      <a class="source-link" href="https://deno.com/blog/cloudflare" target="_blank" rel="noopener">deno.com/blog/cloudflare ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Franz Enzenhofer big-arrow-on-the-screen -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/franzenzenhofer/big-arrow-on-the-screen" target="_blank" rel="noopener">Franz Enzenhofer 开源 big-arrow-on-the-screen：让 AI 智能体在 macOS 屏幕直观绘制高亮指引</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开发者 Franz Enzenhofer 开源了专为 macOS 桌面端打造的轻量屏幕标注工具 big-arrow-on-the-screen。该工具既可作为快速命令行指令运行，也能作为 Agent Skill 供 Claude Code 与 Codex 调用。多模态智能体在执行端侧 GUI 自动化与跨应用协同流程时，可直接在屏幕任意坐标绘制大箭头、高亮框与悬浮说明，且窗口原生支持点击事件穿透，显著提升了计算机操作（Computer Use）类智能体在桌面端的可解释性与人机交互体验。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / GitHub Trending</span>
+      <a class="source-link" href="https://github.com/franzenzenhofer/big-arrow-on-the-screen" target="_blank" rel="noopener">github.com/franzenzenhofer/big-arrow-on-the-screen ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. shihabal3amri DiPlay -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/shihabal3amri/DiPlay" target="_blank" rel="noopener">shihabal3amri 开源 DiPlay：免外挂盒子与越狱，Android 车机原生运行 Apple CarPlay</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发者 shihabal3amri 开源了针对 Android 车机（如比亚迪智能座舱等）的纯软件 CarPlay 接收端应用 DiPlay。项目无需任何第三方 USB 转接盒、无需 Root 越狱，亦不依赖外部云端鉴权服务器，直接基于车机原生通信协议栈实现了有线与无线 Apple CarPlay 的低延迟握手、高帧率画面投射以及方向盘多功能按键映射，为汽车车载软件的极客改造提供了优雅的开源范例。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / 开源趋势</span>
+      <a class="source-link" href="https://github.com/shihabal3amri/DiPlay" target="_blank" rel="noopener">github.com/shihabal3amri/DiPlay ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Anyway.Fonts -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://anyway.fm/fonts/" target="_blank" rel="noopener">Anyway.FM 团队推出 Anyway.Fonts：更适合中文排版的在线字体即时预览与缺字检测工具</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      知名设计播客 Anyway.FM 团队推出了专为中文排版优化的轻量 Web 工具 Anyway.Fonts。工具针对中文多字重字体在不同尺寸下的行气、字间距与排版灰度进行了针对性调优，支持多段即时文本对比与自定义排版样式，并提供了一键扫描生僻字、标点符号缺失及系统回退方块（To-def）的功能，帮助前端工程师、独立开发者与排版设计师高效完成字体选型与兼容性自查。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 SSPAI / 独立开发</span>
+      <a class="source-link" href="https://anyway.fm/fonts/" target="_blank" rel="noopener">anyway.fm/fonts ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Opera -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2609.33987" target="_blank" rel="noopener">Hugging Face 每日论文发布 Opera：面向长程 AI 编程智能体的实时语言化批评框架</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      最新论文提出面向长程任务的代码生成批评框架 Opera。针对自主编程智能体在处理大型代码库重构与端到端测试修复时常遇到的评估误判与有害反馈问题，Opera 引入了结构化的多阶段自然语言审查机制。通过在智能体决策流中对中间步骤的代码语义、测试覆盖与逻辑分支进行动态校验，Opera 有效遏制了错误级联扩散，在长程工程基准测试中显著提升了编程智能体的最终通过率。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face Daily Papers</span>
+      <a class="source-link" href="https://huggingface.co/papers/2609.33987" target="_blank" rel="noopener">huggingface.co/papers/2609.33987 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Skill Constellations -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.11169" target="_blank" rel="noopener">论文揭示 Agent Skills 供应链现状：GitHub 上 Claude Code 与 Codex 技能分发机制全景研究</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对当前 Claude Code、Codex 等 AI 智能体广泛采用的 SKILL.md 指令与自动化脚本分发生态，研究团队在 GitHub 上对数千个公开 Agent Skill 仓库进行了端到端供应链追踪。研究揭示了技能在跨仓库派生、依赖传递过程中的版本漂移与权限隐患，并提出了标准化的技能签名与静态沙箱校验建议，为智能体工程化治理与安全生态建设提供了关键数据支撑。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face Daily Papers</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.11169" target="_blank" rel="noopener">huggingface.co/papers/2610.11169 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>© 2026 思考与记录</span>
+  <span>基于 Kami 羊皮纸系统排版</span>
+</footer>
+
+</body>
+</html>
