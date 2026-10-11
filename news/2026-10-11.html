@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-11 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-11 每日动态：Louis-CFM 开源 macOS 刘海与 iPhone 锁屏 AI 编程伴侣 coucou、yetone 开源跨智能体模型路由网关 magpie、REA 团队发布 AI 逆向工程平台 Reverse Engineer Anything、rociiu 开源 Cloudflare 个人智能体 Talorys、MotherDuck 深度解析 DuckDB 2.0 性能演进、少数派推荐跨端专注效率工具专注星空。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-11</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月11日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Louis-CFM coucou -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/Louis-CFM/coucou" target="_blank" rel="noopener">Louis-CFM 开源 coucou：Mac 刘海与 iPhone 锁屏联动的 AI 编程智能体监控与审批伴侣</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开发者 Louis-CFM 开源了专为 AI 编程打造的原生跨端伴侣工具 coucou。应用在 Mac 顶部刘海区域常驻名为 Mochi 的轻量悬浮挂件，并与 iPhone 实时活动及锁屏界面无缝同步。当后台运行 Claude Code、Codex、Cursor 或 Gemini CLI 等编程智能体时，用户无需频繁切换终端窗口，即可在屏幕边缘或离桌时通过手机锁屏实时掌握执行流进度，并一键核准写文件或执行终端命令等关键权限请求。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / 开源趋势</span>
+      <a class="source-link" href="https://github.com/Louis-CFM/coucou" target="_blank" rel="noopener">github.com/Louis-CFM/coucou ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. yetone magpie -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/yetone/magpie" target="_blank" rel="noopener">yetone 开源 magpie：解绑专属模型，在 macOS 菜单栏与本地网关统一路由 Codex 与 Claude Code</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开发者 yetone 开源了针对终端 AI 编程工具的本地模型路由网关与 macOS 菜单栏应用 magpie。项目解绑了主流编程智能体与特定模型供应商的深度绑定，开发者可在 Codex CLI 中无缝调用 DeepSeek，或在 Claude Code 中一键分流至 Kimi 与 GLM。magpie 在本地回环网络自动完成多模型请求体转换与密钥安全隔离，并提供菜单栏切换面板、多渠道故障自动切换与实时 Token 消耗统计。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / 中推趋势</span>
+      <a class="source-link" href="https://github.com/yetone/magpie" target="_blank" rel="noopener">github.com/yetone/magpie ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. REA Tools -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://rea.tools/" target="_blank" rel="noopener">REA 团队发布 Reverse Engineer Anything：基于 MCP 协议让 AI 智能体自主逆向解析与重建任意应用</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      REA 团队正式发布面向 AI 编程智能体的逆向分析工具链 Reverse Engineer Anything。工具通过标准化 Model Context Protocol（MCP）服务器，将 Ghidra、IDA Pro 反编译解析与跨平台二进制静态分析能力直接接入 Claude Code 与 Cursor。智能体在接收逆向需求后，可自主调取字符串匹配、符号表分析与伪代码交叉引用，输出具备确定性证据链的代码逻辑还原与净室复现建议。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / REA 官方</span>
+      <a class="source-link" href="https://rea.tools/" target="_blank" rel="noopener">rea.tools ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. rociiu Talorys -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/rociiu/talorys" target="_blank" rel="noopener">rociiu 开源 Talorys：基于 Cloudflare 免费层持久化部署的单用户自托管个人 AI 智能体</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开发者 rociiu 开源了零运维自托管个人智能体框架 Talorys。项目基于 Cloudflare Workers、Pages 与 SQLite Durable Objects 原生架构搭建，整体完全适配 Cloudflare 免费额度。通过计算与持久化存储紧密耦合的轻量设计，智能体在闲置时自动冻结、无请求时零费用开销，唤醒后支持长程上下文记忆、任务跟踪、个人笔记归档与定时自动化调度，且全流程无任何第三方数据遥测。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / GitHub</span>
+      <a class="source-link" href="https://github.com/rociiu/talorys" target="_blank" rel="noopener">github.com/rociiu/talorys ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. MotherDuck DuckDB 2.0 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://motherduck.com/blog/why-duckdb-20-is-faster/" target="_blank" rel="noopener">MotherDuck 深度解析 DuckDB 2.0 性能演进：异步 I/O、递归 CTE 重写与 VARIANT 半结构化加速</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      MotherDuck 官方发布技术博客，深入解读分析型数据库 DuckDB 2.0 预览版的核心架构升级。新引擎通过新增预取机制实现完全异步 I/O 线程池，使云端 S3 读取 Parquet 文件的查询吞吐提升 2 至 3 倍；重写的递归 CTE 引擎单次扫描即完成深层拓扑遍历，深层历史回溯性能提升数倍；新增原生 VARIANT 数据类型支持自动列式打散，半结构化 JSON 处理性能提升 6 倍且显著压缩存储占用。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / MotherDuck 博客</span>
+      <a class="source-link" href="https://motherduck.com/blog/why-duckdb-20-is-faster/" target="_blank" rel="noopener">motherduck.com/blog/why-duckdb-20-is-faster ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Focus Star -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/115237" target="_blank" rel="noopener">少数派推荐专注星空：结合沉浸式天体图景与极简番茄钟的 macOS / iOS 专注效率工具</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      少数派精选推荐独立开发者打造的跨端专注应用“专注星空（Focus Star）”。应用打破传统数字倒计时番茄钟带来的压迫感，将专注时间沉淀为星际探索与真实天体图谱的逐步点亮。应用深度集成 Apple 原生特性，支持 macOS 菜单栏与全屏沉浸模式、iOS 灵动岛及实时活动，并提供简洁的数据统计与白噪音混音功能，为独立开发者与文字创作者营造更具仪式感的无干扰心流空间。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 SSPAI / 独立开发</span>
+      <a class="source-link" href="https://sspai.com/post/115237" target="_blank" rel="noopener">sspai.com/post/115237 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>© 2026 思考与记录</span>
+  <span>基于 Kami 羊皮纸系统排版</span>
+</footer>
+
+</body>
+</html>
