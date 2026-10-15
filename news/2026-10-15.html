@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-15 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-15 每日动态：OpenCode 2.0 重构常驻后台架构并推出 Code Mode、Anthropic 新版本控制系统 Scion 引发开源架构溯源热议、Cursor 前工程师 Lauren Tan 呼吁清理 AI 代码库冗余注释、耶鲁与 The Fin AI 联合发布 DeRef 工具调用判决架构、腾讯与复旦联合发布 WorkForge 真实复杂工作区基准、开发者开源 macOS 原生额度监控工具 cc-bar。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-15</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月15日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. OpenCode 2.0 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://anoma.ly/notes/opencode-2-0/" target="_blank" rel="noopener">OpenCode 2.0 正式发布：重构常驻后台架构，推出 Code Mode 与脚本组合调用消除智能体上下文膨胀</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开源编程智能体框架 OpenCode 正式发布 2.0 大版本。该版本将底层重构为本机常驻的统一后台进程，TUI、Web 界面与桌面端均直接与该核心通信，并向开发者暴露全新的客户端 SDK。核心特性引入 Code Mode 模式，内置极简 JavaScript 执行引擎，可将所有接入的 MCP 协议工具与 OpenAPI 接口直接编译为可编程函数。智能体可直接编写组合脚本，在单次往返中批量过滤、遍历并管道化处理多项工具调用，规避了传统逐项 Tool-Call 带来的多轮延迟与上下文膨胀。此外，系统全面支持后台子智能体（subagents）与异步 Shell，内置 80 多个官方重构插件，并支持智能体在单次会话中自主编写并热重载扩展插件。
+    </p>
+    <div class="news-meta">
+      <span>信源：Anomaly / Hacker News</span>
+      <a class="source-link" href="https://anoma.ly/notes/opencode-2-0/" target="_blank" rel="noopener">anoma.ly/notes/opencode-2-0 ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Anthropic Scion & Mononoke -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sunshowers.io/posts/anthropic-mononoke/" target="_blank" rel="noopener">Anthropic 新版本控制系统 Scion 引发开源架构溯源热议：被指深度复刻 Meta Mononoke 衍生数据与逆向 Merkle DAG 设计</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对 Anthropic 近期披露用以承受自主编程智能体并发合并洪流的新型集中式版本控制系统 Scion，前 Meta 核心架构师 sunshowers 发布长文进行了深度架构溯源。文章指出，Scion 博客中所重点强调的非阻塞文件追溯（blame）、按需物化的递归“衍生数据（derived data）”、Bonsai 变更集以及将提交哈希嵌入根树文本的逆向 Merkle DAG 指针机制，与 Meta 历经多年工程迭代并开源的代码服务器 Mononoke 架构完全契合。该讨论在 Hacker News 引发了广泛回响，极客社区一方面赞叹 Mononoke 历经近十年依然领先的设计远见，另一方面也指出当大模型深度参与前沿系统架构设计时，应建立更健全严谨的开源前人成果归因与引用机制。
+    </p>
+    <div class="news-meta">
+      <span>信源：sunshowers.io / Hacker News</span>
+      <a class="source-link" href="https://sunshowers.io/posts/anthropic-mononoke/" target="_blank" rel="noopener">sunshowers.io/posts/anthropic-mononoke ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Cursor Lauren Tan on Comments -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/poteto/pstack" target="_blank" rel="noopener">Cursor 前工程师 Lauren Tan 呼吁清理 AI 代码库冗余注释：防范智能体复用伪代码坏味道，以严格类型与门禁验证替代说教</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      曾单月借助 AI 智能体提交数千个生产级 PR 的前 Cursor 工程师 Lauren Tan 针对智能体代码库维护发表深刻洞察。Tan 指出，在大模型主导编码的时代，随意留下的自然语言注释往往成为最危险的污染源。智能体具有极强的模式复制本能，代码中解释临时变通方案的陈旧注释会被后续接盘的智能体视作范本反复扩散，迅速使整个仓库充斥着质量低劣的补丁式代码。Tan 主张在智能体工程中强制清除自述性注释，将人类约束全部沉淀为强类型约束、运行时断言或自动化测试门禁，并通过其开源的 pstack 插件推广带有严格运行证据验证的 poteto-mode 工作流。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / X 前沿热议</span>
+      <a class="source-link" href="https://github.com/poteto/pstack" target="_blank" rel="noopener">github.com/poteto/pstack ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. DeRef Paper -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/SarielMa/DeRef_release" target="_blank" rel="noopener">耶鲁大学与 The Fin AI 联合发布 DeRef 框架：揭示工具调用判决模型的推导鸿沟，盲审派生参考源使判决准确率提升至 99%</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      耶鲁大学与 The Fin AI 研究团队发表论文，系统揭示了智能体架构中工具调用判决模型（Tool-call Judge）普遍存在的推导鸿沟（derivation gap）。研究证实，当输入被上下文修剪、依赖函数默认值或需要跨多步推理时，无论 4B 还是 27B 的判决模型都会本能地信任当前上下文中肉眼可见的内容，即使该内容是明显的错误干扰项，也会错误地否决掉源头被截断的正确参数。为此团队提出 DeRef 机制，引入独立的派生模型在完全不接触待审候选值的前提下通读完整历史生成盲审参考基准。该方法在无需重训判决模型的情况下，将截断场景下的参数判决准确率从随机猜测水平直接拉升至 98.4% 至 99.6%。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face Daily Papers / arXiv</span>
+      <a class="source-link" href="https://github.com/SarielMa/DeRef_release" target="_blank" rel="noopener">github.com/SarielMa/DeRef_release ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. WorkForge Paper -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.04906" target="_blank" rel="noopener">腾讯与复旦联合发布 WorkForge：基于 16.7K 真实复杂工作区构建长程专业智能体训练基准</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      腾讯混元团队联合复旦大学发布长程知识工作型智能体训练框架 WorkForge。针对现有训练环境严重依赖人工精简的合成玩具工作区、缺失真实目录深度与跨文件依赖的问题，WorkForge 从真实专家业务蓝图出发，自动抓取并重组真实世界数字资产，合成了横跨 40 个专业领域、覆盖 60 种文件类型的 16,700 个真实工作区。框架基于客观工作区事实锚点，同时生成确定性的程序化断言与开放式的语义化评测标准。实验表明，基于 WorkForge 轨迹数据对 Qwen3.5-35B 模型进行微调后，在真实业务基准 GDPval 与 APEX 上的表现分别大幅跃升 28.1 分与 16.3 分，显著缩小了开源模型与顶尖商业闭源智能体的差距。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face Daily Papers / arXiv</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.04906" target="_blank" rel="noopener">huggingface.co/papers/2610.04906 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. cc-bar macOS App -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/nanvon/cc-bar" target="_blank" rel="noopener">开发者开源 macOS 原生菜单栏额度监控工具 cc-bar：零 Token 消耗实时钉选 Codex 与 Claude Code 配额周期</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对开发者在使用 AI 编程工具时难以预估额度消耗、频遭配额熔断的痛点，开发者 nanvon 开源了基于原生 Swift 开发的轻量级 macOS 菜单栏应用 cc-bar。该应用采用隐私优先架构，完全不调用第三方外部接口或读取敏感密钥，而是直接读取本地 Codex CLI 守护进程与本地客户端钩子输出的 JSON 状态，以零额外 Token 损耗的方式在 macOS 顶部菜单栏实时呈现 5 小时动态额度与每周配额剩余比例。当额度低于预设警戒线时，图标提供即时视觉变色预警，并支持下拉面板查看精确到分钟的窗口重置倒计时。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / Linux.do 社区</span>
+      <a class="source-link" href="https://github.com/nanvon/cc-bar" target="_blank" rel="noopener">github.com/nanvon/cc-bar ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
