@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-16 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-16 每日动态：Meta 开源 816B 多模态模型 Muse Spark Open 深度优化苹果生态、Goodfire Nick Cammarata 长文推翻叠加性共识证实神经网络机制本就整洁、Anthropic Claude Code 推出 opusplan 模式以脚本编排调度智能体集群、阶跃星辰开源 600B 混合专家模型 Step 5 Preview、设计师 Robbie Tilton 开源 macOS 原生图片编辑器 Compositor、Apple 智能国行测试版将于本月下旬开启推送。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-16</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月16日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Meta Muse Spark Open -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://research.meta.ai/blog/muse-spark-open" target="_blank" rel="noopener">Meta 正式开源 816B 多模态旗舰模型 Muse Spark Open：深度优化 Apple Silicon，两台 M5 Ultra 实现 1TB 统一内存桌面级智能体</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Meta 官方正式发布并开源前沿多模态大模型 Muse Spark Open 权重。该模型采用混合专家（MoE）架构，总参数量达 8160 亿，每个 Token 仅激活 420 亿参数，配备 100 万 Token 上下文窗口。模型专为长程软件工程与复杂智能体任务打造，特别针对苹果统一内存架构进行了底层优化。借助最新版 MLX 框架，仅需两台配备 M5 Ultra 的 Mac Studio 即可通过每秒 1.2TB 的内存带宽组成 1TB 统一内存工作站，在本地桌面端完整运行万亿级参数模型。官方实测展示了该模型驱动的 Muse Code 在无需云端支持的情况下，自主为开源 Mastodon 客户端 Ice Cubes 编写 Bug 修复代码、通过编译并提交拉取请求，以及逐帧分析视频驱动 DaVinci Resolve 完成全自动竖屏裁切与剪辑。
+    </p>
+    <div class="news-meta">
+      <span>信源：Meta AI Research / Hugging Face</span>
+      <a class="source-link" href="https://research.meta.ai/blog/muse-spark-open" target="_blank" rel="noopener">research.meta.ai/blog/muse-spark-open ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Goodfire Nick Cammarata Essay -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://already-clean.goodfire.com/" target="_blank" rel="noopener">Goodfire 联合创始人 Nick Cammarata 长文颠覆可解释性共识：神经网络机制本就整洁，递归泛化推翻七年叠加性迷思</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      前 OpenAI 核心成员、Distill 经典论文 Zoom In 合著者 Nick Cammarata 发布长篇研究成果《Neural Networks Are Already Clean》，系统反思并推翻了长期主导机械可解释性领域的“叠加性（Superposition）”假设。过去学界普遍认为神经网络在神经元不足时会将互不相干的概念任意混叠折叠，从而必须训练外置的稀疏自编码器（SAE）进行解耦拆解。Cammarata 通过详尽的实验回溯证明，早期的多义性表象本质上是落后网络架构溢出、弱解释工具与特征可视化奖励作祟所致，神经元的真实运作机理是分形自相似的“递归泛化”。在对 Qwen3-32B 与万亿参数规模 Kimi K3 的实测审查中，约 90% 至 97% 的神经元极性均具备高度整洁、单一可读的功能意图，证实人类无需绕道外挂重构网络，即可直接对其物理机制开展常规白盒科学分析。
+    </p>
+    <div class="news-meta">
+      <span>信源：Goodfire Research / Hacker News</span>
+      <a class="source-link" href="https://already-clean.goodfire.com/" target="_blank" rel="noopener">already-clean.goodfire.com ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Anthropic Claude Code opusplan -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">Anthropic 在 Claude Code 推出 opusplan 模式：以高智力模型生成编排脚本，调度并发轻量智能体集群破解上下文膨胀</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对大型工程代码库维护中自主智能体上下文迅速耗尽、单次重构成本过高的痛点，Anthropic 在最新 Claude Code 2.1.300 中正式引入 opusplan 配置模式。该模式倡导“高推理规划与低成本执行解耦”范式：在需求分析与架构设计阶段由旗舰模型 Opus 深度通读上下文，将复杂改造拆解为结构化的执行脚本与依赖任务图；随后将具体的文件检索、代码片段补丁与单元测试执行委托给并发运转的轻量级 Sonnet 或 Haiku 智能体集群。由于编排脚本承担了全局状态跟踪职责，Opus 无需在整个多轮工具调用流中持续驻留庞大上下文，在大幅提升百万行代码库跨文件重构吞吐量的同时，将长程工程任务的 Token 开销缩减数倍。
+    </p>
+    <div class="news-meta">
+      <span>信源：Anthropic Claude Code Docs / X 热议</span>
+      <a class="source-link" href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">code.claude.com/docs/en/model-config ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. StepFun Step 5 Preview -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/stepfun-ai/Step-5-Preview" target="_blank" rel="noopener">阶跃星辰开源 600B 混合专家模型 Step 5 Preview：激活 27B 与百万上下文，主攻长程代码智能体与低推理开销</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      阶跃星辰正式开放 Step 5 Preview 混合专家大模型权重，同步在 Hugging Face 与 ModelScope 释出 BF16 及 FP8 两种精度版本与配套推理工具链。该模型采用稀疏 MoE 架构，总参数量达 6000 亿，每个 Token 仅激活 270 亿参数，原生支持文本与视觉多模态输入，最大上下文窗口达到 100 万 Token。模型针对软件工程代码改写、复杂知识工作流与金融分析等长程智能体场景进行了深度专项训练。官方性能评测显示，Step 5 Preview 在综合智能指数中位列前茅，单任务推理运行成本仅约为同级别商业闭源模型的八分之一，并提供面向 vLLM 与 SGLang 的原生服务端部署支持。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face / 少数派</span>
+      <a class="source-link" href="https://huggingface.co/stepfun-ai/Step-5-Preview" target="_blank" rel="noopener">huggingface.co/stepfun-ai/Step-5-Preview ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Robbie Tilton Compositor -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener">独立设计师 Robbie Tilton 开源 macOS 原生图片编辑器 Compositor：基于 Swift 与 Metal 构建仅 12MB，终结订阅制软件垄断</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对商业图像软件日益臃肿、持续推行昂贵订阅制以及开源跨平台软件交互生硬的长期痛点，独立设计师 Robbie Tilton 在 GitHub 开源了专为 Mac 打造的轻量级原生图像合成与编辑工具 Compositor。软件采用纯 Swift 配合苹果底层 Metal 图形管线加速开发，安装包体积仅约 12MB（远低于主流商业软件超过 6GB 的磁盘占用），启动近乎瞬时。Compositor 遵循 macOS 原生人机交互规范，完整支持图层分组、混合模式、非破坏性蒙版与曲线色阶调节，并原生集成 PSD 格式解析能力。所有图像运算完全依托本地硬件完成，没有任何账号登录、数据回传或云端服务捆绑，发布后迅速斩获极客社区 6600 余颗 Stars。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / GitDiscover</span>
+      <a class="source-link" href="https://github.com/robbietilton/Compositor" target="_blank" rel="noopener">github.com/robbietilton/Compositor ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Apple Intelligence China Beta -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/116355" target="_blank" rel="noopener">Apple 智能国行测试版将于本月下旬开启推送：工信部完成模型备案换证，照片消除与写作工具首发亮相</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      在 10 月 15 日的在华线下媒体交流活动中，苹果首席执行官 Tim Cook 正式确认，Apple 智能国行 Beta 版本将于本月晚些时候随系统开发者测试版正式上线。首批落地功能包括系统级实时翻译、照片应用中的智能消除工具以及邮件备忘录中的写作辅助工具，深度整合的多模态 Siri 则仍在适配开发中。此前工信部电信设备进网许可信息显示，苹果旗下多款国行 iPhone 已完成进网许可换证，正式获得 Apple 智能、通义万相和通义千问三款大模型的官方备案编号，标志着苹果端侧模型与国内合规云端大模型服务商的深度协同架构正式进入实质性公测阶段。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 / 工信部备案公示</span>
+      <a class="source-link" href="https://sspai.com/post/116355" target="_blank" rel="noopener">sspai.com/post/116355 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
