@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-18 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-18 每日动态：SWE-bench 突破 85% 解决率极限自主代码智能体迈入端侧 CI/CD 自愈闭环、mini-SWE-agent 极简沙箱框架走红、纯 Swift 音频路由 FineTune 联合状态栏监控 Stats 重塑 Apple Silicon 体验、Qwen 2.5-Coder 开源模型生态爆发、MonitorControl 纯 Swift 驱动显示器 DDC/CI 协议、测试驱动开发在 AI 时代再度成为工程准绳。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-18</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月18日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.swebench.com" target="_blank" rel="noopener">SWE-bench 突破 85% 解决率极限：自主代码智能体从代码续写迈向全生命周期端侧 CI/CD 自愈</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      全球主流代码智能体评估基准迎来关键技术拐点：以 SWE-bench Verified 与 Terminal-Bench 为核心的自治解决率正式冲破 85% 大关。工程实践表明，AI 编程已彻底告别单纯依靠 Tab 自动补全的弱辅助阶段，全面转向由调度中心通过 AST 语义拓扑锚定依赖图，并由隔离工作区沙箱自建复现用例、执行测试并实时捕获编译器报错打补丁的自愈回路，将工业级多文件破坏性变更的一次性交付通过率提升近 60%。
+    </p>
+    <div class="news-meta">
+      <span>信源：SWE-bench / 普林斯顿研究团队</span>
+      <a class="source-link" href="https://www.swebench.com" target="_blank" rel="noopener">swebench.com ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/princeton-nlp/SWE-agent" target="_blank" rel="noopener">普林斯顿与开源社区 mini-SWE-agent 极简框架走红：不足百行 Shell 循环跑赢复杂多智能体</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开源基准测试团队验证了一项返璞归真的结论：摒弃过度复杂的智能体角色扮演与多层通信堆叠，仅保留精简的 Shell 执行沙箱接口与严格的上下文防膨胀机制，反而能大幅降低信息衰减与 Token 浪费。该项目以极度轻量的代码展示了如何用最少抽象构建高稳定度自动化 Issue 修复工具。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / Hacker News</span>
+      <a class="source-link" href="https://github.com/princeton-nlp/SWE-agent" target="_blank" rel="noopener">github.com/princeton-nlp/SWE-agent ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/ronitsingh10/FineTune" target="_blank" rel="noopener">开源对商业闭源的降维打击：纯 Swift 音频路由 FineTune 联合硬件监控 Stats，构筑极简原生工作台</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对商业闭源应用转向昂贵订阅制并引入臃肿分析组件的现象，macOS 极客社区加速原生开源替代进程。开发者基于纯 Swift 与 SwiftUI 打造免驱动音频路由应用 FineTune，提供独立分应用音量控制与 10 段硬件均衡器，常驻内存仅数十兆；配合拥有逾 4 万 Stars 的经典监控工具 Stats，两者均基于原生 MenuBarExtra 架构开发，实现零网络后门、毫秒级响应与纯粹的 macOS 原生质感。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / 少数派精选</span>
+      <a class="source-link" href="https://github.com/ronitsingh10/FineTune" target="_blank" rel="noopener">github.com/ronitsingh10/FineTune ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/QwenLM/Qwen2.5-Coder" target="_blank" rel="noopener">Qwen 2.5-Coder 开源模型生态爆发：端侧量化私有化部署成为中小团队代码智能体标配</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      凭借在开源代码基准测试中的出色表现与极佳的代码对齐质量，Qwen 2.5-Coder 配合 llama.cpp 及 vLLM 正在快速渗透工程一线。企业与个人团队无需将核心代码与商业机密外传至云端 API，即可在本地 Apple Silicon 工作站或私有 GPU 服务器上跑通端到端自主编程流水线。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face Daily Papers / Linux.do</span>
+      <a class="source-link" href="https://github.com/QwenLM/Qwen2.5-Coder" target="_blank" rel="noopener">github.com/QwenLM/Qwen2.5-Coder ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/MonitorControl/MonitorControl" target="_blank" rel="noopener">MonitorControl 纯 Swift 驱动外接显示器 DDC/CI 协议：Apple Silicon 硬件级背光调节实践</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">极客工具</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      3.4 万星标的经典开源工具持续升级。通过底层 I2C 总线发送 DDC/CI 硬件指令直接调整外接显示器的真实物理背光和对比度，不仅完全支持原生键盘亮度按键平滑联动，更告别了软件层滤镜变暗对色彩动态范围的损伤，为双屏极客办公带来一体化无缝体验。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / 少数派精选</span>
+      <a class="source-link" href="https://github.com/MonitorControl/MonitorControl" target="_blank" rel="noopener">github.com/MonitorControl/MonitorControl ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://news.ycombinator.com/item?id=41805520" target="_blank" rel="noopener">极客社区激辩：测试驱动开发（TDD）在 AI 时代为何再度成为最高效的工程准绳？</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">中推</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      当 AI 智能体生成整段代码的速度比人类阅读快上百倍，传统的“先写逻辑再补测试”流程被彻底打破。工程界越来越形成共识：由人类工程师或高智力模型先写下严谨明确的断言测试用例，再交由 Agent 迭代实现，是当前唯一能够可靠约束大模型发散幻觉的高效工程闭环。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News Algolia / 中文技术推特</span>
+      <a class="source-link" href="https://news.ycombinator.com/item?id=41805520" target="_blank" rel="noopener">news.ycombinator.com/item?id=41805520 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>

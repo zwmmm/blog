@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-17 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-17 每日动态：Anthropic 携手 Linux 基金会共建 MCP 官方生态、Claude Code 终端自主智能体打通跨多工作树并行自愈闭环、macOS 原生 GPU 加速终端 Ghostty 深度测评、纯 Swift 状态栏管理利器 Ice 架构解析、开源代码智能体契约优先设计范式、独立开发者基于 WhisperKit 打造离线转写工具首月破 6200 美元 MRR 商业复盘。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-17</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月17日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">Anthropic 携手 Linux 基金会共建 MCP 官方生态：上下文协议升级为全球中立基础设施，多语言 SDK 爆发</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Anthropic 正式将模型上下文协议（Model Context Protocol）规范交由 Linux 基金会社区治理，标志着 MCP 从单一厂商标准正式跃升为全球智能体工业级通用基础设施。生态官方同步发布并维护涵盖 TypeScript、Python、Rust、Go 以及 Swift 的原生 SDK，打通 IDE、数据库与端侧系统调用链路，为独立开发者与工程团队构建复杂智能体工作流提供了免重复造轮子的通用互操作基础。
+    </p>
+    <div class="news-meta">
+      <span>信源：Linux Foundation / Anthropic 官方发布</span>
+      <a class="source-link" href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">github.com/modelcontextprotocol/servers ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code" target="_blank" rel="noopener">Claude Code 终端自主智能体正式打通跨多工作树（Worktree）并行自愈闭环：大型工程迁移实测</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      终端自主编程智能体 Claude Code 发布重要架构演进，原生支持多 Git Worktree 并发沙箱与端到端代码自愈。顶层调度智能体通过分析全仓依赖拓扑将重构任务拆解到独立工作树中，由子智能体并发执行补丁与单测验证，编译器报错自动反哺修复决策回路。在超十万行规模代码库迁移实测中，代码破坏与接口断裂发生率降低 52%，大幅提升复杂工程吞吐效率。
+    </p>
+    <div class="news-meta">
+      <span>信源：Anthropic 官方技术博客 / Hacker News</span>
+      <a class="source-link" href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code" target="_blank" rel="noopener">docs.anthropic.com/en/docs/agents-and-tools/claude-code ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/ghostty-org/ghostty" target="_blank" rel="noopener">macOS 原生 GPU 加速终端新标杆 Ghostty 深度测评：Zig 状态机与 Metal 渲染零丢帧实操</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">极客工具</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      为追求极致性能与 macOS 原生质感的极客群体量身打造。Ghostty 彻底告别 Electron 终端的笨重体积与高内存占用，底层由极致性能的 Zig 语言编写核心虚拟终端状态机，前端由纯原生 Swift 与 Apple Metal 深度融合驱动。全面支持原生半透明毛玻璃特效与 ProMotion 120Hz 刷新率，常驻内存低至 20MB 出头，带来丝滑零卡顿的键盘响应。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / Hacker News Show HN</span>
+      <a class="source-link" href="https://github.com/ghostty-org/ghostty" target="_blank" rel="noopener">github.com/ghostty-org/ghostty ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/jordanbaird/Ice" target="_blank" rel="noopener">macOS 原生开源状态栏管理神器 Ice 架构实测：纯 Swift 编写与零权限网络设计</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      彻底替代臃肿商业软件的开源之选。Ice 采用 100% 纯 Swift 编写，基于 macOS Accessibility API 与原生状态栏注入实现灵活折叠与图标隐藏，常驻内存仅 15MB 且无需任何网络权限。针对 MacBook 刘海屏进行了像素级间距优化，完美解决多工具常驻时托盘图标溢出丢失的痛点。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending / 少数派精选</span>
+      <a class="source-link" href="https://github.com/jordanbaird/Ice" target="_blank" rel="noopener">github.com/jordanbaird/Ice ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://linux.do/t/topic/214580" target="_blank" rel="noopener">Hacker News 与 Linux.do 热议：代码生成边际成本归零后，契约优先为何成为工程唯一护城河？</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      极客技术社区展开深度激辩：当大模型写出几百行具体逻辑的阻力降至冰点，代码生成变得极其廉价，但代码库腐化的风险呈指数级上升。严苛的 OpenAPI 与 TypeScript 类型契约，配合端到端自动化验收边界，成为隔离智能体上下文幻觉与保证系统长久演进的真正工程壁垒。
+    </p>
+    <div class="news-meta">
+      <span>信源：Linux.do 社区 / Hacker News Algolia</span>
+      <a class="source-link" href="https://linux.do/t/topic/214580" target="_blank" rel="noopener">linux.do/t/topic/214580 ↗</a>
+    </div>
+  </article>
+
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/argmaxinc/argmax-oss-swift" target="_blank" rel="noopener">出海账本：独立开发者基于 WhisperKit 打造 macOS 离线听写工具，首月突破 $6,200 MRR 商业复盘</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发者分享冷启动复盘：深耕 Apple Neural Engine 本地离线转写带来的隐私红利，结合 Lemon Squeezy 订阅制与 Product Hunt 社区推广，实现 0 云端服务器转录成本与极高续费转化，证明了在垂直端侧体验上独立极客相比大厂云服务依然具有独特的商业套利空间。
+    </p>
+    <div class="news-meta">
+      <span>信源：Indie Hackers / Product Hunt</span>
+      <a class="source-link" href="https://github.com/argmaxinc/argmax-oss-swift" target="_blank" rel="noopener">github.com/argmaxinc/argmax-oss-swift ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
