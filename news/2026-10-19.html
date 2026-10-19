@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-19 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-19 每日动态：Swift 6 并发原生驱动 Open Agent SDK 与端侧系统级 Agent 破局、SWE-bench 突破 85% 解决率极限自主代码智能体迈入端侧 CI/CD 自愈闭环、Anthropic 携手 Linux 基金会共建 MCP 官方生态、Paul Hudson 推出 swiftui-agent-skill 声明式规则包、纯 Swift 音频路由 FineTune 联合状态栏监控 Stats 重塑 Apple Silicon 体验、SwiftBar 原生架构实战一行脚本定制状态栏与端侧大模型中枢。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }\
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-19</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月19日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Open Agent SDK (Swift) -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/terryso/open-agent-sdk-swift" target="_blank" rel="noopener">Swift 6 并发原生驱动：Open Agent SDK 与端侧系统级 Agent 破局，彻底告别 Python 与 Node 胶水层开销</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对苹果生态中长期依赖 Python 与 Node 跨进程调用导致的显存开销大与通信延迟问题，开源社区推出基于 Swift 6 严格并发检查的纯原生智能体框架 Open Agent SDK (Swift)。该框架将模型交互循环、MCP 工具注册与任务会话拓扑调度完整集成于单一原生进程内，消除了数据竞争隐患。配合 macOS 原生系统级 Apple Events 与 Accessibility 辅助功能树，智能体无需依赖外部浏览器即可毫秒级驱动桌面原生应用，端到端常驻内存低至 35MB。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / Swift 开发者生态</span>
+      <a class="source-link" href="https://github.com/terryso/open-agent-sdk-swift" target="_blank" rel="noopener">github.com/terryso/open-agent-sdk-swift ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. SWE-bench Verified 85% -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.swebench.com" target="_blank" rel="noopener">SWE-bench 突破 85% 解决率极限：自主代码智能体从代码续写迈向全生命周期端侧 CI/CD 自愈</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      全球主流代码智能体评估基准迎来关键技术拐点：以 SWE-bench Verified 与 Terminal-Bench 为核心的自治解决率正式冲破 85% 大关。工程实践表明，AI 编程已彻底告别单纯依靠 Tab 自动补全的弱辅助阶段，全面转向由调度中心通过 AST 语义拓扑锚定依赖图，并由隔离工作区沙箱自建复现用例、执行测试并实时捕获编译器报错打补丁的自愈回路，将工业级多文件破坏性变更的一次性交付通过率提升近 60%。
+    </p>
+    <div class="news-meta">
+      <span>信源：SWE-bench / 普林斯顿研究团队</span>
+      <a class="source-link" href="https://www.swebench.com" target="_blank" rel="noopener">swebench.com ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. MCP Linux Foundation -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">Anthropic 携手 Linux 基金会共建 MCP 官方生态：上下文协议升级为全球中立基础设施，多语言 SDK 爆发</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Anthropic 正式将模型上下文协议（Model Context Protocol）规范交由 Linux 基金会社区治理，标志着 MCP 从单一厂商标准正式跃升为全球智能体工业级通用基础设施。生态官方同步发布并维护涵盖 TypeScript、Python、Rust、Go 以及 Swift 的原生 SDK，打通 IDE、数据库与端侧系统调用链路，为独立开发者与工程团队构建复杂智能体工作流提供了免重复造轮子的通用互操作基础。
+    </p>
+    <div class="news-meta">
+      <span>信源：Linux Foundation / Anthropic 官方发布</span>
+      <a class="source-link" href="https://github.com/modelcontextprotocol/servers" target="_blank" rel="noopener">github.com/modelcontextprotocol/servers ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. swiftui-agent-skill -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/twostraws/swiftui-agent-skill" target="_blank" rel="noopener">Paul Hudson 推出 swiftui-agent-skill：以严格声明式规则库阻断 AI 编程助手陈旧代码幻觉</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      知名 Swift 技术布道师 Paul Hudson 面向 Claude Code、Cursor 与 Codex 等主流编程智能体推出专用的开源仓库技能包 swiftui-agent-skill。该规则包针对大语言模型在生成苹果平台代码时频繁混淆陈旧 AppKit API、忽略 Swift 6 并发安全或将 macOS 视作响应式 Web 网页的顽疾，注入了严谨的人机交互指南规范与原生组件约束，显著提升智能体生成代码的编译直通率。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacking with Swift / GitHub Trending</span>
+      <a class="source-link" href="https://github.com/twostraws/swiftui-agent-skill" target="_blank" rel="noopener">github.com/twostraws/swiftui-agent-skill ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. FineTune & Stats -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/ronitsingh10/FineTune" target="_blank" rel="noopener">开源对商业闭源的降维打击：纯 Swift 音频路由 FineTune 联合硬件监控 Stats，构筑极简原生工作台</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对商业闭源应用转向昂贵订阅制并引入臃肿分析组件的现象，macOS 极客社区加速原生开源替代进程。开发者基于纯 Swift 与 SwiftUI 打造免驱动音频路由应用 FineTune，提供独立分应用音量控制与 10 段硬件均衡器，常驻内存仅数十兆；配合拥有逾 4 万 Stars 的经典监控工具 Stats，两者均基于原生 MenuBarExtra 架构开发，实现零网络后门、毫秒级响应与纯粹的 macOS 原生质感。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势 / 极客装机精选</span>
+      <a class="source-link" href="https://github.com/ronitsingh10/FineTune" target="_blank" rel="noopener">github.com/ronitsingh10/FineTune ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. SwiftBar -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/swiftbar/SwiftBar" target="_blank" rel="noopener">用一行脚本统治 macOS 状态栏：SwiftBar 原生架构实战，如何成为极客管理本地模型与 Agent 的轻量中枢</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">极客工具</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开源状态栏神器 SwiftBar 作为 BitBar 的现代化继承者，允许开发者直接用任意 Shell、Python 或 Node 脚本渲染高度定制化的菜单栏扩展。在本地大模型与端侧智能体普及的背景下，极客群体广泛使用 SwiftBar 编写仅需数行代码的监控看板：实时采集 Ollama 与 MLX 的显存占用率、动态追踪后台智能体执行状态并一键触发 Git 自动化提交，零常驻后台开销，重现 Unix 工具组合的优雅哲理。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 极客生态 / Product Hunt</span>
+      <a class="source-link" href="https://github.com/swiftbar/SwiftBar" target="_blank" rel="noopener">github.com/swiftbar/SwiftBar ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
