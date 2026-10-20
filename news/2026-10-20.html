@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-20 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-20 每日动态：kksimp 开源系统兼容层 Mac.apk 无虚拟机原生运行 Android 应用、MiniMax 正式发布 428B 多模态混合专家大模型 M3.1 Flash 主攻长程智能体、Inception Labs 推出万亿级扩散模型 Mercury 3 突破自回归延迟上限、Erik Markus Kannike 在 MacBook Air 上针对性训练并开源 Qwen3-4B-deslop 消除机器口癖、Hugging Face 论文库首发 Librarian Agents 赋予智能体前置构建工作区能力、研究团队开源长期演化代码基准 EvoWeb。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class=top-nav>
+  <a class=back-link href="../news.html">← 每日新闻列表</a>
+  <a class=site-title href="../index.html">思考与记录</a>
+</nav>
+
+<header class=header>
+  <div class=eyebrow>DAILY NEWS · 2026-10-20</div>
+  <h1 class=title>每日技术与前沿精选</h1>
+  <div class=meta-bar>
+    <span>2026年10月20日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class=meta-tag>6 条精选</span>
+  </div>
+</header>
+
+<main class=news-stream>
+
+  <!-- 1. Mac.apk -->
+  <article class=news-card>
+    <div class=news-header>
+      <h2 class=news-title>
+        <a href="https://github.com/kksimp/Mac.apk" target="_blank" rel="noopener">kksimp 开源系统级兼容层 Mac.apk：在 Apple Silicon 上原生运行 Android 应用，无需虚拟机与模拟器直接转换系统调用</a>
+      </h2>
+      <div class=tag-group>
+        <span class=tag>Apple</span>
+        <span class=tag>独立开发</span>
+      </div>
+    </div>
+    <p class=news-summary>
+      独立开发者 kksimp 正式开源针对 macOS 的系统级兼容层工具 Mac.apk，使 Android 应用能够直接在搭载 Apple Silicon 芯片的 Mac 电脑上原生运行。该项目彻底摆脱了传统繁重的 QEMU 虚拟机、容器隔离以及底层 Linux 子系统开销，而是通过直接在 macOS 用户态将 Android ART 运行时的底层系统调用、IPC Binder 与 Framework 接口映射至 macOS 系统原生 API，并借助 Metal 实现硬件级图形管线渲染与零拷贝表面合成。目前该软件已通过 Apple 官方公证签名，首批针对 66 款主流移动应用进行基准兼容性测试，其中 52 款可原生流畅运行，为在 Mac 原生桌面体验移动生态提供了全新范式。
+    </p>
+    <div class=news-meta>
+      <span>信源：GitHub / Hacker News</span>
+      <a class=source-link href="https://github.com/kksimp/Mac.apk" target="_blank" rel="noopener">github.com/kksimp/Mac.apk ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. MiniMax M3.1 Flash -->
+  <article class=news-card>
+    <div class=news-header>
+      <h2 class=news-title>
+        <a href="https://www.minimax.io/blog/minimax-m31f" target="_blank" rel="noopener">MiniMax 正式发布 428B 多模态混合专家模型 M3.1 Flash：代号 Space Bunny 正式亮相，推理速度提升三倍主攻百万上下文长程智能体</a>
+      </h2>
+      <div class=tag-group>
+        <span class=tag>大模型</span>
+        <span class=tag>智能体</span>
+        <span class=tag>AI编程</span>
+      </div>
+    </div>
+    <p class=news-summary>
+      MiniMax 官方正式发布新一代多模态旗舰模型 MiniMax M3.1 Flash。该模型即此前在 OpenRouter 与开发者圈引发热烈猜想的匿名测试模型 Space Bunny。M3.1 Flash 采用混合专家架构，总参数量达 4280 亿，每个 Token 仅动态激活 230 亿参数，配备 100 万 Token 完整上下文处理窗口。通过引入新一代 MiniMax 稀疏注意力机制，线上实时吞吐与推理速度较上一代架构提升近三倍。该模型专为低延迟端到端智能体流式协作、长程代码库全量重构、计算机屏幕操作以及金融数据图表分析设计，API 输入定价每百万 Token 0.15 美元，输出每百万 Token 0.60 美元。
+    </p>
+    <div class=news-meta>
+      <span>信源：MiniMax 官方发布</span>
+      <a class=source-link href="https://www.minimax.io/blog/minimax-m31f" target="_blank" rel="noopener">minimax.io/blog/minimax-m31f ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Inception Mercury 3 -->
+  <article class=news-card>
+    <div class=news-header>
+      <h2 class=news-title>
+        <a href="https://www.inceptionlabs.ai/blog/introducing-mercury-3" target="_blank" rel="noopener">Inception 正式发布 Mercury 3：万亿级扩散语言模型打破自回归逐 Token 串行瓶颈，千字每秒吞吐赋能实时多智能体</a>
+      </h2>
+      <div class=tag-group>
+        <span class=tag>大模型</span>
+        <span class=tag>智能体</span>
+      </div>
+    </div>
+    <p class=news-summary>
+      Inception Labs 正式发布新一代旗舰扩散语言模型 Mercury 3。参数规模相比 Mercury 1 扩充逾 40 倍，上下文窗口扩大至 100 万 Token。在标准评估基准上，Mercury 3 展现出媲美主流前沿高速模型的综合推理能力，并在单块英伟达 GPU 上实现了每秒 1068 Token 的并行生成吞吐，较自回归模型提速 4 至 8 倍。Mercury 3 验证了文本扩散同样遵循严格的尺度扩展定律，彻底消除了自回归模型逐 Token 串行生成的物理时延上限，为网页自动化智能体、毫秒级交互助手与高并发协同智能体提供了崭新的推理底座。
+    </p>
+    <div class=news-meta>
+      <span>信源：Inception Labs 官方发布</span>
+      <a class=source-link href="https://www.inceptionlabs.ai/blog/introducing-mercury-3" target="_blank" rel="noopener">inceptionlabs.ai/blog/introducing-mercury-3 ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Erik Markus Kannike Qwen3-4B-deslop -->
+  <article class=news-card>
+    <div class=news-header>
+      <h2 class=news-title>
+        <a href="https://100toolkit.com/blog/deslop-model/" target="_blank" rel="noopener">独立开发者 Erik Markus Kannike 开源 Qwen3-4B-deslop：在 MacBook Air 上训练剥除 AI 写作腔调，破折号与空洞套话降至零</a>
+      </h2>
+      <div class=tag-group>
+        <span class=tag>AI编程</span>
+        <span class=tag>大模型</span>
+        <span class=tag>Apple</span>
+        <span class=tag>独立开发</span>
+      </div>
+    </div>
+    <p class=news-summary>
+      独立开发者 Erik Markus Kannike 在个人博客发布技术成果并开源模型权重 qwen3-4b-deslop。作者完全使用一台搭载 Apple Silicon 的 MacBook Air 作为训练节点，针对 Qwen3-4B-Instruct 模型中根深蒂固的机器味口癖进行反向定向强化微调。该微调针对破折号泛滥、说教式排比三段式、不是 A 而是 B 的二元套话，以及 delve 与 seamless 等高频无意义词汇构建了加权惩罚体系。在包含 40 组未见过提示词的独立盲测中，模型的 Slop 分数从 121 分骤降至 12.5 分，达到人类自然写作水平区间，破折号出现频次降至零，且完全保留了 30 项事实类问题的回答准确率与指定文体适应度，模型已通过 Hugging Face 释出 GGUF 格式供本地 Ollama 直接加载。
+    </p>
+    <div class=news-meta>
+      <span>信源：100toolkit.com / Hugging Face</span>
+      <a class=source-link href="https://100toolkit.com/blog/deslop-model/" target="_blank" rel="noopener">100toolkit.com/blog/deslop-model/ ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Librarian Agents -->
+  <article class=news-card>
+    <div class=news-header>
+      <h2 class=news-title>
+        <a href="https://huggingface.co/papers/2610.22273" target="_blank" rel="noopener">Hugging Face 首发 Librarian Agents 框架：赋予智能体前置构建持久化工作区能力，破解长上下文推理瓶颈</a>
+      </h2>
+      <div class=tag-group>
+        <span class=tag>智能体</span>
+        <span class=tag>AI编程</span>
+        <span class=tag>大模型</span>
+      </div>
+    </div>
+    <p class=news-summary>
+      针对当前以 Claude Code 为代表的代码智能体架构擅长遍历既有文件目录排错却无法主动为未来复杂任务持久化构建工作区的非对称结构瓶颈，研究人员在 Hugging Face 论文库发表长文。论文提出前置构建智能体机制，将非结构化复杂长语料主动解析并重构成包含层级目录结构、合成索引文件与交叉引用的虚拟工作区，供下游执行智能体精准消费。框架将工作区构建形式化为马尔可夫决策过程，通过强化学习直接以最终解题准确率为奖励函数进行端到端策略优化。在 BrowseComp-Plus 长程检索评测中较传统预计算和 RAG 基线实现 33 个百分点的准确率提升。
+    </p>
+    <div class=news-meta>
+      <span>信源：Hugging Face 论文库</span>
+      <a class=source-link href="https://huggingface.co/papers/2610.22273" target="_blank" rel="noopener">huggingface.co/papers/2610.22273 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. EvoWeb Benchmark -->
+  <article class=news-card>
+    <div class=news-header>
+      <h2 class=news-title>
+        <a href="https://huggingface.co/papers/2610.16402" target="_blank" rel="noopener">研究团队开源 EvoWeb 基准测试：涵盖 32 款真实 Web 应用与 320 项累积需求，评测编程智能体长期演进稳健性</a>
+      </h2>
+      <div class=tag-group>
+        <span class=tag>AI编程</span>
+        <span class=tag>智能体</span>
+      </div>
+    </div>
+    <p class=news-summary>
+      针对现有编程智能体测试基准普遍聚焦单次代码补全与固定规格要求、脱离软件工程真实演进周期的困境，研究团队开源了长期演化 Web 智能体基准 EvoWeb。基准精选 32 款真实 Web 应用程序，构建了由 320 项前后相依的累积功能需求链条，并基于功能依赖有向图组织任务序列。智能体需要在持久化的项目代码库上连续迭代编码，并引入具备视觉与无头浏览器操作能力的多模态网页智能体，在真实浏览器运行时中即时执行多阶段集成测试与历史功能无损回归校验。实验表明随着需求依赖深度增加，前沿模型的跨请求集成失败率和运行时异常出现频次显著上升，为长程真实代码智能体的自愈与鲁棒性训练提供了关键基准。
+    </p>
+    <div class=news-meta>
+      <span>信源：Hugging Face 论文库</span>
+      <a class=source-link href="https://huggingface.co/papers/2610.16402" target="_blank" rel="noopener">huggingface.co/papers/2610.16402 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
