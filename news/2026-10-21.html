@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-21 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-21 每日动态：DeepSeek 开源万亿级高并发生产推理框架 DeepInfer、Cloudflare 联合开源 TypeScript 纯 Rust 移植版 tsrs 提速 8 倍内存缩减 70%、Mistral 正式发布 Voxtral 3 多模态语音智能体家族与实时流式流水线、独立开发者推出纯净 Rime iOS 输入法紫毫实现移动端与 Mac 鼠须管词库无感互通、HumanLayer 发布 SlopCodeBench 2026 年 10 月编程智能体评测指出超长推理致上下文污染、Hugging Face 论文库首发跨结构化与非结构化边界的深度调研智能体 HybridResearcher。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-21</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月21日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. DeepInfer -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/deepseek-ai/DeepInfer" target="_blank" rel="noopener">DeepSeek 正式开源高并发生产推理框架 DeepInfer：集成 FlashMLA 与全套算子，支持 MoE 专家并行与 EPLB 极致吞吐</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      DeepSeek 官方正式开源其支撑全球线上大规模核心生产服务的超高性能离线与生产推理引擎 DeepInfer。该框架首发针对 DeepSeek-V4.1-Flash 等旗舰模型提供端到端加速，底层原生整合了 FlashMLA、DeepGEMM、DeepEP 通信库、TileKernels 与 DeepSelect 算子库。框架支持 Attention 数据并行与负载均衡的 MoE 专家并行（EP 与 EPLB）、DSpark 投机验证与 SWA 有界重放，并搭载零开销异步批处理调度器与结构化输出引擎，彻底公开了万亿级混合专家大模型在大规模生产集群中的吞吐极限与工程调度机密。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / Hacker News</span>
+      <a class="source-link" href="https://github.com/deepseek-ai/DeepInfer" target="_blank" rel="noopener">github.com/deepseek-ai/DeepInfer ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Cloudflare tsrs -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://blog.cloudflare.com/typescript-rust-port/" target="_blank" rel="noopener">Cloudflare 联合开源 TypeScript 的 Rust 移植项目 tsrs：编译与类型检查提速 8 倍，内存占用降低 70%</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对巨型前端与全栈工程在冷启动、类型检查及边缘运行时构建中的漫长延迟，Cloudflare 官方宣布深度参与并开源 TypeScript 的纯 Rust 完整移植版 tsrs。相较于官方基于 Node.js 运行时的 tsc，tsrs 实现了高达 8 倍的编译与静态类型检查吞吐提升，同时将内存峰值占用大幅缩减 70%。该项目不仅可在边缘 Workers 运行时中实现毫秒级的即时类型验证与代码打包，还为独立开发者与大型 monorepo 项目摆脱漫长 CI 构建等待提供了开箱即用的现代化底层基建设施。
+    </p>
+    <div class="news-meta">
+      <span>信源：Cloudflare Blog / Hacker News</span>
+      <a class="source-link" href="https://blog.cloudflare.com/typescript-rust-port/" target="_blank" rel="noopener">blog.cloudflare.com/typescript-rust-port ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Mistral Voxtral 3 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://mistral.ai/news/voxtral-3/" target="_blank" rel="noopener">Mistral 正式发布 Voxtral 3：首发跨 50 种语言的多模态语音智能体 SDK 与实时低延迟流式流水线</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Mistral 官方发布全新全双工语音基础模型家族与多模态智能体框架 Voxtral 3。针对现有语音助手常面临识别卡顿、中断反应迟钝与复杂工具链编排断裂的问题，Voxtral 3 将端到端语音转写、多轮逻辑思考、外部工具调用与情感化动态语音合成（TTS）全部深度融合进单个低延迟实时流式管道，原生覆盖 50 多种语言。随模型一同释出的 Voice Agent SDK 提供了即时通话打断（Barge-in）、敏感词审查与多步业务工作流调度支持，并面向注重数据隐私的企业开放欧盟节点 API 与本地全量私有化部署。
+    </p>
+    <div class="news-meta">
+      <span>信源：Mistral AI 官方发布</span>
+      <a class="source-link" href="https://mistral.ai/news/voxtral-3/" target="_blank" rel="noopener">mistral.ai/news/voxtral-3 ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. 紫毫 (Hare) -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://hareime.com/" target="_blank" rel="noopener">独立开发者推出纯净 Rime iOS 输入法「紫毫」：基于中州韵与端侧离线模型，无感同步 Mac 鼠须管</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对 Apple 跨端用户在 Mac 上习惯使用开源鼠须管（Squirrel），而迁移至 iPhone 与 iPad 却被迫忍受带广告、上传剪贴板的商业输入法的长久痛点，独立开发者打造并上架了基于 librime 核心的中文输入法「紫毫」（Hare）。软件开箱内置雾凇拼音与 6.8MB 的本地端侧语法模型「紫毫口语」，支持触屏落点防误触纠错与小鹤双拼辅码筛选。更关键的是，紫毫支持直接订阅公开 GitHub 方案仓库并在手机沙盒内离线编译，个人词库通过 iCloud 与 Mac 鼠须管双向合并同步，所有击键运算完全停留在本地设备。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 / Hare 官方</span>
+      <a class="source-link" href="https://hareime.com/" target="_blank" rel="noopener">hareime.com ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. SlopCodeBench -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/benchmarking-new-models-on-slop-code-bench.md" target="_blank" rel="noopener">HumanLayer 发布 SlopCodeBench 2026 年 10 月编程智能体评测：过高推理预算反致上下文污染</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      HumanLayer 团队联合学术机构更新了长程编程智能体压力评测基准 SlopCodeBench（SCB）2026 年第四季度实测报告。评测针对主流前沿大模型在多文件级真实重构任务中的代码洁净度与功能完整性进行深度检验。报告指出，随着各大厂商竞相推出超长思考（xhigh reasoning）配置，模型在面对实际代码库时反而出现了过度设计、臆造防御性冗余结构与上下文污染的负向效应（xhigh considered harmful）；相反，精细的上下文工程、分层提示词与确定性工具反馈才是决定长程自主编程成功的关键支柱。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / HumanLayer</span>
+      <a class="source-link" href="https://github.com/humanlayer/advanced-context-engineering-for-coding-agents/blob/main/benchmarking-new-models-on-slop-code-bench.md" target="_blank" rel="noopener">github.com/humanlayer/advanced-context-engineering-for-coding-agents ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. HybridResearcher -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.24899" target="_blank" rel="noopener">Hugging Face 论文库首发 HybridResearcher：跨越结构化 SQL 与非结构化网页的异构深度调研智能体</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对目前企业级自主研究智能体在处理跨域现实问题时容易偏科于单一数据源的结构性瓶颈，来自顶尖机构的研究团队在 Hugging Face 论文库发布了 HybridResearcher 框架。现实中复杂商业与技术决策往往需要同时跨越内部数据库的结构化精确计算与外部开放互联网的非结构化动态证据。HybridResearcher 引入了双轮驱动架构与异构证据仲裁器，能够自主将长程研究目标拆解为 SQL 执行管线与网络检索智能体集群，并在语义证据与确定性统计之间构建可验证的互证闭环，大幅削减了跨模态长程推理时的幻觉扩散。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文库</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.24899" target="_blank" rel="noopener">huggingface.co/papers/2610.24899 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
