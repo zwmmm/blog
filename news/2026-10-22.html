@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-22 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-22 每日动态：Anthropic 开启主动式 AI 个人助理 Claude Duet 邀测在独立云端虚拟机长驻运行、DuckDB 2.0.0 LTS 正式发布集成 Quack 协议与原生 Agent 模式、OpenAI 联合发起 Patch the Planet 协同修复全球关键开源漏洞、Simon Edwardsson 开源 360M 端侧世界模型终端 WorldTUI、开发者推出 macOS 原生资源监控与 MCP 诊断工具 Vitals、Hugging Face 论文库首发 GUI 智能体世界模型验证器。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-22</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月22日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Claude Duet -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://claude.com/product/claude-duet" target="_blank" rel="noopener">Anthropic 开启主动式个人助理 Claude Duet 预览测试：搭载独立云端虚拟机，无需提示词全天候自主运转</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Anthropic 正式公布全新个人智能体产品 Claude Duet 并开启小范围预览测试。不同于等待用户单向输入 Prompt 的传统对话界面，Claude Duet 专为全天候主动服务设计。每个实例运行在独立云端安全沙盒虚拟机中，即便用户关闭电脑或离线，智能体仍可按照周期性策略自主巡检关联的邮箱、日历、云文档与项目看板，并在每天清晨输出结构化简报或在突发变动时主动推送预警。系统由 Claude Opus 5.5 驱动，针对高敏感操作设置了严格的真人确认拦截机制，标志着个人智能体由单次问答工具正式跨入常驻自主执行阶段。
+    </p>
+    <div class="news-meta">
+      <span>信源：Anthropic 官方发布</span>
+      <a class="source-link" href="https://claude.com/product/claude-duet" target="_blank" rel="noopener">claude.com/product/claude-duet ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. DuckDB 2.0.0 LTS -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://duckdb.org/2026/10/21/announcing-duckdb-200" target="_blank" rel="noopener">DuckDB 2.0.0 LTS Cinnamon Teal 正式发布：内置 Quack 远程协议与原生 Agent 模式，历经近两万次提交</a>
+      </h2>
+      <div class=tag-group>
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      分析型嵌入式数据库 DuckDB 正式发布 2.0.0 长期支持版本（LTS），代号 Cinnamon Teal。该版本汇聚了自 1.5 以来近两万次代码提交，是该项目史上功能演进规模最大的一次里程碑。新版本完整实装了轻量高效的 Quack 远程网络协议与全局异步 I/O 引擎，引入一等公民级 VARIANT 混合半结构化数据类型与原生触发器支持。特别引人瞩目的是，2.0 增加了专为代码与数据智能体设计的内置 Agent 模式，优化了由大模型直接驱动的即时元数据自省与流式执行管线，为本地分析型智能体应用提供了极其坚实的计算底座。
+    </p>
+    <div class="news-meta">
+      <span>信源：DuckDB 官方发布</span>
+      <a class="source-link" href="https://duckdb.org/2026/10/21/announcing-duckdb-200" target="_blank" rel="noopener">duckdb.org/2026/10/21/announcing-duckdb-200 ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. OpenAI Patch the Planet -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/" target="_blank" rel="noopener">OpenAI 联合安全机构发起 Patch the Planet 行动：前沿安全智能体联动上游社区，两月协同修复 PHP 核心远程代码执行漏洞</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对 AI 自动化漏洞挖掘工具可能被黑产滥用冲击开源软件生态的严峻挑战，OpenAI 宣布联合 Trail of Bits、Calif 与 HackerOne 发起 Patch the Planet 开源防御计划。该行动以安全推理模型为核心，配合资深安全工程师对模型发掘的高危隐患进行形式化验证、测试用例编写与补丁实现。在此次公布的 PHP2Shell 核心高危漏洞协同披露案例中，团队在漏洞对外公开前联合 PHP 基金会、云厂商与网络防御厂商建立了长达两个月的防御窗口，在零日威胁爆发前完成了静默全网加固，为智能体时代的开源协同披露树立了新标杆。
+    </p>
+    <div class="news-meta">
+      <span>信源：OpenAI / Hacker News</span>
+      <a class="source-link" href="https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/" target="_blank" rel="noopener">openai.com/index/coordinated-disclosure-of-critical-vulnerabilities ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Vitals macOS Monitor -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://vitalsmac.com/" target="_blank" rel="noopener">开发者推出 macOS 原生资源监控与智能体诊断工具 Vitals：以应用维度重构系统状态，原生集成 MCP 服务</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">智能体</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对 macOS 自带活动监视器在面对现代开发工具与智能体集群时进程分散、排查繁琐的痛点，独立开发团队打造了轻量系统级监控工具 Vitals。软件改变了传统的孤立进程列表呈现方式，将数百个散落的后台子进程归拢至所属 App 树形视图下，清晰直观地展示各应用实际的 CPU、内存压力、GPU、传感器风扇与电池消耗。更关键的是，Vitals 内置了专为 Claude Code、Cursor 与本地智能体打造的 MCP 服务器，AI 助手可通过工具调用直接读取当前系统硬件负载、空闲开发端口与容器状态，让端侧环境诊断实现真正的自动化。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 / Vitals 官方</span>
+      <a class="source-link" href="https://vitalsmac.com/" target="_blank" rel="noopener">vitalsmac.com ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. WorldTUI -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://simedw.com/2026/10/21/world-model-terminal/" target="_blank" rel="noopener">Simon Edwardsson 开源 360M 端侧终端世界模型 WorldTUI：底层无 Shell 与文件系统，纯模型实时预测字符光标演变</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立研究者 Simon Edwardsson 在个人博客公布并开源了端侧世界模型实验项目 WorldTUI。作者仅使用 3.6 亿参数微调出一个完全模拟终端控制台交互的世界模型。该系统底层没有任何真实的 Bash 解释器或文件系统，用户的每一次物理按键都会作为连续观察输入输入模型，由模型自回归预测整屏字符流的下一状态。实验展示了模型不仅能精准复现 Vim 语法高亮与 Tmux 分屏操作，还能在其隐空间中记住跨指令的上下文状态。该项目借助 WebGPU 实现了浏览器端毫秒级单步推断，生动展示了交互式世界模型颠覆传统软件执行范式的潜能。
+    </p>
+    <div class="news-meta">
+      <span>信源：simedw.com / Hacker News</span>
+      <a class="source-link" href="https://simedw.com/2026/10/21/world-model-terminal/" target="_blank" rel="noopener">simedw.com/2026/10/21/world-model-terminal/ ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Right Screen, Wrong Transition -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.11942" target="_blank" rel="noopener">Hugging Face 论文库首发 GUI 智能体世界模型验证器：以屏幕状态迁移守卫防范界面劫持与越权攻击</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      随着计算机使用（Computer Use）智能体深入操作系统接管人机界面，GUI 交互的安全性面临严峻挑战。来自顶尖科研团队的论文指出，现有的屏幕监视器仅判断单一屏幕画面的合法性极易被欺骗，点击登录按钮跳转登录页是正常操作，而在查看订单时弹出登录页则极可能是界面劫持钓鱼。论文提出了基于世界模型的迁移验证器架构，根据智能体的动作预先推演预期的界面状态变迁，并在真实环境响应与预测偏离时立刻熔断阻断操作。在多套复杂操作系统测试基准中，该方案成功拦截了绝大多数针对图形界面的混淆与提权攻击。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文库</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.11942" target="_blank" rel="noopener">huggingface.co/papers/2610.11942 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
