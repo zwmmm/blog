@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-23 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-23 每日动态：NVIDIA 开源自主智能体安全沙盒运行环境 OpenShell、Anthropic 联合 Theorem 实现百余款开源软件汇编级形式化验证、极客团队开源 HackiOS 引导内核在安卓设备原生运行完整 iOS 16.5 用户空间、乐鑫 ESP-Mosaico 模块化开发板打通 Claude Code 原生 Vibe Coding 硬件工作流、Hugging Face 论文库首发视频驱动的深度研究报告智能体基准、极客社区开源 Android TV 一键精简工具 CleanYourTV。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-23</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月23日</span>
+    <span>•</span>
+    <span>Kami 整理</span>
+    <span>•</span>
+    <span class="meta-tag">6 条精选</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. NVIDIA OpenShell -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/NVIDIA/OpenShell" target="_blank" rel="noopener">NVIDIA 正式开源自主智能体沙盒运行环境 OpenShell：内核级权限隔离，形式化验证拦截越权凭证泄露</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      NVIDIA 正式开源专为大规模自主 AI 智能体集群设计的安全运行时框架 OpenShell。针对编程智能体在执行读写文件、安装依赖包与调用外部 API 时缺乏安全边界的隐患，OpenShell 实现了内核级精细化策略隔离。每个智能体都在独立沙盒中受控运行，所有网络请求在离开沙盒前均须通过策略审计，真实机密凭证对智能体完全屏蔽，仅在抵达核准的后端节点时动态挂载。框架还创新性地引入了形式化验证机制，在策略配置变更生效前先行动态推演其潜在的提权与外联风险，为企业级智能体车队提供了兼具灵活性与合规约束的沙盒底座。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / NVIDIA</span>
+      <a class="source-link" href="https://github.com/NVIDIA/OpenShell" target="_blank" rel="noopener">github.com/NVIDIA/OpenShell ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Anthropic Formal Verification -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.anthropic.com/research/formal-verification" target="_blank" rel="noopener">Anthropic 联手 Theorem 破局软件工程根基：大模型完成百余款开源软件汇编级形式化验证，万亿次测试未发掘缺陷被精准捕获</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Anthropic 与 Theorem 联合公布重大研究成果，首次证实前沿大语言模型具备在大规模生产软件中进行汇编级形式化验证的能力。研究团队利用 Claude 在 RISC-V 汇编代码级别对超过 100 款真实开源软件库进行了数学属性形式化证明。在此过程中，Claude 成功发掘出多处在数万亿次传统集成测试中从未被触发的陈年深层漏洞，并直接生成无缝数学证明与防御补丁。这一成果标志着形式化软件验证正式摆脱传统耗费专家数年心血的工艺瓶颈，未来将成为大模型驱动下可信软件工程与零漏洞交付的关键范式。
+    </p>
+    <div class="news-meta">
+      <span>信源：Anthropic 官方研究</span>
+      <a class="source-link" href="https://www.anthropic.com/research/formal-verification" target="_blank" rel="noopener">anthropic.com/research/formal-verification ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. HackiOS XNU Kernel -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/oosexgang/hackios-xnu-kernel" target="_blank" rel="noopener">极客团队开源 HackiOS：通过定制 UEFI 引导器在安卓硬件上原生运行未修改的完整 iOS 16.5 用户空间</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开源极客组织正式发布逆向系统工程项目 HackiOS。项目通过修补苹果开源的 XNU 内核（xnu-8796.121.2），配合自研的 EFI 加载器、闭源驱动替代方案与 Linux Wi-Fi 驱动兼容层，在骁龙 778G 硬件（POCO X5 Pro 5G）与 aarch64 QEMU 虚拟机上成功直接引导未修改的原生 iOS 16.5 用户空间。系统自 launchd 启动，完整载入 backboardd、SpringBoard 桌面以及原生图形应用。在实体手机端，整个系统通过 Fastboot 载入内存驻留运行，不改写闪存分区，展示了跨硬件架构重构移动操作系统的极高完成度。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / Hacker News</span>
+      <a class="source-link" href="https://github.com/oosexgang/hackios-xnu-kernel" target="_blank" rel="noopener">github.com/oosexgang/hackios-xnu-kernel ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. ESP-Mosaico Vibe Coding -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/esp-mosaico/esp-mosaico-vibe" target="_blank" rel="noopener">乐鑫发布模块化开发板 ESP-Mosaico：深度集成 MCP 协议与 Claude Code，开启硬件领域原生 Vibe Coding 新流派</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      乐鑫官方开源推出面向智能体编程的模块化硬件开发板 ESP-Mosaico。核心板搭载 ESP32-S31 芯片与 2.16 英寸圆形 AMOLED 触控屏，磁吸扩展支持相机、传感器与实体按键。不同于传统面向人工工程师的固件调试流程，ESP-Mosaico 专为编程智能体设计：内置固件层固定了 Vibe Mode，通过统一 MCP 服务打通引脚图、组件库自省、低噪声构建工具与模拟器。开发者只需在终端向 Claude Code 或 Cursor 发出自然语言需求，智能体便可全自动完成代码生成、本地仿真验证与一键烧录，彻底打破了嵌入式开发的专业壁垒。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / 少数派</span>
+      <a class="source-link" href="https://github.com/esp-mosaico/esp-mosaico-vibe" target="_blank" rel="noopener">github.com/esp-mosaico/esp-mosaico-vibe ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Video Deep Research Benchmark -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.31158" target="_blank" rel="noopener">Hugging Face 论文库首发视频深度研究基准：评测自主智能体跨模态检索与交互式事实溯源长报告生成能力</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      随着深度调研智能体（Deep Research Agents）逐步接管信息聚合，现有评测普遍局限于纯文本网页检索，缺乏面向长视频的综合研判能力。科研团队在 Hugging Face 论文库首发长视频中心深度调研评测基准。任务要求智能体在接收到原始长视频与开放式用户提问后，自主拆解细粒度研究问题、检索跨网外部多模态证据，并最终输出图文并茂、精准锚定视频关键时刻与外部引文的交互式深度研究报告。实验表明，当前多模态模型在面临跨越数小时的视频时空定位与异构网络证据交叉验证时仍面临显著的长程推理遗忘挑战。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文库</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.31158" target="_blank" rel="noopener">huggingface.co/papers/2610.31158 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. CleanYourTV -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/Gathin23/cleanyourtv" target="_blank" rel="noopener">开发者开源 Android TV 一键精简工具 CleanYourTV：局域网免 Root 移除臃肿预装，零成本还原 Apple TV 极简桌面</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对各大品牌智能电视与电视盒子系统日益泛滥的开机广告、预装软件与复杂信息流桌面，开发者开源了轻量级系统优化工具 CleanYourTV。该工具完全通过 Wi-Fi 无线网络连接，无需物理连线、无需 Root 提权，即可一键自动清理 Android TV 与 Google TV 上的臃肿驻留进程和推广组件。更关键的是，它为大屏设备直接替换了高度贴近 Apple TV 原生风格的极简轻量启动器，支持纯净应用抽屉与快速恢复指令，不仅释放了电视的闪存与运存资源，更让大屏观影重新回归纯粹专注。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势</span>
+      <a class="source-link" href="https://github.com/Gathin23/cleanyourtv" target="_blank" rel="noopener">github.com/Gathin23/cleanyourtv ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
