@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-25 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-25 每日动态：Cursor 上线 Origin 扩展市场并推出 iOS 远程移动配对、开源团队发布智能体长程记忆中间件 Hindsight、独立极客开源前端代码生成设计守卫 Impeccable、Hugging Face 论文库首发全模态大模型幻觉修正框架 Omni-Woodpecker、苹果发布 Home Collection 生态并升级 Apple TV 4K 端侧家庭计算中枢、开发者打造轻量级单二进制 API 模拟网关 Mockoon 4.0。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-10-25</h1>
+  <div class="meta-bar">
+    <span>2026年10月25日</span>
+    <span>·</span>
+    <span>第 116 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Cursor Origin Marketplace & iOS Remote -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://cursor.com" target="_blank" rel="noopener">Cursor 宣布推出 Origin 扩展市场并上线 iOS 端远程调试：以本地 Agent 配对重塑离席编程流</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      AI 编程 IDE 先驱 Cursor 正式上线 Origin 扩展市场，允许开发者与团队发布专为代码智能体定制的自定义 MCP 工具包与自动化工作流规则。更引人注目的是，Cursor 同步更新了其 iOS 客户端，推出本地 Agent 实时配对功能。开发者无需保持端坐电脑前，即可通过 iPhone 或 iPad 远程查看 Mac 终端上后台 Agent 的代码审查进展、单步调试日志，并在手机上通过触控交互一键签署并批准危险终端命令，极大延展了移动端与端侧工作站的协同边界。
+    </p>
+    <div class="news-meta">
+      <span>信源：Cursor 官方公告</span>
+      <a class="source-link" href="https://cursor.com" target="_blank" rel="noopener">cursor.com ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Hindsight Memory Management -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/vectorize-io/hindsight" target="_blank" rel="noopener">开源智能体记忆持久化框架 Hindsight 正式发布：以图谱索引与遗忘曲线解决长程对话状态失真</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Vectorize 团队正式开源专为大规模 LLM 智能体设计的长短期记忆中间件 Hindsight。针对传统智能体依赖纯向量检索（RAG）常出现的时间线颠倒与实体关系模糊痛点，Hindsight 创新性地结合了时序知识图谱（Temporal Knowledge Graph）与艾宾浩斯认知遗忘曲线算法。系统能够根据对话交互频次与工程实体依赖动态衰减冗余记忆，并精准提炼核心业务约束，使编程智能体在跨越数周乃至数月的工程重构任务中仍能保持记忆零漂移。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势</span>
+      <a class="source-link" href="https://github.com/vectorize-io/hindsight" target="_blank" rel="noopener">github.com/vectorize-io/hindsight ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Impeccable Design Quality -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener">开源极客推出前端设计质量把控框架 Impeccable：为 AI 生成代码树立像素级排版与无障碍设计守卫</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      资深前端工程师兼独立开发者开源了面向 AI 代码生成的质量守卫工具 Impeccable。该项目直面由大模型生成网页代码普遍存在的样式同质化、对比度失衡、无障碍标签缺失与移动端截断等瑕疵，构建了一套结合静态 AST 语法树分析与视觉无头浏览器快照的门禁流水线。工具可作为 Git Pre-commit 钩子或 MCP 工具集成至各类编程智能体中，自动阻断不合规的内联样式并重构为符合现代设计规范的原子化组件。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势</span>
+      <a class="source-link" href="https://github.com/pbakaus/impeccable" target="_blank" rel="noopener">github.com/pbakaus/impeccable ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Omni-Woodpecker -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.27103" target="_blank" rel="noopener">Hugging Face 论文库首发全模态大模型幻觉修正架构 Omni-Woodpecker：以证据先验再平衡拦截多模态视听幻觉</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      随着多模态大模型由图文走向音频、视频端到端统一建模，模型在感知弱信号输入时更易产生强烈的先验幻想。中外科研团队联合发布全模态幻觉检测与自愈框架 Omni-Woodpecker。系统通过引入跨模态反事实证据探针，在模型自回归生成阶段动态计算注意力权重与物理感官输入的一致性置信度，实时压制语言模型基于语料概率强行构建的错误陈述。实验证明，该方案在视觉图表细读与长音频事实问答任务中将幻觉率降低了 43% 以上。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文库</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.27103" target="_blank" rel="noopener">huggingface.co/papers/2610.27103 ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Apple Home Collection & Apple TV 4K -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.apple.com/newsroom/" target="_blank" rel="noopener">苹果智能家居新篇章：Apple 联合工业巨头发布 Home Collection 配件生态并升级 Apple TV 4K 算力底座</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      苹果正式公布旗下全新智能家居生态矩阵 Apple Home Collection，宣布与施耐德电气及 LG 达成底层芯片级战略协同。新设备全面支持 Matter 2.0 协议并全系标配 Thread 边界路由功能。配合搭载新一代神经常规处理单元的 Apple TV 4K，整个家庭自动化系统升级为由端侧 Siri AI 驱动的自主中枢，能够在完全切断外网的情况下离线理解复杂多意图的家庭作息场景控制，标志着苹果在端侧隐私家庭计算领域的重大进阶。
+    </p>
+    <div class="news-meta">
+      <span>信源：Apple Newsroom</span>
+      <a class="source-link" href="https://www.apple.com/newsroom/" target="_blank" rel="noopener">apple.com/newsroom ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Mockoon 4.0 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/mockoon/mockoon" target="_blank" rel="noopener">开发者打造本地轻量级开源 API 模拟网关 Mockoon 4.0：无缝模拟高延迟微服务与复杂鉴权测试</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发者精心打磨的本地离线 API 模拟器 Mockoon 正式释出 4.0 重大版本。新版采用轻量 Rust 内核重写了高并发数据分发引擎，支持基于 OpenAPI 规范一键自动推导具备动态响应规则的 Mock 服务，并新增了原生 gRPC 与 WebSocket 双向流式拦截支持。针对当下一线开发中各类 AI 智能体外部请求频次激增导致的速率限制问题，Mockoon 提供了极度精细的错误注入与断网模拟能力，是端侧敏捷开发的必备神兵。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势</span>
+      <a class="source-link" href="https://github.com/mockoon/mockoon" target="_blank" rel="noopener">github.com/mockoon/mockoon ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>

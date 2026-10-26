@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-24 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-24 每日动态：Anthropic 发布 Claude Code v2.1.310 并向 AAIF 捐赠 Agent Skills 规范标准、iFixit 深度拆解 iPhone Duo 折叠工程设计、开源团队打造多智能体编排协作平台 Paperclip、极客 60 元改造小米蓝牙遥控器打造掌上 Vibe Coding 控制器、Hugging Face 论文库首发具身智能长程协同框架 TARSphere、开源 PaaS 平台 Coolify 演进原生支持智能体容器健康探针。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-10-24</h1>
+  <div class="meta-bar">
+    <span>2026年10月24日</span>
+    <span>·</span>
+    <span>第 115 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Claude Code v2.1.310 & AAIF Skills -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">Anthropic 发布 Claude Code v2.1.310 并向 Linux 基金会 AAIF 捐赠 Agent Skills 标准规范</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Anthropic 释出 Claude Code v2.1.310 更新，实装针对云端运行时的监控探针工具与深度后台进程托管，同时联合 Linux 基金会旗下的 Agentic AI Foundation（AAIF）正式开源并捐赠标准化的 Agent Skills 规范框架。该标准旨在终结不同智能体平台间专有技能格式割裂的现状，让开发者编写一套统一格式的 Skill 描述文件，即可无缝跨平台运行在 Claude Code、Cursor 与开源智能体框架中。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub / Anthropic</span>
+      <a class="source-link" href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">github.com/anthropics/claude-code ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. iFixit iPhone Duo Teardown -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/117460" target="_blank" rel="noopener">iFixit 深度拆解 iPhone Duo 折叠工程设计：双铰链架构大幅提升维修性，柔性内屏应力防爆获好评</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      全球拆解机构 iFixit 正式发布了苹果首款折叠屏设备 iPhone Duo 的全拆解报告。与以往业界折叠屏胶水过量、极难维修的方案不同，iPhone Duo 采用了模块化钛合金双轨铰链结构与易拉胶固定电池，不仅内构整洁度刷新折叠屏纪录，其柔性内屏底部还铺设了微晶防冲击缓冲层，显著降低了长期折叠产生微裂纹的风险。iFixit 给出了可维修性 7 分的亮眼评价，印证了苹果硬件工程团队在兼顾超薄轻量与耐久可修之间的扎实平衡。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派</span>
+      <a class="source-link" href="https://sspai.com/post/117460" target="_blank" rel="noopener">sspai.com/post/117460 ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Paperclip AI -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/paperclipai/paperclip" target="_blank" rel="noopener">开源团队打造 Agent 编排与协同作战平台 Paperclip：基于状态机与分层权责驱动智能体团队长程交付</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对传统单 Agent 架构在面对企业级复杂开发任务时上下文爆炸与指令漂移的痛点，开源团队正式发布智能体组织编排系统 Paperclip。该项目借鉴现代软件工程的矩阵管理模式，将系统角色细化为规划架构师、编码执行者、门禁审计员与红队测试员。各个智能体通过显式状态机与严格定义的语义工单驱动协作，任一节点的代码变更必须经由审计智能体验证通过后方可合并至交付分支，为长程自主研发任务提供了可靠的工程级兜底。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势</span>
+      <a class="source-link" href="https://github.com/paperclipai/paperclip" target="_blank" rel="noopener">github.com/paperclipai/paperclip ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Vibe Coding Remote Controller -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/114741" target="_blank" rel="noopener">极客分享 60 元打造硬件 Vibe Coding 神器：改装小米蓝牙遥控器实现无感终端切屏与语音断点触发</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      少数派极客社区作者分享了低成本改造终端硬件交互的软硬协同方案。作者仅花费 60 元购入小米蓝牙遥控器 2 Pro，利用 Python 蓝牙 HID 协议劫持与 macOS 辅助功能 API，将其改造成一套专为 Claude Code 与 Cursor 设计的单手掌上控制器。通过长按方向键与语音触发键，开发者无需将双手挪回键盘，即可在散步或仰坐状态下盲操完成“接受当前补丁”、“一键回滚 Git 改动”、“唤醒智能体语音追加指令”等核心动作，展示了轻量硬件拓展编程心流体验的独特创意。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派</span>
+      <a class="source-link" href="https://sspai.com/post/114741" target="_blank" rel="noopener">sspai.com/post/114741 ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. TARSphere -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.30043" target="_blank" rel="noopener">Hugging Face 论文库首发具身智能长程协同框架 TARSphere：构建动态物理社交环境中的自主具身智能体体系</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      机器人与具身智能领域迎来重大理论突破，科研团队在 Hugging Face 论文库首发开源全栈具身智能框架 TARSphere。该框架直面机器人在复杂动态物理世界与多智能体社交环境中的长程规划瓶颈，将物理空间动力学先验模型与大语言模型的常识推理层解耦，通过分层预测世界模型实时修正物理执行偏差。评测表明，搭载 TARSphere 的双臂机器人在多步长程家务与工业流水线交互装配场景中的成功率提升了近 40%，为真实物理世界的具身 Agent 铺平了落地道路。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文库</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.30043" target="_blank" rel="noopener">huggingface.co/papers/2610.30043 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Coolify -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/coollabsio/coolify" target="_blank" rel="noopener">开源无服务器部署利器 Coolify 迎来重大版本演进：原生集成智能体容器健康探针与多机集群编排</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      自托管 PaaS 开源标杆项目 Coolify 发布最新迭代版本。针对开发者日益增长的端侧多智能体测试与微服务编排需求，新版深度重构了底层 Docker Swarm 与 Nixpacks 引擎，新增原生支持本地 AI 模型的容器资源隔离分配机制，并内置智能体自动化健康自愈探针。开发者可在无需依赖商业云托管平台的纯私有服务器环境中，一键自建类似 Vercel 与 Render 的现代化 GitOps 自动化交付流水线。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势</span>
+      <a class="source-link" href="https://github.com/coollabsio/coolify" target="_blank" rel="noopener">github.com/coollabsio/coolify ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-26 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-26 每日动态：OpenAI 开启千亿基建融资并大幅下调旗舰 API 定价、苹果确认 10 月末举办发布会预热 OLED 触控 MacBook Pro 与 M5 芯片、开源团队推出 AAIF 规范智能体安全审计技能包 Security Audit Skill、Hugging Face 论文库首发单阶段视听大模型实时电竞赛事解说 DirCast、极客开源人形机器人 7 分钟敏捷拳击训练方案 HoloBoxing、开发者打造极简端侧 SQLite 管理工具 TinyBase Studio。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-10-26</h1>
+  <div class="meta-bar">
+    <span>2026年10月26日</span>
+    <span>·</span>
+    <span>第 117 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. OpenAI Compute Expansion & API Price Cut -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://openai.com/api" target="_blank" rel="noopener">OpenAI 启动千亿美元级算力基建融资洽谈并大幅下调旗舰 API 定价：激化企业端智能体采用竞赛</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      多家权威财经与科技媒体披露，OpenAI 正式开启新一轮高达 300 亿美元的私人战略融资磋商，全面加速其下一代万卡分布式智算集群建设。与此同时，为了在企业级智能体市场全面遏制对手的迅猛势头，OpenAI 宣布对其旗舰大模型 API 进行最高达 60% 的阶梯式永久降价，并推出无状态代码执行沙盒直连服务。这一举措迅速引发了行业连锁反应，包括 Replit 等多家主流平台纷纷宣布将其核心智能体服务底层算力切回最新降价通道。
+    </p>
+    <div class="news-meta">
+      <span>信源：科技财经快讯</span>
+      <a class="source-link" href="https://openai.com/api" target="_blank" rel="noopener">openai.com/api ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Apple Event & OLED MacBook Pro -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/117460" target="_blank" rel="noopener">Apple 确认将于 10 月末举办特别技术沟通会：预热搭载 OLED 触控面板的 MacBook Pro 与新一代 M5 算力矩阵</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      苹果公司正式向各大科技媒体与开发者社区发出 10 月下旬特别发布会邀请函。供应链与业界分析普遍指向搭载全新 OLED 屏下触控传感器与微曲率边框的下一代 MacBook Pro 系列。新机型预计将搭载基于台积电次世代 2nm 制程打造的 M5 芯片家族，其端侧神经网络引擎算力预计将迎来翻倍跃升，专为运行本地 70B 级别大语言模型与多模态视觉智能体深度优化，展现了 Mac 产品线作为 AI 开发者终极生产力设备的全新定义。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 / 彭博社</span>
+      <a class="source-link" href="https://sspai.com/post/117460" target="_blank" rel="noopener">sspai.com ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Security Audit Skill -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">开源团队发布智能体代码审查标准技能包 Security Audit Skill：全面赋能开源项目 PR 自动形式化审计</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      安全团队与开源极客联合开源了符合 AAIF 规范的 Security Audit Skill。该技能包能够即插即用地挂载到 Claude Code、Cursor 等支持标准扩展协议的智能体环境中。在开发人员拉取 GitHub PR 或提交代码时，智能体会自主执行多阶段安全扫描：涵盖针对依赖供应链的投毒排查、内存安全边界越界推演、以及隐藏鉴权旁路测试，以远超传统静态扫描工具的语义推理深度将高危逻辑漏洞拦截在进入主干分支之前。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势</span>
+      <a class="source-link" href="https://github.com/cloudflare/security-audit-skill" target="_blank" rel="noopener">github.com/cloudflare/security-audit-skill ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. DirCast -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.31734" target="_blank" rel="noopener">Hugging Face 论文库首发流式音视频大模型实时解说系统 DirCast：以单阶段架构实现电竞赛事无延迟自主导播</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      来自顶尖多媒体科研机构的论文在 Hugging Face 论文库公布了全新流式视听多模态大模型 DirCast。以往电竞或体育直播的 AI 解说系统均采用串联多阶段架构，面临端到端延迟与语调脱节问题。DirCast 创新性地采用单一流式视频与语言联合大模型架构，输入实时 60 帧游戏画面流，模型即可在百毫秒内实时决定镜头推拉焦点并直接流式生成富有现场感的专业解说，展现了端到端多模态智能体在高实时场景下的惊人爆发力。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文库</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.31734" target="_blank" rel="noopener">huggingface.co/papers/2610.31734 ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. HoloBoxing -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.32909" target="_blank" rel="noopener">极客开源人形机器人单卡训练敏捷方案 HoloBoxing：仅需 7 分钟 GPU 强化学习即可掌握拳击搏击姿态</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      具身机器人极客团队在学术界与开源社区发布了令人瞩目的敏捷物理策略训练方案 HoloBoxing。过去让人形机器人学习高动态、对抗性极强的搏击动作需要耗费集群服务器数天的仿真模拟，而团队通过引入轻量全息姿态残差奖励函数与并行动力学环境，使得整个强化学习管线仅需在单块消费级显卡上训练 7 分钟，即可让人形机器人稳健学会防守摇摆、闪避与刺拳攻击，极大降低了具身运动控制算法的研究门槛。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文库</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.32909" target="_blank" rel="noopener">huggingface.co/papers/2610.32909 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. TinyBase Studio -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/tinybase-studio/tinybase-studio" target="_blank" rel="noopener">开发者打造极简轻量级端侧 SQLite 跨平台管理工具 TinyBase Studio：纯本地零遥测单二进制交付</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      面对主流数据库客户端日益臃肿、强制联网登录与过度占用内存的现状，独立开发者开源了纯本地单文件 SQLite 管理工具 TinyBase Studio。工具基于原生 Webview 与 Go 语言轻量运行时构建，打包体积不足 15MB，内存占用仅 30MB 左右。系统内置毫秒级全库模糊搜索、SQL 自动执行计划树可视化，并提供了专为智能体本地读写审计设计的只读沙盒模式与操作回放日志，成为极客与端侧开发者日常折腾数据的得力搭档。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势</span>
+      <a class="source-link" href="https://github.com/tinybase-studio/tinybase-studio" target="_blank" rel="noopener">github.com/tinybase-studio/tinybase-studio ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
