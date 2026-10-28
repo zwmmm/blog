@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-10-28 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-10-28 每日动态：Apple 正式发布搭载 M6 芯片的全新 14 英寸 MacBook Pro、Ghostty 1.4.0 首创 100% Kitty 图形协议全特性支持、Google DeepMind 发布原生多模态世界模型 Genie 4、DeepSeek 开源高性能生产级推理框架 DeepInfer、Liquid AI 推出 2B 轻量全模态基础模型家族 LFM3、开源项目 MacNativeGames 绕过模拟器直接在 Apple Silicon 原生运行主机游戏。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+  }
+  .tag {
+    font-size: 8.5pt;
+    color: var(--brand);
+    background: var(--tag-bg);
+    padding: 2px 8px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 9pt;
+    color: var(--stone);
+    border-top: 1px dashed var(--border-soft);
+    padding-top: 12px;
+  }
+
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 8.5pt;
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 9.5pt;
+    color: var(--stone);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .site-footer a {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    color: var(--brand);
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 48px 18px; }
+    .title { font-size: 18pt; }
+    .news-card { padding: 18px 20px; }
+    .news-title { font-size: 12.5pt; }
+    .news-header { flex-direction: column; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">DAILY NEWS · 2026-10-28</div>
+  <h1 class="title">每日技术与前沿精选</h1>
+  <div class="meta-bar">
+    <span>2026年10月28日</span>
+    <span>·</span>
+    <span>第 119 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Apple New 14-inch MacBook Pro with M6 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.apple.com/newsroom/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/" target="_blank" rel="noopener">Apple 正式发布搭载 M6 芯片的 14 英寸 MacBook Pro：双 16 核神经引擎与 170GB/s 带宽，全面升级端侧 AI 算力</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      苹果官网正式发布全新 14 英寸 MacBook Pro。新机搭载全新 M6 芯片，配备 12 核 CPU 与集成了单核神经加速器的 12 核 GPU，并搭载升级版双 16 核神经网络引擎，AI 工作负载较前代提升最高达 25%，相比 M1 提升高达 13 倍。统一内存带宽提升至 170GB/s，标配 16GB 起步并可配置至 32GB，电池续航突破 24 小时。结合 macOS 27 的 Siri AI 与系统级上下文理解能力，新一代 MacBook Pro 极大优化了本地大模型推理、代码编译直通与复杂智能体自动化任务的响应效率。
+    </p>
+    <div class="news-meta">
+      <span>信源：Apple Newsroom / 少数派</span>
+      <a class="source-link" href="https://www.apple.com/newsroom/2026/10/apple-introduces-the-new-14-inch-macbook-pro-with-m6/" target="_blank" rel="noopener">apple.com/newsroom ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Ghostty 1.4.0 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://ghostty.org/docs/install/release-notes/1-4-0" target="_blank" rel="noopener">Ghostty 1.4.0 正式发布：首创非 Kitty 终端 100% 完整图形协议支持，以 GPU 原生管线与极低内存开销重塑极客终端</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      经过 7 个月的开发与 172 位贡献者的 2,889 次提交，跨平台 GPU 加速终端模拟器 Ghostty 正式发布 1.4.0 里程碑版本。该版本不仅对核心渲染吞吐与常驻内存进行全面架构重构，更成为全球首个实现 100% Kitty 图形协议全特性支持的第三方终端，完整支持多帧动画与动态相对定位。此外，新版大幅修复了在极端终端转义序列下的内存安全与剪贴板注入漏洞，优化了 SSH 远程协议集成与状态机流控，为在 macOS 与 Linux 平台重度依赖终端智能体与命令行工作流的极客开发者提供了极致平滑与安全的底座。
+    </p>
+    <div class="news-meta">
+      <span>信源：Ghostty 官方发布说明 / Hacker News</span>
+      <a class="source-link" href="https://ghostty.org/docs/install/release-notes/1-4-0" target="_blank" rel="noopener">ghostty.org/docs/install/release-notes/1-4-0 ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Google DeepMind Genie 4 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/" target="_blank" rel="noopener">Google DeepMind 正式发布 Genie 4：原生多模态世界模拟模型，实现复杂交互场景中视听同步与物理连贯生成</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Google DeepMind 宣布推出全新一代世界模拟大模型 Genie 4。不同于传统仅聚焦画面采样的视频生成方案，Genie 4 采用原生多模态架构，将实时高保真物理世界仿真与音频、环境音效及角色交互对话进行同步联合生成。模型底层融合了 Gemini Omni 的真实世界视觉行为锚定与 Gemini 顶尖逻辑推理链，使模拟环境能够在长时间动态推演中严格保持因果律与空间连贯性。该突破不仅极大降低了机器人与自主智能体在极端物理环境下的仿真训练开销，更为下一代端侧互动交互产品提供了无限可扩展的动态世界引擎。
+    </p>
+    <div class="news-meta">
+      <span>信源：Google DeepMind 官方发布 / Hacker News</span>
+      <a class="source-link" href="https://deepmind.google/blog/genie-4-a-new-generation-of-world-simulation/" target="_blank" rel="noopener">deepmind.google/blog ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. DeepSeek DeepInfer -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/deepseek-ai/DeepInfer" target="_blank" rel="noopener">DeepSeek 开源生产级高性能推理框架 DeepInfer：全面开放 FlashMLA 算子与 DSpark 动态推测解码</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      支撑 DeepSeek 大规模线上核心服务的高性能推理框架 DeepInfer 正式开源，首发支持 DeepSeek-V4.1-Flash 大模型的大规模私有化集群与离线部署。该框架全面集成了 FlashMLA、DeepGEMM、DeepEP 等底层自研高性能算子，并创新性地引入 DSpark 置信度调度推测解码算法与局部窗口滑动重放技术，大幅压缩了注意力机制与长上下文预填充开销。配合零开销异步批处理调度器、确定性采样与严格结构化输出能力，开发者与企业团队能够在私有算力节点上获得与官方生产环境完全一致的超高吞吐推理体验。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势 / DeepSeek 官方开源</span>
+      <a class="source-link" href="https://github.com/deepseek-ai/DeepInfer" target="_blank" rel="noopener">github.com/deepseek-ai/DeepInfer ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Liquid AI LFM3 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.liquid.ai/blog/lfm3" target="_blank" rel="noopener">Liquid AI 正式推出 LFM3 开源全模态模型家族：以 2B 轻量级非 Transformer 架构重塑端侧极速跨模态智能</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      前沿 AI 初创机构 Liquid AI 正式发布并开源全新 LFM3 基础模型家族。LFM3 围绕 2B 级极致紧凑参数规模构建，针对非纯 Transformer 动态系统架构进行硬件级调优，涵盖文本、视觉、音频、全模态语音交互以及智能体自主决策五大专用子模型。得益于极小的显存足迹与恒定推理延迟，LFM3 系列能够直接在个人 Mac、移动设备与低功耗边缘硬件上离线运行并支持轻量微调，为构建私有化端侧随身智能体与快速本地响应系统提供了高能效替代方案。
+    </p>
+    <div class="news-meta">
+      <span>信源：Liquid AI 官方博客 / Hacker News</span>
+      <a class="source-link" href="https://www.liquid.ai/blog/lfm3" target="_blank" rel="noopener">liquid.ai/blog ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. MacNativeGames -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/ly05010419/MacNativeGames" target="_blank" rel="noopener">开源项目 MacNativeGames 登顶极客热榜：免去传统模拟器中间层，在 Apple Silicon 上直接执行原生 ARM64 游戏指令</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      极客开发者在 GitHub 开源突破性项目 MacNativeGames 并迅速收获超 6,000 颗星标。该项目摒弃了传统模拟器必须通过即时编译或指令集翻译运行主机游戏的繁重损耗，直接利用 Apple Silicon 与任天堂 Switch 相同的 ARM64 架构底层，让编译后的机器码直接在 M 系列芯片上原生执行，并将专有图形接口 NVN 在底层以纯 Metal 重构映射。这一架构创新不仅消除了转译开销与显存卡顿，更证实了在统一架构芯片生态下，跨平台原生运行主机级大作的轻量化可能。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势 / 极客生态</span>
+      <a class="source-link" href="https://github.com/ly05010419/MacNativeGames" target="_blank" rel="noopener">github.com/ly05010419/MacNativeGames ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
