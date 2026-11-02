@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-02 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-02 每日动态：Andrej Karpathy 推出极客视频索引 HackerTube 与社区衍生 HackerBooks、Hugging Face 论文实测 MCP 与 CLI 智能体接口差异、Cursor 市场曝仿冒 Claude Code 恶意插件与供应链风险、开发者开源纯 Rust 语义差异比对工具 OmniDiff、Apple 智能中国区落地路线架构明确、独立开发者开源 tvOS 美学电视桌面 Aerial TV。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-02</h1>
+  <div class="meta-bar">
+    <span>2026年11月2日</span>
+    <span>·</span>
+    <span>第 121 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Karpathy HackerTube & HackerBooks -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://hackertube.org/" target="_blank" rel="noopener">Andrej Karpathy 推出极客视频索引 HackerTube：自近四万条历史热帖提取高质量视音频，社区以 Claude 极速衍生 HackerBooks</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      知名学者与独立开发者 Andrej Karpathy 正式发布实验性项目 HackerTube。该项目系统性挖掘了 Hacker News 自 2007 年至今近 4 万条高赞讨论中提及的 6,454 部核心技术演讲与学术视频，彻底剔除算法推荐噪音，按极客真实推荐权重构建纯净视频索引。受此启发，社区独立开发者使用 Claude 智能体在数小时内将该工程范式平移至书籍领域，自动解析生成包含 16,500 本经典著作书单的 HackerBooks，直观呈现了高智能体辅助下个人极客开发落地全栈数据产品的极高效率。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News / Karpathy 个人项目</span>
+      <a class="source-link" href="https://hackertube.org/" target="_blank" rel="noopener">hackertube.org ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Hugging Face Paper MCP vs CLI -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2610.34298" target="_blank" rel="noopener">Hugging Face 论文实测 MCP 与 CLI 智能体接口差异：等价语义能力下引发 94% 执行轨迹发散，DART 机制显著降本提效</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 每日论文榜单收录前沿研究《Matched Capabilities, Different Behaviors: A Controlled Study of MCP and CLI Interfaces for Language Agents》。研究团队针对模型上下文协议（MCP）与命令行（CLI）两种主流智能体工具交互范式，跨 6 大基座模型与 3 类真实复杂交互环境展开受控实验。实测表明，在语义操作完全对齐的前提下，因接口呈现与反馈结构不同，智能体在 94.3% 的执行轨迹中出现显著行为发散。团队提出的 MICA 评测框架与 DART 解耦动作修复机制，使基准评分最高提升 9.0 分，同时将单任务 MCP Token 消耗最高削减 27.1k，证实接口呈现本身已构成智能体闭环决策的核心环境约束。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文库</span>
+      <a class="source-link" href="https://huggingface.co/papers/2610.34298" target="_blank" rel="noopener">huggingface.co/papers/2610.34298 ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Cursor Fake Claude Code Extension Backdoor -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://thehackernews.com/2026/10/claude-code-extension-backdoor.html" target="_blank" rel="noopener">Cursor 扩展市场曝仿冒 Claude Code 恶意后门插件：轻量 JavaScript 注入诱发反向 SSH 隧道，警惕 AI 编程供应链投毒</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对近期开发者在各类编辑器中频繁使用自动化编程工具的现状，安全社区披露 Cursor 扩展市场中出现冒用官方命名的高仿木马扩展。攻击者在插件内部仅注入 66 行经过混淆的轻量级 JavaScript 代码，悄然将攻击者公钥写入本地工作站凭据并建立持久化反向 SSH 隧道，隐蔽劫持开发者主机权限与 API 密钥。安全机构提醒，随着 AI 编程智能体由单纯的代码补全演进为具备本地终端执行权限的自主系统，针对智能体依赖环境与编辑器插件的供应链投毒已成为全新高危攻击面。
+    </p>
+    <div class="news-meta">
+      <span>信源：The Hacker News / 安全预警</span>
+      <a class="source-link" href="https://thehackernews.com/2026/10/claude-code-extension-backdoor.html" target="_blank" rel="noopener">thehackernews.com ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. OmniDiff in Rust -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/ivankovic/omnidiff" target="_blank" rel="noopener">开发者开源纯 Rust 语义差异比对工具 OmniDiff：基于抽象语法树与 Ratatui，毫秒级过滤排版格式干扰</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对大型工程重构与 AI 批量生成代码时原生 git diff 缺乏语法语义、被大段无意义缩进与重排空格淹没的开发痛点，开发者 ivankovic 采用 Rust 从零构建并开源了内容感知差异比对神器 OmniDiff 并登上 GitHub 趋势榜。OmniDiff 深度结合抽象语法树（AST）分析与轻量 Ratatui 终端交互界面，能够毫秒级智能区分纯粹的代码移动、变量重命名与实质逻辑变更，无缝对接 Git 工作流与代码审查流水线，极大降低了研发人员与智能体校验代码变动时的视觉负担。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势 / Hacker News</span>
+      <a class="source-link" href="https://github.com/ivankovic/omnidiff" target="_blank" rel="noopener">github.com/ivankovic/omnidiff ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Apple Intelligence China Architecture -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/117953" target="_blank" rel="noopener">Apple 智能中国区落地路线架构明确：端侧轻量模型结合私有云计算，全速推进 macOS 与 iOS 原生系统级 AI 落地</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      随着下一代系统测试版持续迭代，针对中国大陆市场的 Apple 智能架构方案全面清晰化。苹果采用端云解耦的双轨协同设计：13B 以下轻量基础模型由 A18/A19/A20 及 M 系列芯片的 Apple 神经网络引擎（NPE）实现 100% 本地端侧驻留与毫秒级推理，深度贯穿写作工具、原生相册语义搜索与通知降噪摘要；而跨应用复杂任务与多模态深层意图理解则经由国内合规部署的私有云计算（Private Cloud Compute）架构处理，全链路确保数据不被留存与训练，为苹果生态用户带来高一致性且兼具严苛隐私边界的原生系统级体验。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 / 苹果技术生态</span>
+      <a class="source-link" href="https://sspai.com/post/117953" target="_blank" rel="noopener">sspai.com/post/117953 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Aerial TV -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/pengchujin/aerial-tv" target="_blank" rel="noopener">独立开发者开源 tvOS 极简美学电视桌面 Aerial TV：纯原生 Kotlin 架构，零广告与 4K 动态空中屏保接管大屏</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      面对主流电视系统普遍存在的开机广告、杂乱信息流与繁琐交互，独立开发者 pengchujin 采用纯原生 Kotlin 打造并开源了电视桌面 Aerial TV，发布后迅速斩获超 8,600 Star。项目完美复刻了 Apple tvOS 标志性的极简玻璃拟态质感、流畅焦点过渡与精选 4K 动态空中屏保，支持开机自动接管第三方原生电视桌面，彻底剔除任何遥测与商业推广代码。Aerial TV 不仅为追求 Apple 原生美学的极客家庭重塑了客厅体验，也成为移动与大屏领域独立开发的典范案例。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源热榜 / 少数派社区</span>
+      <a class="source-link" href="https://github.com/pengchujin/aerial-tv" target="_blank" rel="noopener">github.com/pengchujin/aerial-tv ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
