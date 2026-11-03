@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-03 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-03 每日动态：Anthropic 推出 Messages API 消息线程降低智能体延迟 35%、OpenAI 披露单体代码库分布式后端 Pando 支撑大规模并发、Hacker News 热议大模型无需梯度直接读写权重的权重空间编程、macOS 老牌截图工具 Xnip 十周年重写滚动算法并新增本地 OCR、开发者开源纯 Rust 现代 IDE 项目 openidea、开源项目 huashu-mac-use 基于 Agent Skills 实现智能体零干扰操控 macOS 原生应用。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-03</h1>
+  <div class="meta-bar">
+    <span>2026年11月3日</span>
+    <span>·</span>
+    <span>第 122 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Anthropic Message Threads -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://claude.com/resources/articles/message-threads" target="_blank" rel="noopener">Anthropic 推出消息线程（Message Threads）：首字生成延迟降低 35%，专为 Claude Code 与长时间运行智能体优化</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对长时间运行的编程智能体在多轮交互中频繁重发完整历史导致延迟陡增的痛点，Anthropic 正式在 Messages API 中推出“消息线程”（Message Threads）公开测试版。在该机制下，智能体无需在每一轮请求中重复上传全部历史对话与工具执行结果，仅需提交增量内容与前前回调 ID。在 50 万至 100 万 Token 的长上下文测试中，首字生成时间（TTFT）中位数降低约 35%。该特性已在 Claude Code 中默认开启，并通过端到端加密内存缓存保障数据隔离，不仅大幅降低长程开发交互延迟，更彻底免去了“计算机使用”（Computer Use）多模态智能体重复回传大尺寸屏幕截图的开销。
+    </p>
+    <div class="news-meta">
+      <span>信源：Anthropic 官方资源 / Messages API 文档</span>
+      <a class="source-link" href="https://claude.com/resources/articles/message-threads" target="_blank" rel="noopener">claude.com/resources/articles/message-threads ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. OpenAI Scaling Git (Pando) -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://openai.com/index/scaling-git-at-openai/" target="_blank" rel="noopener">OpenAI 披露单体代码库后端 Pando：每日吞吐近 1PB，推送延迟降低 5 倍以支撑智能体超大规模并发编程</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      随着 Codex 驱动的多智能体自动化编程与研发人员高频并发提交的爆发式增长，OpenAI 单体代码库（monorepo）的原生版本控制系统逼近吞吐极限。为此，OpenAI 架构团队自主研发并上线了全新分布式 Git 仓库后端系统 Pando。Pando 在完全保持 Git 协议与现有客户端操作透明兼容的前提下，针对多分支并发推送与大吞吐拉取进行了横向扩展架构重构。在生产环境中，Pando 将推送操作的中位数延迟缩减近 5 倍，每日承载近 1PB 的 Git 数据吞吐，为大规模多智能体并发协作编写与合并代码提供了坚实的工程基座。
+    </p>
+    <div class="news-meta">
+      <span>信源：OpenAI 官方工程博客</span>
+      <a class="source-link" href="https://openai.com/index/scaling-git-at-openai/" target="_blank" rel="noopener">openai.com/index/scaling-git-at-openai ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Sparks of Weight-Space Programming -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://rikiyat.github.io/blog/weight-space-programming/" target="_blank" rel="noopener">研究团队提出“权重空间编程”范式：大模型可免梯度直接读写神经网络权重，修复 Qwen 缺陷使数学推理翻倍</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      在 Hacker News 引发全网极客热议的前沿研究《Sparks of Weight-Space Programming》指出，前沿大语言模型已具备直接读写与推理神经网络权重的先验能力。在完全不借助梯度反向传播与环境反馈的前提下，模型仅通过解析 1.7 万个原始权重即可推断训练任务目标。实验中，GPT-6 Astra 针对 Qwen3.5-0.8B 模型卡片所警示的推理循环死锁缺陷，直接在参数空间中精准定位并改写了 0.016% 的特定权重。在保持相同采样超参的评测下，这一无需训练循环的权重编辑使模型在 MATH-500 上的得分从 7.9% 跃升至 48.1%，指令遵循能力（IFEval）提升 3 倍，证实了“由大模型直接推理并手术式修正参数”的全新优化范式。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News 榜首 / Rikiya Takehi 研究博客</span>
+      <a class="source-link" href="https://rikiyat.github.io/blog/weight-space-programming/" target="_blank" rel="noopener">rikiyat.github.io/blog/weight-space-programming ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Xnip 10th Anniversary -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/115662" target="_blank" rel="noopener">macOS 老牌长截图工具 Xnip 迎来十周年重构：重写滚动拼接核心算法，新增离线隐私 OCR 引擎</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      作为 macOS 平台上备受极客青睐的长截图效率利器，Xnip 在十周年之际发布重大版本重构。针对以往在动态网页、代码编辑器以及复杂聊天界面中滚动截屏容易中断错位的技术痛点，新版彻底重写了底层滚动截图与图像拼接算法，大幅增强了抗干扰能力与边缘重合精度。与此同时，新版新增基于本地神经引擎的离线 OCR 文本识别功能，框选区域即可按键一键提取文字，全流程零数据上传，兼顾极速响应与隐私安全。此外，团队重构了多窗口阴影截取与贴图置顶流程，并正式公布了 iOS 版本的研发规划。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派专栏 / 开发者公告</span>
+      <a class="source-link" href="https://sspai.com/post/115662" target="_blank" rel="noopener">sspai.com/post/115662 ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. openidea in Rust -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/l0ng-ai/openidea" target="_blank" rel="noopener">开发者开源纯 Rust 现代 IDE 项目 openidea：复刻 IntelliJ 键位与工具流，原生秒级冷启并支持 60 余种语言</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对传统重型 IDE 普遍存在的内存占用高、JVM 或渲染进程冷启动慢等痛点，开源团队使用纯 Rust 从零构建并开源了现代原生桌面集成开发环境 openidea，迅速在 GitHub 斩获超 5,000 Star。项目完整复刻了 IntelliJ IDEA 经典的键位映射、双击 Shift 全局检索与工具窗口布局，深度内嵌了代码高亮、原生调试器、Git 流水线、轻量终端以及 HTTP 与数据库客户端，开箱即支持 60 余种主流编程语言。得益于纯 Rust 的零成本抽象与轻量 GUI 渲染管线，openidea 兼具极低的常驻资源开销与毫秒级即时响应，为追求原生极简手感的开发者带来全新选择。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势榜</span>
+      <a class="source-link" href="https://github.com/l0ng-ai/openidea" target="_blank" rel="noopener">github.com/l0ng-ai/openidea ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. huashu-mac-use -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/alchaincyf/huashu-mac-use" target="_blank" rel="noopener">开发者开源 huashu-mac-use：基于 Agent Skills 协议让智能体零干扰操控 macOS 无 API 原生应用</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      开源开发者发布了面向 macOS 平台的计算机使用技能组件 huashu-mac-use。该方案遵循开放的 Agent Skills 标准规范，支持无缝接入 Claude Code、Codex、Cursor、Kimi Code 等主流智能体运行时。面对大量 macOS 原生桌面软件缺乏开放 API 的现实限制，huashu-mac-use 深度挖掘系统的辅助功能树与无焦点后台捕获机制，践行“后台静默读取、无焦点打扰写入、执行链路全程取证”的交互哲学。智能体无需强行剥夺前台鼠标焦点，即可自动化驱动 Blender 3D 建模渲染、剪映多媒体制作以及系统原生首选项管理，大幅拓展了智能体在 Apple 桌面生态的实际落地场景。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源项目 / Agent Skills 社区</span>
+      <a class="source-link" href="https://github.com/alchaincyf/huashu-mac-use" target="_blank" rel="noopener">github.com/alchaincyf/huashu-mac-use ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
