@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-04 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-04 每日动态：Postman 桌面端静默植入智能体挂钩与插件引安全争议、DeepSeek 开源自研自主编程智能体原型 dsh-superagent、spaCy 创始人 Matthew Honnibal 撰文辨析权重空间编程去魅参数读写神话、WebKit 官方发布 Safari 27.3 自适应暗黑模式、Namespace 披露机房机架化部署 MacBook 集群方案支撑智能体环境、开源多模态深度研究智能体 DR Pixel 全页面视觉检索终结 OCR 损耗。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-04</h1>
+  <div class="meta-bar">
+    <span>2026年11月4日</span>
+    <span>·</span>
+    <span>第 123 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Postman AI Hooks Issue -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/postmanlabs/postman-app-support/issues/14370" target="_blank" rel="noopener">Postman 桌面端静默植入 Codex 与 Claude 插件：尝试自动批准启动指令挂钩与 MCP 路由引发安全信任危机</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      在 Hacker News 引发全网千赞热议的重大安全事件中，开发者发现最新版 Postman 桌面客户端在 Mac 与 Windows 环境下，未经用户明确授权即静默向宿主机注入了一系列 AI 智能体组件。其中包括系统全局级别的 Postman 插件、指令启动挂钩（startup instruction hook）、远程 MCP 协议连接、Claude Code 插件以及独立的 Postman CLI。更严重的是，该安装流程甚至尝试绕过提示、自动批准自身的启动指令信任，导致本地 Codex 与 Claude Code 的 API 请求被强制重定向至 Postman skills。该行为迅速在企业安全团队与开源社区引发强烈反弹，开发者提交严重级别 Issue 痛批其越权篡改本地编程智能体配置，再次敲响了 AI 智能体生态中插件供应链与宿主隔离安全的警钟。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 官方 Issue / Hacker News 热榜第一</span>
+      <a class="source-link" href="https://github.com/postmanlabs/postman-app-support/issues/14370" target="_blank" rel="noopener">github.com/postmanlabs/postman-app-support/issues/14370 ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. DeepSeek dsh-superagent -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/deepseek-ai/dsh-superagent-prototype" target="_blank" rel="noopener">DeepSeek 开源自主编程智能体原型 dsh-superagent：遵循“最小化人类注意力消耗”哲学接管 GitHub 仓库协作</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      DeepSeek 研发团队正式开源了其内部自主编程智能体原型项目 dsh-superagent，迅速在 GitHub 斩获超 1.6 万 Star。该项目基于 DeepSeek Harness 运行时打造，核心践行“以尽可能少的人类注意力消耗换取最大工程价值”的交互哲学。智能体可主动常驻监听 GitHub 仓库事件（并可选接入飞书协同），当获得明确指令或团队预设规则触发时，自主在独立会话工作区中拉取分支、定位问题、编写代码并回传 Pull Request，且仅在必须人工裁决时通过 Web 看板唤起人类介入。项目展示了高自主度智能体在真实软件工程流水线中的落地范式，为研发团队编排全自主 AI 开发者提供了生产级参考。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源项目 / DeepSeek 研发团队</span>
+      <a class="source-link" href="https://github.com/deepseek-ai/dsh-superagent-prototype" target="_blank" rel="noopener">github.com/deepseek-ai/dsh-superagent-prototype ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Honnibal Weight-Space Debunk -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://honnibal.dev/blog/astra-read-write-misleading" target="_blank" rel="noopener">spaCy 创始人深度长文辨析“权重空间编程”：大模型并未神化，原始权重读写依赖提示词先验与脚本生成</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对昨日引发热议的《Sparks of Weight-Space Programming》（宣称大模型无需梯度与执行即可直接读写神经网络权重并修复 Qwen 缺陷），spaCy 创始人 Matthew Honnibal 发表了题为《The 'Astra can read and write weights to improve Qwen' post is misleading》的深度辨析长文，迅速冲上 Hacker News 榜单前列。文章通过解构魔术表演的比喻切入，揭示实验并未证明模型真正具备免执行理解原始浮点参数的玄学能力：在修复 Qwen3.5 数学缺陷的实验中，模型并非直接“看”权重找出死锁，而是在提示词中被直接告知了已知缺陷现象，并由模型生成外部 Python 脚本来完成针对性参数补丁写入。Simon Willison 等资深开发者亦同步复现验证，指出这项研究本质上是代码生成与元编程的巧妙结合，为全网过热的“参数空间直觉”神话进行了清醒去魅。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News 高热榜 / Honnibal 个人技术博客</span>
+      <a class="source-link" href="https://honnibal.dev/blog/astra-read-write-misleading" target="_blank" rel="noopener">honnibal.dev/blog/astra-read-write-misleading ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. WebKit Adaptive Dark Mode -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://webkit.org/blog/18541/introducing-adaptive-dark-mode/" target="_blank" rel="noopener">WebKit 官方发布 Safari 27.3 自适应暗黑模式：非侵入式算法填补全网 90% 浅色网页体验断层</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      WebKit 官方技术团队在 Safari 27.3 Beta 中正式发布了全新的“自适应暗黑模式”（Adaptive Dark Mode）。数据显示，尽管已有近 40% 的 Web 访问量来自常驻深色模式的用户，但全网依然有高达 90% 的页面未原生提供暗黑适配。与以往简单粗暴的整体滤镜反色不同，Safari 引入了非侵入式智能色彩评估引擎：对通过 color-scheme 显式声明支持暗黑的站点保持零干预；对其余大量浅色网页，则在渲染树层级极速测算背景与文字对比度，针对性实施自适应调色重绘，在消除夜晚刺眼白光的同时最大程度保留原始版式层级，为 Apple 生态与 Web 前端开发者带来了兼具优雅与包容的夜间浏览方案。
+    </p>
+    <div class="news-meta">
+      <span>信源：WebKit 官方技术博客 / Apple WebKit 团队</span>
+      <a class="source-link" href="https://webkit.org/blog/18541/introducing-adaptive-dark-mode/" target="_blank" rel="noopener">webkit.org/blog/18541/introducing-adaptive-dark-mode/ ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Namespace Mac at Any Scale -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://namespace.so/blog/mac-at-any-scale" target="_blank" rel="noopener">Namespace 披露机房机架化部署 MacBook 集群：以秒级冷启与苹果虚拟化框架支撑大规模 macOS 智能体构建</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      云基础设施服务商 Namespace 在官方技术博客深度披露了其在现代数据中心大规模部署 MacBook Pro 机架的工程实现内幕《Mac at any scale》。面对 iOS 应用构建必须依赖 Xcode 与苹果模拟器、且越来越多的自动化编码智能体需要真实 macOS 环境的现实刚需，团队定制了高密度笔记本机架与专门的风道散热架构。在系统软件层，团队基于 Apple Virtualization 框架从零构建了轻量虚拟化底座，实现了 macOS 实例在云端的数秒级瞬时冷启动，并设计了跨集群高效分发超大镜像文件的专属传输协议，在新版 Xcode 发布数小时内即可全网推平，为解决苹果原生生态下的大规模并发持续集成与智能体算力瓶颈提供了标杆级方案。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News 极客热帖 / Namespace 工程博客</span>
+      <a class="source-link" href="https://namespace.so/blog/mac-at-any-scale" target="_blank" rel="noopener">namespace.so/blog/mac-at-any-scale ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. DR Pixel Hugging Face Paper -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.03097" target="_blank" rel="noopener">开源多模态深度研究智能体 DR Pixel：全页面视觉图像检索推理终结传统 OCR 结构信息损耗</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对科学论文与复杂财报中图表、公式、分栏等关键排版在传统 OCR 文本提取后严重丢失的行业困境，研究团队开源了首个全端到端的多模态深度研究智能体 DR Pixel，并在 Hugging Face 发布了百万级页面基准测试集 DRPixelBench。DR Pixel 彻底摒弃了先 OCR 纯文本再检索的传统范式，直接以渲染后的完整高保真页面图像作为唯一步长的检索与推理单元。配合团队提出的“反事实信用重分配”（Counterfactual Credit Reweighting）微调技术，有效过滤智能体在长程探索中的冗余尝试。在未调优与调优评测中，DR Pixel 在 GPT-5.4 与 Qwen3.6-27B 上的检索召回率提升约 15 点，任务准确率提升超 10 点，证明直接基于视觉语义理解是下一代深度研究智能体的更优路径。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 每日论文 / DRPixel 团队</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.03097" target="_blank" rel="noopener">huggingface.co/papers/2611.03097 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
