@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-05 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-05 每日动态：Cognition 正式发布 SWE-2 Flash 智能体模型大幅提效软件工程、月之暗面开源 Kimi K3.1 Pro 万亿级原生多模态智能体权重、Ricursive Intelligence 发布 12T 开源基座模型 Ripple-65B 登顶终端操控榜、Go 语言团队正式发布实验性 JSON v2 规范打破十五年性能瓶颈、Tw93 深度复盘 AI 时代客户端架构演进与人机协同编程实践、Hugging Face 精选论文揭示注意力竞争是长文本上下文衰减根源。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-05</h1>
+  <div class="meta-bar">
+    <span>2026年11月5日</span>
+    <span>·</span>
+    <span>第 124 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Cognition SWE-2 Flash -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://cognition.com/blog/swe-2-flash" target="_blank" rel="noopener">Cognition 发布 SWE-2 Flash 智能体模型：以五分之一成本与三倍速度加速软件工程，中训架构大幅强化代码安全</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Devin 背后的研发团队 Cognition 正式发布了专为软件工程智能体打造的新模型 SWE-2 Flash。该模型相较前代 SWE-2 速度提升 3 倍，推理成本仅为其五分之一。SWE-2 Flash 基于 Inkling-Small 底座（总参数 276B，激活仅 12B 的 MoE 架构），并在大规模经过代码审计、终端交互与测试用例验证的真实工程轨迹上展开了端到端强化学习。在 ExploitBench 安全基准测试中，该模型的安全补丁防护成功率从 11.3% 跃升至 34.8%。目前 SWE-2 Flash 已全面上线 Devin Desktop 与 CLI 客户端，并在 11 月 30 日前面向全体用户免费开放使用，大幅降低了长程自主编程智能体的落地门槛。
+    </p>
+    <div class="news-meta">
+      <span>信源：Cognition 官方博客 / Devin 研发团队</span>
+      <a class="source-link" href="https://cognition.com/blog/swe-2-flash" target="_blank" rel="noopener">cognition.com/blog/swe-2-flash ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Moonshot AI Kimi K3.1 Pro -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/moonshotai/Kimi-K3.1-Pro" target="_blank" rel="noopener">月之暗面重磅开源 Kimi K3.1 Pro 原生多模态权重：万亿参数与百万上下文，联合强化学习赋能复杂智能体工作流</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      月之暗面（Moonshot AI）正式在 Hugging Face 与官网开源其旗舰多模态智能体模型 Kimi K3.1 Pro 权重。K3.1 Pro 采用万亿级（3T）参数架构，支持高达 100 万 Token 的超长上下文窗口，并在数百个垂直领域落地了全流程联合强化学习。该模型原生打通了跨模态感知、3D 空间创意建模与自主终端代码工具链调用。在前端应用构建、复杂金融财报长程逻辑推理与多智能体系统协同等场景中，K3.1 Pro 的表现已对标全球顶级闭源旗舰。此次权重开源不仅提供完整推理脚本与部署量化支持，更为开源社区提供了构建生产级多模态自主智能体的强悍底座。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 开源权重 / 月之暗面 Moonshot AI</span>
+      <a class="source-link" href="https://huggingface.co/moonshotai/Kimi-K3.1-Pro" target="_blank" rel="noopener">huggingface.co/moonshotai/Kimi-K3.1-Pro ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Ricursive Intelligence Ripple-65B Preview -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/ricursiveAI/Ripple-65B-Preview" target="_blank" rel="noopener">Ricursive Intelligence 开源 12T 预训练模型 Ripple-65B Preview：陡峭上升强化学习以十分之一研发成本斩获终端评测第一</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Ricursive Intelligence 正式发布开源前沿模型 Ripple-65B Preview 并在 Hacker News 引发热烈讨论。该模型从零开始在 12 万亿 Token 高质量数据上完成预训练，原生支持 100 万 Token 动态上下文。在考察终端环境探索与真实操作系统操控能力的 TerminalBench 2.1 权威基准测试中，Ripple-65B 取得 80.52 分的高分，位居全球开源权重第一。团队通过自研的“陡峭上升强化学习”（Steep Ascent RL）算法，仅耗费 140 万次轨迹展开（比同类方案少 70 倍），将全流程总研发预算压缩至 3200 万美元（仅为传统前沿模型成本的十分之一），展示了小团队凭借精准强化学习算法在开源代码智能体赛道实现技术突围的全新路径。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News 极客热帖 / Ricursive 官方技术发布</span>
+      <a class="source-link" href="https://huggingface.co/ricursiveAI/Ripple-65B-Preview" target="_blank" rel="noopener">huggingface.co/ricursiveAI/Ripple-65B-Preview ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Go Team JSON v2 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://go.dev/blog/jsonv2" target="_blank" rel="noopener">Go 语言团队正式发布实验性 JSON v2 规范：零内存分配流式解析与解耦架构打破十五年底层性能瓶颈</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Go 语言官方团队在技术博客正式发表《JSON v2 Specification》，公开了酝酿已久的全新标准库模块 encoding/json/v2 规范与实验性原型。自 Go 1.0 诞生至今十五年来，标准库原有 JSON 实现因过度依赖全局缓存、反射开销大、缺乏流式零分配机制以及错误处理不透明等痛点长期困扰高吞吐后端与智能体数据序列化。全新的 JSON v2 彻底解耦了底层分词解析器与高层序列化逻辑，提供零内存分配的流式编码解码器，支持细粒度自定义 Marshaler 选项，并在保持对经典 API 语义向后兼容的同时，将数据处理吞吐与序列化速度提升数倍，为云原生高并发服务与智能体工具数据流提供了坚实的性能基础。
+    </p>
+    <div class="news-meta">
+      <span>信源：Go 官方技术博客 / Google Go 团队</span>
+      <a class="source-link" href="https://go.dev/blog/jsonv2" target="_blank" rel="noopener">go.dev/blog/jsonv2 ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Tw93 Client-Side Architecture -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/117713" target="_blank" rel="noopener">Tw93 深度复盘 AI 时代客户端架构演进：原生 Swift 体验、跨平台取舍与人机协同编程实践</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      知名开源开发者、Kami 羊皮纸设计系统与 Raycast 精品扩展作者 Tw93 在少数派发表深度长文，系统梳理了 AI 编程浪潮冲击下现代客户端软件的工程演进路径。文章深入探讨了在 macOS 与 Apple 生态中坚持纯原生 Swift/AppKit 开发所带来的确定性优势，包括丝滑流畅的交互触感、极低的常驻内存占用与无缝系统级暗黑/窗口管理适配；同时剖析了跨平台技术栈与原生架构在不同产品形态中的边界取舍。文章还结合实际项目复盘了当前 AI 编程智能体在工程重构、规范守卫与微调中的真实效能，强调人类开发者在架构抽象、审美直觉与用户心智打磨上不可替代的核心价值。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 SSPAI 官方专栏 / Tw93</span>
+      <a class="source-link" href="https://sspai.com/post/117713" target="_blank" rel="noopener">sspai.com/post/117713 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Hugging Face Daily Paper: Attention Competition -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.04169" target="_blank" rel="noopener">Hugging Face 每日论文揭示上下文衰减根源：注意力竞争而非单纯长度导致长文本智能体检索失真</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对长文本大模型在实际代码检索与多轮智能体调用中频现的“上下文腐烂”（Context Rot）现象，最新被 Hugging Face 收录的精选论文《Length Is Cheap, Competition Is Not: Attention Predicts Context Rot in Retrieval》（arXiv:2611.04169）通过严谨实验打破了既有认知。研究证实，上下文绝对长度本身并不是性能骤降的主因（填入无关噪音词时，模型在 32k 长度下仍能保持约 99% 的准确率）；真正的致命元凶是存在语义相近的竞争性干扰项，注意力分散指数能解释高达 58% 的性能下降方差。该发现为开发长文本智能体时的检索提示词构建、历史上下文剪枝策略以及代码库分块索引设计提供了极具实操价值的理论指导。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 每日论文 / arXiv:2611.04169</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.04169" target="_blank" rel="noopener">huggingface.co/papers/2611.04169 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
