@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-10 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-10 每日新闻：Anthropic 发布 Claude Fable 5.2 与 Mythos 5.2，Meta 发布 Muse Ember，Google 推出 TPU 8tx 与 8i Max，开源插件 Rewind for X 发布，Mac 应用登上 Hacker News。">
+<meta name="keywords" content="每日新闻, AI编程, 智能体, 大模型, Apple, 中推, 独立开发">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face { font-family: "TsangerJinKai02"; src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype"); font-weight: 400; font-style: normal; }
+  @font-face { font-family: "TsangerJinKai02"; src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype"); font-weight: 500; font-style: normal; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --parchment: #f5f4ed;
+    --ivory: #faf9f5;
+    --near-black: #141413;
+    --dark-warm: #3d3d3a;
+    --olive: #504e49;
+    --stone: #6b6a64;
+    --brand: #1B365D;
+    --border: #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg: #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+  html, body { background-color: var(--parchment); color: var(--near-black); font-family: var(--serif); font-size: 11pt; line-height: 1.55; letter-spacing: 0.3pt; }
+  body { max-width: 860px; margin: 0 auto; padding: 36px 32px 80px; }
+  .top-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; padding-bottom: 16px; border-bottom: 0.5px solid var(--border); font-size: 9.5pt; }
+  .back-link { color: var(--stone); text-decoration: none; }
+  .back-link:hover { color: var(--brand); text-decoration: underline; }
+  .site-title { color: var(--dark-warm); font-weight: 500; text-decoration: none; }
+  .header { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .eyebrow { font-size: 10pt; color: var(--brand); letter-spacing: 1.2pt; font-weight: 500; margin-bottom: 10px; }
+  .title { font-size: 24pt; font-weight: 500; line-height: 1.25; color: var(--near-black); margin-bottom: 12px; }
+  .meta-bar { display: flex; gap: 16px; font-size: 9.5pt; color: var(--stone); flex-wrap: wrap; align-items: center; }
+  .meta-tag { background: var(--tag-bg); color: var(--brand); padding: 2px 8px; border-radius: 3px; font-size: 8.5pt; }
+  .news-stream { display: flex; flex-direction: column; gap: 28px; }
+  .news-card { background: var(--ivory); border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .news-card:hover { border-color: var(--brand); box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05); }
+  .news-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 10px; flex-wrap: wrap; }
+  .news-title { font-size: 14pt; font-weight: 500; color: var(--near-black); line-height: 1.35; flex: 1; min-width: 240px; }
+  .news-title a { color: var(--near-black); text-decoration: none; }
+  .news-title a:hover { color: var(--brand); }
+  .tag-group { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { background: var(--tag-bg); color: var(--brand); font-size: 8.5pt; font-weight: 500; padding: 2px 8px; border-radius: 3px; font-family: var(--mono); }
+  .news-summary { font-size: 10.5pt; color: var(--dark-warm); line-height: 1.55; margin-bottom: 14px; text-align: justify; }
+  .news-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 8.5pt; color: var(--stone); padding-top: 12px; border-top: 0.5px dashed var(--border-soft); }
+  .source-link { color: var(--brand); text-decoration: none; font-family: var(--mono); overflow-wrap: anywhere; }
+  .source-link:hover { text-decoration: underline; }
+  .site-footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; font-size: 9pt; color: var(--stone); }
+  .site-footer a { color: var(--brand); text-decoration: none; }
+  .site-footer a:hover { text-decoration: underline; }
+  @media (max-width: 640px) { body { padding: 24px 18px 60px; } .title { font-size: 20pt; } .news-card { padding: 18px 20px; } }
+</style>
+</head>
+<body>
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-10</h1>
+  <div class="meta-bar"><span>2026年11月10日</span><span>·</span><span>第 125 期</span><span class="meta-tag">精选资讯</span><span>共 6 条前沿动态</span></div>
+</header>
+<main class="news-stream">
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title"><a href="https://www.anthropic.com/claude-fable-and-mythos-5-2" target="_blank" rel="noopener">Anthropic 发布 Claude Fable 5.2 与 Mythos 5.2，面向复杂编程与科研任务</a></h2>
+      <div class="tag-group"><span class="tag">AI编程</span><span class="tag">大模型</span></div>
+    </div>
+    <p class="news-summary">Anthropic 11 月 9 日发布两个基于同一底层模型的版本。Fable 5.2 面向普通用户开放，Mythos 5.2 则通过专项计划向符合条件的安全与生命科学机构提供。官方称，新版输出速度比 5.1 快最多 30%，标准 API 定价为每百万输入 Token 8 美元、输出 Token 40 美元。其公开评测中，Fable 5.2 在 FrontierCode 2.0 的最高得分为 49.1%。这些成绩来自厂商披露的测试条件，选型时仍需核算具体任务成本。</p>
+    <div class="news-meta"><span>信源：Anthropic 官方发布 · 11 月 9 日</span><a class="source-link" href="https://www.anthropic.com/claude-fable-and-mythos-5-2" target="_blank" rel="noopener">查看官方发布 ↗</a></div>
+  </article>
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title"><a href="https://research.meta.ai/blog/muse-ember" target="_blank" rel="noopener">Meta 发布 Muse Ember，瞄准智能体重复调用的轻量模型</a></h2>
+      <div class="tag-group"><span class="tag">智能体</span><span class="tag">大模型</span></div>
+    </div>
+    <p class="news-summary">Meta 11 月 9 日推出 Muse Ember，定位于工具调用、代码子任务、文档提取和任务路由。官方称模型支持 100 万 Token 上下文，已在 Meta Model API 上线，价格为每百万输入 Token 0.10 美元、输出 Token 0.50 美元。对于需要反复派发子任务的智能体，调用成本与延迟比单次极限成绩更值得关注；文中各项性能对比为 Meta 披露的评测结果。</p>
+    <div class="news-meta"><span>信源：Meta AI 官方博客 · 11 月 9 日</span><a class="source-link" href="https://research.meta.ai/blog/muse-ember" target="_blank" rel="noopener">查看官方发布 ↗</a></div>
+  </article>
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title"><a href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/" target="_blank" rel="noopener">Google 推出 TPU 8tx 与 8i Max，分别面向机密推理和超长上下文</a></h2>
+      <div class="tag-group"><span class="tag">智能体</span><span class="tag">大模型</span></div>
+    </div>
+    <p class="news-summary">Google 11 月 9 日为第八代 TPU 增加两套系统配置。8tx 着重保护处理敏感数据时的推理过程，8i Max 则面向大上下文与更高的机架算力密度。官方特别区分了芯片与系统：这次公布的是围绕现有芯片调整计算、网络、内存和安全能力的系统方案。对部署长程智能体的团队，硬件选择将进一步取决于上下文规模与数据保护要求。</p>
+    <div class="news-meta"><span>信源：Google 官方博客 · 11 月 9 日</span><a class="source-link" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/global-network/tpu-8i-max-and-8tx/" target="_blank" rel="noopener">查看官方发布 ↗</a></div>
+  </article>
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title"><a href="https://github.com/yetone/rewind-for-x" target="_blank" rel="noopener">开发者开源 Rewind for X，找回刷新后错过的首页帖子</a></h2>
+      <div class="tag-group"><span class="tag">中推</span><span class="tag">独立开发</span></div>
+    </div>
+    <p class="news-summary">开发者 yetone 11 月 9 日公开 Chrome 扩展 Rewind for X。它只记录用户实际浏览过的 X 首页帖子，提供关键词、媒体类型筛选和本地图片文字识别；仓库说明称数据保存在浏览器本地，最多 3000 条。目前 README 提供的是开发者模式安装步骤，想试用可先检查扩展权限和源码，再按仓库说明加载。</p>
+    <div class="news-meta"><span>信源：GitHub 项目仓库 · 11 月 9 日创建</span><a class="source-link" href="https://github.com/yetone/rewind-for-x" target="_blank" rel="noopener">github.com/yetone/rewind-for-x ↗</a></div>
+  </article>
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title"><a href="https://someonewashere.app/" target="_blank" rel="noopener">Mac 应用 Someone Was Here 登上 Hacker News，记录离开期间的设备使用</a></h2>
+      <div class="tag-group"><span class="tag">Apple</span><span class="tag">独立开发</span></div>
+    </div>
+    <p class="news-summary">这款 Mac 应用在 11 月 10 日晨间进入 Hacker News 首页。官网介绍，它会在用户离开期间拍摄使用 Mac 的人并向手机发送提醒，识别到设备主人时则保持安静。对经常把 Mac 留在共享空间的人，这是一个明确的使用场景；是否适合启用，应结合摄像头权限和身边人的隐私预期判断。</p>
+    <div class="news-meta"><span>信源：Hacker News 首页 / 应用官网 · 11 月 10 日</span><a class="source-link" href="https://someonewashere.app/" target="_blank" rel="noopener">someonewashere.app ↗</a></div>
+  </article>
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title"><a href="https://github.com/raiseCatError/meowdisplay" target="_blank" rel="noopener">MeowDisplay 在 Hacker News 展示用 iPhone、iPad 控制 Mac 的方案</a></h2>
+      <div class="tag-group"><span class="tag">Apple</span><span class="tag">独立开发</span></div>
+    </div>
+    <p class="news-summary">MeowDisplay 11 月 10 日晨间登上 Hacker News 首页。项目官网与 GitHub 仓库介绍，它允许在 iPhone、iPad 或另一台 Mac 上查看并操控 Mac，可选择完整桌面或单独窗口，并提供触控和键盘交互。项目开放源码，稳定版 2.0 实际发布于 11 月 2 日，本期记录的是今日社区热度，不把旧版更新写成今日首发。</p>
+    <div class="news-meta"><span>信源：Hacker News 首页 / GitHub 项目仓库 · 11 月 10 日</span><a class="source-link" href="https://github.com/raiseCatError/meowdisplay" target="_blank" rel="noopener">github.com/raiseCatError/meowdisplay ↗</a></div>
+  </article>
+</main>
+<footer class="site-footer"><span>思考与记录 · 每日新闻</span><a href="../index.html">返回首页</a></footer>
+</body>
+</html>
