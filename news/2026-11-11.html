@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-11 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-11 每日动态：DeepMind 正式发布 AlphaProof Code 深入 AArch64 机器码形式化验证 Signal 核心协议、Google 与微软等多家浏览器核心团队联合推出 Modern Web Guidance 规范 AI 编程智能体前端输出、macOS 录屏利器 Screen Studio 4.1 引入端侧隐私自动化遮罩、Hugging Face 精选论文 Infrathon 揭示长时程智能体自主优化 AI 基础设施规律、开源纠偏工具 unslop 帮助重塑工业级界面质感、中推社区沉淀 Claude Code 与 Cursor 双轨协同编程实践。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-11</h1>
+  <div class="meta-bar">
+    <span>2026年11月11日</span>
+    <span>·</span>
+    <span>第 126 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. DeepMind AlphaProof Code -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://deepmind.google/blog/introducing-alphaproof-code/" target="_blank" rel="noopener">Google DeepMind 正式发布 AlphaProof Code：数学形式化验证深入编译后 AArch64 机器码，4 周机检 650 万行 Lean 代码攻克 Signal 核心协议</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Google DeepMind 团队宣布在软件工程与密码学形式化验证领域取得里程碑突破，正式发布 AlphaProof Code 智能体框架。与以往仅验证抽象高层代码或数学规范的研究不同，该系统直接面向真实编译器生成的 AArch64 Linux ELF 二进制机器码，在无需人类编写具体证明代码的前提下，由多智能体协作生成了 650 万行经 Lean 严格内核机检的形式化证明。在为期 4 周的测试中，系统成功验证了 Signal 核心库 libsignal（v0.105.4）的抗量子 PQXDH 握手与双棘轮协议，为前向保密、认证与后妥协安全提供了不可撼动的数学定理级保障。
+    </p>
+    <div class="news-meta">
+      <span>信源：Google DeepMind 官方发布 / Hacker News 榜首</span>
+      <a class="source-link" href="https://deepmind.google/blog/introducing-alphaproof-code/" target="_blank" rel="noopener">deepmind.google/blog/introducing-alphaproof-code ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Google / MS / Mozilla / MDN Modern Web Guidance -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/GoogleChrome/modern-web-guidance" target="_blank" rel="noopener">Google、微软、Mozilla 与 MDN 联合发布 Modern Web Guidance：为 AI 编程智能体注入现代 Web 原生标准</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对 Cursor、Claude Code 等当下 AI 编程智能体在训练数据偏差下频繁生成 2019 年陈旧 JS 模式与繁琐第三方库的痛点，Google Chrome、Microsoft Edge、Mozilla Firefox 与 MDN 团队联合推出了 Modern Web Guidance 开源套件。该工具集将现代 Web 平台最佳实践、最新浏览器兼容性基准与标准原语直接打包为智能体可调用的 Skill 技能。通过一条终端命令，智能体便能在构建 Web 应用时优先采用 Popover API、原生 Dialog、Container Queries 以及 ES2025 新规范，从源头杜绝代码臃肿，帮助开发者以更少代码达成更高质量的原生 Web 体验。
+    </p>
+    <div class="news-meta">
+      <span>信源：Google Chrome / MDN 官方开源项目</span>
+      <a class="source-link" href="https://github.com/GoogleChrome/modern-web-guidance" target="_blank" rel="noopener">github.com/GoogleChrome/modern-web-guidance ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Screen Studio 4.1 -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://screen.studio/" target="_blank" rel="noopener">macOS 精品录屏工具 Screen Studio 4.1 发布：引入端侧隐私自动化遮罩，迈向“录屏无后期”</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      备受苹果生态开发者与独立创作者推崇的 macOS 录屏利器 Screen Studio 发布 4.1 版本，重磅推出端侧隐私自动化引擎。针对录制产品演示或教程时频繁暴露 API Key、银行卡号、密码、邮箱与双重验证码等敏感凭据的痛点，新版本可在录制过程中通过本地 CoreML 与 OCR 实时检测关键隐私字段，并动态匹配背景生成跟随式遮罩。所有敏感数据识别与模糊计算均在 Mac 芯片本地完成，无需上传云端，结合真人头像自动虚化与动态滚动追踪，大幅缩减了教程制作中的后期打码成本。
+    </p>
+    <div class="news-meta">
+      <span>信源：Screen Studio 官方更新 / 少数派 SSPAI 精选</span>
+      <a class="source-link" href="https://screen.studio/" target="_blank" rel="noopener">screen.studio ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Hugging Face Daily Paper: Infrathon -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.11995" target="_blank" rel="noopener">Hugging Face 精选论文 Infrathon：揭示真实世界长时程智能体自主优化 AI 基础设施新定律</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 每日论文榜首收录清华与前沿团队联合发表的研究《Infrathon: Benchmarking Language Agents for Real-World, Long-Horizon AI Infra Optimization》（arXiv:2611.11995）。该研究耗费逾万小时 GPU 算力，首次在 24 小时真实连续执行预算下评估智能体对复杂底层系统的优化潜能。实验表明，更短周期的评测往往会低估智能体的自适应能力，多达 90% 的测试在第 12 至 24 小时的后半程仍能取得突破性进展；在前沿模型实测中，Claude Opus 5.5 甚至自主突破人类专家设计的基线方案，将视频生成的 KV-Cache 压缩比从 6.82% 大幅提升至 19.86%，为未来全自动基础设施优化智能体提供了关键基准。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 每日论文 / arXiv:2611.11995</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.11995" target="_blank" rel="noopener">huggingface.co/papers/2611.11995 ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. unslop -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/heydamir/unslop" target="_blank" rel="noopener">开源反反思工具 unslop：针对“AI味”界面的 Claude 提示词与设计纠偏 Skill</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      随着 AI 编程与前端代码生成工具的普及，自动化生成的网页普遍充斥着千篇一律的紫色渐变、卡片发光、过度微动效等“AI Slop”审美疲劳。独立开发者开源的 unslop 迅速登上 GitHub 热榜，它是一套专门为 Claude 设计的纠偏 Skill，通过严谨的设计系统规范重新约束智能体的前端输出。该方案要求智能体遵循严格的类型比例梯级、高雅克制的留白节奏、真实的交互边界状态以及扎实的衬线排版，帮助独立开发者把大模型生成的廉价半成品重塑为具备质感与工匠精神的工业级界面。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub Trending 热榜</span>
+      <a class="source-link" href="https://github.com/heydamir/unslop" target="_blank" rel="noopener">github.com/heydamir/unslop ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Claude Code vs Cursor Discussion -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">中推开发者热议 Claude Code 与 Cursor 差异化协作范式：终端自主智能体与可视化 IDE 的双轨落地</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+        <span class="tag">中推</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      近 24 小时中文推特（X）与极客社区关于 AI 编程工具链的讨论趋于务实，围绕 Claude Code 与 Cursor 的分工达成了清晰的协作共识。开发者普遍认为，Claude Code 凭借命令行沉浸与长上下文能力，适合扮演“全自动驾驶”角色，自主处理跨模块重构、环境部署、日志排错与 Git 自动化提交；而 Cursor 凭借灵敏的 Tab 预测补全与可视化行内 Diff 对比，仍是人类实时把控代码细节、微调前端组件的最佳副驾驶。将全局重构交由终端智能体，将日常精修留给 IDE 的“双轨制”正成为效率型极客的标准范式。
+    </p>
+    <div class="news-meta">
+      <span>信源：X 中文技术社区与极客热议</span>
+      <a class="source-link" href="https://github.com/anthropics/claude-code" target="_blank" rel="noopener">github.com/anthropics/claude-code ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
