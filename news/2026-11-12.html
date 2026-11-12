@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-12 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-12 每日动态：AWS 官方开源本地全功能模拟器 aws-emulator 终结云端沙箱测试账单、Google 正式推出 Gemini Decisions API 实现单次前向多条件概率裁决并降低路由开销、SpaceXSI 旗下 Grok Build 暴露逾 3.5 万个应用引发对 Vibe Coding 权限边界的警醒、开发者开源纯原生 macOS 剪贴板利器 Pasto 免费对标 Paste、Hugging Face 精选论文揭示置零不足 0.05% 权重即可媲美全量微调、独立开发者借助多智能体 72 小时重新探测出坎佩切丛林深处玛雅古城遗址。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-12</h1>
+  <div class="meta-bar">
+    <span>2026年11月12日</span>
+    <span>·</span>
+    <span>第 127 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. AWS aws-emulator -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/aws/aws-emulator" target="_blank" rel="noopener">AWS 官方正式发布 aws-emulator：本地全功能模拟 AWS API，终结云端沙箱测试账单</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对云原生开发与自主智能体在执行沙盒测试时环境依赖重、云端账单不可控的痛点，AWS 官方正式开源了本地 API 模拟器 aws-emulator。该工具允许工程师与自动化智能体在离线网络或本地容器环境中，完整模拟标准 AWS 服务调用接口与响应生命周期。相比传统的第三方 Mock 工具，官方项目保证了与底层 API 契约协议的严格对齐，支持极速启动与快照回滚，为大型企业与独立开发者提供了低成本、确定性的云原生调试基座。
+    </p>
+    <div class="news-meta">
+      <span>信源：AWS 官方开源发布 / Hacker News 669 点热议</span>
+      <a class="source-link" href="https://github.com/aws/aws-emulator" target="_blank" rel="noopener">github.com/aws/aws-emulator ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Google Gemini Decisions API -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/" target="_blank" rel="noopener">Google 正式推出 Gemini Decisions API：单次前向多条件概率裁决，大幅降低智能体路由与风控开销</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Google 在其官方开发者博客正式宣布推出 Gemini Decisions API，面向复杂生产环境提供轻量高效的决策分流能力。该接口允许开发者在单次前向请求中，跨长文本、多模态图像、音频、视频或数百页 PDF 文档对预设的多个业务规则或判定命题进行并行计算，并直接输出校准后的置信度得分。相比以往利用大模型进行多次串行推理或编写繁重路由 Prompt，Decisions API 在内容审核、合规打分与智能体多路径调度等场景下实现了数倍的延迟压缩与成本优化。
+    </p>
+    <div class="news-meta">
+      <span>信源：Google 官方技术博客 / Google AI Studio</span>
+      <a class="source-link" href="https://blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api/" target="_blank" rel="noopener">blog.google/innovation-and-ai/technology/developers-tools/gemini-decisions-api ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. SpaceXSI Grok Build Leaks -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi/" target="_blank" rel="noopener">SpaceXSI 旗下 Grok Build 暴露逾 3.5 万个应用：AI Vibe Coding 共享机制缺陷致机密外泄</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      网络安全机构 Claroc 披露，由 SpaceX 与 xAI 整合后的 SpaceXSI 旗下自然语言应用构建平台 Grok Build 存在重大配置疏漏。平台生成的应用公网共享链接缺乏防枚举保护与权限隔离逻辑，使得超过 35,000 个由用户提示词生成的运行中项目能够被任意遍历访问。泄露内容涵盖多家企业内部入职文档、企业销售客户分布图、未脱敏医疗数据乃至商业广告策划方案，甚至包含数十个 SpaceXSI 自研内部工具。此事件引发了全球极客与工程界对当前自然语言编程与智能体快速上线狂潮中数据生命周期管理的普遍反思。
+    </p>
+    <div class="news-meta">
+      <span>信源：Ars Technica 独家调查 / Linux.do 极客热议</span>
+      <a class="source-link" href="https://arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi/" target="_blank" rel="noopener">arstechnica.com/security/2026/11/grok-build-coding-agent-leaks-oodles-of-confidential-info-some-belonging-to-spacexsi ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Pasto: macOS Clipboard -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/yingyanzhitong/pasto" target="_blank" rel="noopener">对标 macOS 经典剪贴板工具 Paste：独立开发者逆向并开源免费原生利器 Pasto</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对 macOS 知名剪贴板管理工具 Paste 转为高昂订阅制后的用户诉求，独立开发者通过深入逆向分析其交互逻辑与视图渲染管线，正式开源了纯原生、免订阅的轻量级剪贴板应用 Pasto。该工具忠实还原了底部浮动卡片抽屉交互、内容分类过滤与快捷唤起体验，完全运行于本地沙盒环境，不引入任何多余网络上报与后台守护进程。开源版本的发布为注重数据隐私与纯粹 macOS 原生体验的极客用户提供了一个高质量的替代选择。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 / 少数派 SSPAI 首发</span>
+      <a class="source-link" href="https://github.com/yingyanzhitong/pasto" target="_blank" rel="noopener">github.com/yingyanzhitong/pasto ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Hugging Face Paper: Deleting Weights in LLM Post-Training -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.10866" target="_blank" rel="noopener">Hugging Face 每日论文精选：置零不足 0.05% 权重即可媲美全量微调，揭示大模型后训练极简表征</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 每日论文榜首推荐了研究《The Surprising Effectiveness of Deleting Weights in LLM Post-Training》（arXiv:2611.10866）。该研究提出了一项颠覆性发现：在强化学习验证奖励、监督微调以及偏好优化等主流大模型后训练流程中，仅需定位并置零预训练基座中不足 0.05% 的特定参数权重，且无需执行任何反向传播参数更新，模型即可在数学推理、代码生成与对齐任务上取得与全参数微调相当的提升。这一成果为理解大型语言模型的知识存储拓扑提供了全新理论视角，并有望大幅简化模型轻量化剪枝与端侧部署流程。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文榜 / arXiv:2611.10866</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.10866" target="_blank" rel="noopener">huggingface.co/papers/2611.10866 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. AI Agents Rediscovered Maya Site -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://pietromiotti.com/latest/maya-site/" target="_blank" rel="noopener">独立开发者借助多智能体分析 NASA 激光雷达数据：72 小时重新探测出坎佩切丛林玛雅遗址</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立研究者 Pietro Miotti 公开了其利用自主构建的 AI 智能体流水线在 72 小时内完成考古学探测的完整记录。系统通过自主获取与切片 NASA 公开的激光雷达高程点云数据，在穿透墨西哥坎佩切热带丛林茂密植被后，精准勾勒出一处由中央金字塔基座与矩形开敞广场构成的玛雅聚落结构。尽管经墨西哥国家人类学与历史研究所核实该遗址曾被专业考古学文献记录但未入国家正式名录，但该实践生动展示了个人开发者通过多智能体编排从公开地理遥感数据中发掘专业领域知识的巨大潜力。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News 927 点榜首讨论 / 开发者个人博客</span>
+      <a class="source-link" href="https://pietromiotti.com/latest/maya-site/" target="_blank" rel="noopener">pietromiotti.com/latest/maya-site ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
