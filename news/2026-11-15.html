@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-15 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-15 每日动态：Expo 开源全平台新框架 Exact 原生支持 AI 智能体闭环测试构建、德国安全团队曝光 Lovable 平台 15.9 万项目越权漏洞致数十万私信与证件流出、开发者开源 190 行纯 JAX 版 DeepSeek-V3 极简复刻 MLA 与 MoE、开源自动化中台 Agent Autoloop 破解 CLI 智能体人肉盯守痛点、极简容器运行时 Kiri 原生适配 macOS 平替 Docker 并内建内网穿透、Hugging Face 论文精选 MixUA 提出多智能体多粒度记忆提炼架构保障跨域隐私。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, 中推, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-15</h1>
+  <div class="meta-bar">
+    <span>2026年11月15日</span>
+    <span>·</span>
+    <span>第 129 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Exact by Expo -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/expo/exact" target="_blank" rel="noopener">Expo 正式开源全平台框架 Exact：一套代码原生覆盖 macOS 与移动端，首创面向 AI 智能体的闭环编译与交互测试</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      知名跨平台技术生态 Expo 正式开源全平台新一代原生框架 Exact。该项目主打「一次编写，原生随处运行」，全面原生支持 Web、macOS、iOS 与 Linux。与传统跨平台框架不同，Exact 首度将 AI 编程智能体（Coding Agent）作为一等公民级对象纳入系统设计，内建了专用的无头控制与视象反馈接口。终端智能体如 Claude Code 能够直接依据代码库自主拉起 macOS 或 iOS 模拟器、读取屏幕界面渲染结果、分析测试崩溃日志并完成自适应代码修复。官方指引中专门给出了面向智能体端到端自主开发的标准提示词协议，标志着客户端开发框架从「人类编写」向「人机共生协作」的底层范式跃迁。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 趋势热榜 / Expo 官方开源仓库</span>
+      <a class="source-link" href="https://github.com/expo/exact" target="_blank" rel="noopener">github.com/expo/exact ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Lovable Security Breach -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.crissyfield.de/research/lovable-en/" target="_blank" rel="noopener">德国安全团队披露 Lovable 重大越权漏洞：AI 生成应用暴露 15.9 万项目未授权访问，超 20 万私信与护照证件遭泄露</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      德国独立网络安全研究机构 Crissy Field 发布针对当前热门的 AI 全栈生成平台 Lovable 的深度审计报告。团队对平台上由普通用户通过「Vibe Coding」方式生成的 159,041 个 Web 应用进行抽样扫描，发现因底层 Supabase 行级安全策略（RLS）缺失与默认鉴权配置机制缺陷，存在极其严重的对象级越权漏洞（IDOR）。外部人员无需任何身份验证，即可轻易遍历并调取项目数据库底层所有字段，已证实泄露超过 20 万条未加密的私信记录、企业内部合同、病历文档以及大量高清护照与身份证件扫描件。该事件为当下盲目依赖大模型端到端自动化生成应用、忽视底层安全合规防御的独立出海热潮敲响了严肃警钟。
+    </p>
+    <div class="news-meta">
+      <span>信源：Crissy Field 安全研究报告 / Hacker News 621 点热议</span>
+      <a class="source-link" href="https://www.crissyfield.de/research/lovable-en/" target="_blank" rel="noopener">crissyfield.de/research/lovable-en/ ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. deepseek-v3-jax -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/Vaibhaav-Tiwari/deepseek-v3-jax" target="_blank" rel="noopener">开发者开源 190 行纯 JAX 版 DeepSeek-V3：零高级框架依赖，完整复刻多头潜在注意力与 MoE 路由架构</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      机器学习研究者 Vaibhaav Tiwari 在 Hacker News 与 GitHub 同步开源了 deepseek-v3-jax 项目。作者完全摒弃 PyTorch、Flax 与 Equinox 等高阶抽象库，仅依赖底层纯 JAX 原语，用极其精简的 190 行 Python 代码从零复现了 DeepSeek-V3 完整模型架构。该实现严格对应 DeepSeek-V3 官方技术报告中的数学规范，完整覆盖了 MLA（多头潜在注意力）的键值低秩压缩与 RoPE 解耦投影，以及 DeepSeekMoE 的细粒度专家路由与无辅助损失负载均衡机制。权重参数全部采用透明的纯字典结构存储，作者在轻薄本 MacBook Air 上使用公有领域侦探小说从头跑通了预训练与自回归推理闭环，为社区极低门槛透彻拆解前沿大模型底层张量流转提供了清晰透彻的白盒范本。
+    </p>
+    <div class="news-meta">
+      <span>信源：Show HN 极客热榜 / GitHub 开源趋势</span>
+      <a class="source-link" href="https://github.com/Vaibhaav-Tiwari/deepseek-v3-jax" target="_blank" rel="noopener">github.com/Vaibhaav-Tiwari/deepseek-v3-jax ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. agent-autoloop -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/KKKKhazix/agent-autoloop" target="_blank" rel="noopener">开源自动化中台 Agent Autoloop 发布：终结 Claude Code 终端人肉守候，后台长程自运转与卡片轻量确认</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">中推</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对当前开发者在使用 Claude Code、Codex 等命令行智能体时必须人肉盯守终端窗口的困境，国内独立开发者开源了轻量级智能体调度自动化中台 Agent Autoloop。该项目核心仅由数百行零外部依赖的代码构成，可无缝托管本地或服务器端 CLI Agent。当智能体执行大范围多文件重构或测试驱动跑批时，Autoloop 将在后台静默跟进任务全生命周期与异常自动恢复；仅在智能体遭遇代码分支重大决策、不可逆文件破坏或外部环境鉴权时，才会通过飞书、钉钉或 Telegram 主动推送富交互卡片请求人类拍板。这种平时不打扰、关键时刻拍板的异步双轨协同方案，在中推与独立出海开发者圈引发了热烈反响。
+    </p>
+    <div class="news-meta">
+      <span>信源：中推技术社区 / GitHub 5.3k 星标热帖</span>
+      <a class="source-link" href="https://github.com/KKKKhazix/agent-autoloop" target="_blank" rel="noopener">github.com/KKKKhazix/agent-autoloop ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Kiri Container Runtime -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/libracoder/kiri" target="_blank" rel="noopener">极简跨平台容器运行时 Kiri 开源：原生适配 macOS 架构，无缝平替 Docker Desktop 并内置免费隧道穿透</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发团队正式开源轻量级跨平台容器运行时 Kiri，直指 macOS 开发者长期承受的 Docker Desktop 内存占用过大、电池消耗显著与后台守护进程繁杂等顽疾。Kiri 基于 Apple 原生 Virtualization 框架与轻量级 Hypervisor 进行深度重构，在保持与标准 docker CLI、Docker Compose 及 buildx 规范完全兼容的前提下，实现瞬时冷启动与极低闲置 CPU 占用。此外，Kiri 针对独立开发者在本地测试 Web 应用或调试 Webhook 回调的日常需求，创新性地内建了免费的一键式内网安全穿透隧道，无需安装第三方代理即可对外暴露临时公网访问域名，为个人开发者和独立全栈工程师提供了兼具极致性能与开箱即用的工作流体验。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源趋势 / 开发者生产力工具</span>
+      <a class="source-link" href="https://github.com/libracoder/kiri" target="_blank" rel="noopener">github.com/libracoder/kiri ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. MixUA Memory Architecture -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.10439" target="_blank" rel="noopener">Hugging Face 论文精选 MixUA：首创面向多用户与多智能体协同进化的多粒度记忆提炼架构，隐私泄露率低至 0.02%</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      随着自我演进型（Self-Evolving）智能体在复杂生产环境落地，如何在多用户、多异构智能体群组间共享技能经验与轨迹记忆，同时杜绝用户私密数据跨域泄露，成为学术界与工业界的前沿挑战。由顶尖研究机构联合推出的最新论文提出首个通用的多粒度记忆提炼系统 MixUA。该架构将异构智能体的自主探索轨迹提炼为经验教训，并动态划归至用户-智能体对、单用户私有、单智能体私有与全局公有四级作用域。在包含 5 位人类用户与 7 个异构智能体的 CrossLearnBench 基准测试中，MixUA 使跨用户多任务成功率相较无记忆基线提升 16 个百分点，同时在严苛的隐私探针探测下将私有数据越权暴露率压低至 0.02%，为构建安全的企业级群体智能进化网络奠定了理论基石。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 每日论文榜首 / arXiv:2611.10439</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.10439" target="_blank" rel="noopener">huggingface.co/papers/2611.10439 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
