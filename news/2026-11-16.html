@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-16 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-16 每日动态：Hacker News 千赞热议 AI 生成代码开源与 CC0 公有领域归属权、量化巨头 Jane Street 开源官方智能体技能库 agent_skills 拥抱标准 SKILL 规范、DIYgod 发布跨端开源利器 Pinky 打通 macOS 智能体与移动端手机生态、少数派推荐原生菜单栏工具 Aerial Switcher 调度 macOS 航拍壁纸日夜流转、Scott Hanselman 开源 GPU 版 htop 工具 gputaskman 透视 Apple Silicon 与 PC 显存及 KV Cache 分配、Hugging Face 论文精选 WorldDraft 提出代码驱动解耦架构革新世界模拟与视频渲染。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, 中推, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-16</h1>
+  <div class="meta-bar">
+    <span>2026年11月16日</span>
+    <span>·</span>
+    <span>第 130 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. AI Code Open Source -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://jakub.jankiewicz.org/blog/ai-code-open-source/" target="_blank" rel="noopener">Hacker News 千赞热议：所有 AI 生成代码都应以开源许可证或 CC0 归入公有领域</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      资深开源开发者 Jakub T. Jankiewicz 撰文探讨 AI 生成代码的产权归属与伦理规范，在 Hacker News 引发逾千点热烈辩论。作者指出，现代代码大模型的知识基石建立在全球开源运动数十年的代码积淀，以及 Stack Overflow 等遵循 CC-BY-SA 署名协议的开放社区之上；将此类集体知识洗白为闭源私有代码存在天然的版权伦理缺陷。从法律层面审视，美国版权局与既有判例早已确立非人类创作物不享有版权保护，纯由提示词驱动生成的代码并不具备独创性保护要件。为捍卫催生 AI 繁荣的开放生态，开发者与企业应当主动为 AI 生成内容标记开源许可或声明 CC0 放弃版权，避免以黑盒专利阻碍技术流动。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News 1071 点高热 / 极客技术博文</span>
+      <a class="source-link" href="https://jakub.jankiewicz.org/blog/ai-code-open-source/" target="_blank" rel="noopener">jakub.jankiewicz.org/blog/ai-code-open-source ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Jane Street Agent Skills -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/janestreet/agent_skills" target="_blank" rel="noopener">量化巨头 Jane Street 正式开源 agent_skills：遵循统一规范为代码智能体构筑技能库</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      华尔街知名高频量化交易机构 Jane Street 正式开源其官方智能体技能库 agent_skills，全面采用以单个目录和 SKILL.md 文档为载体的开放技能标准。首发内置项目包含基于苏格拉底式启发教学法构建的个人指导技能（socratic-tutor），支持针对学习目标展开能力水平诊断、0 至 5 阶技能图谱规划、单题循序渐进启发以及间隔复习评估。该规范无缝适配 Claude Code、Codex 等新一代支持技能动态加载的命令行代码智能体，亦可直接注入通用聊天机器人的系统提示词中，展现了量化界顶级技术团队在自主智能体人机协同领域的标准化实践。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 / Jane Street 官方技术发布</span>
+      <a class="source-link" href="https://github.com/janestreet/agent_skills" target="_blank" rel="noopener">github.com/janestreet/agent_skills ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. DIYgod Pinky -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/DIYgod/pinky" target="_blank" rel="noopener">DIYgod 发布跨端开源利器 Pinky：打通 macOS 智能体与移动端生态，让 AI 协作接管手机</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">Apple</span>
+        <span class="tag">中推</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      知名开源开发者 DIYgod 推出全新开源项目 Pinky，实现 macOS、Windows 或 Linux 桌面端智能体无缝驱动并接管真实移动设备。借助该工具，Claude Code、Codex、Cursor 或本地自动化脚本能够直接将指令流投射至 iPhone 与 Android 设备，完成端侧页面理解、元素定位与手势模拟。Pinky 严格践行人机协同安全准则，在涉及资金支付、身份认证与私密发信等敏感操作前自动暂停并等待用户在手机端当面授权，同时支持完全本地脱网部署，为智能体打通了从桌面开发环境跨越至真实移动终端的关键操作壁垒。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 2.2K Stars / 中推开发者热议</span>
+      <a class="source-link" href="https://github.com/DIYgod/pinky" target="_blank" rel="noopener">github.com/DIYgod/pinky ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Aerial Switcher -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/YnNJU/aerial-switcher" target="_blank" rel="noopener">少数派推荐 Aerial Switcher：轻巧原生菜单栏工具让 Mac 航拍壁纸随昼夜节律自由流转</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      少数派首页刊文推荐独立开发者针对 macOS 航拍壁纸打造的轻量级原生小工具 Aerial Switcher。macOS 系统内置了太浩湖、金门海峡等多处壮丽风景从清晨、正午至黄昏、入夜的全时段 4K 实拍视频，但在系统原生设置中却被切分为多张互不连贯的静态选项。Aerial Switcher 作为一个小巧精致的菜单栏常驻工具，能够根据用户所在地经纬度精准推算日出日落时序，在后台定时无缝平滑切换对应时段的航拍视频壁纸。软件不仅原生轻巧、零内存冗余，更完整打通了苹果高画质航拍素材与真实自然节律的沉浸式体验。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 SSPAI 首页推荐 / GitHub 开源项目</span>
+      <a class="source-link" href="https://github.com/YnNJU/aerial-switcher" target="_blank" rel="noopener">github.com/YnNJU/aerial-switcher ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. gputaskman -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/shanselman/gputaskman" target="_blank" rel="noopener">Scott Hanselman 推出 GPU 终端监视器 gputaskman：支持 Apple Silicon 与 PC 深度透视显存与 KV Cache</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      知名极客与微软资深开发者 Scott Hanselman 开源了面向本地硬件的 GPU 终端监视工具 gputaskman，被社区誉为“GPU 版 htop”。传统任务管理器只能给出显存占用的粗糙数值，难以解释具体资源流向；gputaskman 原生支持 macOS（Apple Silicon 统一内存架构）以及 Windows 与 Linux，能够深入进程底层，实时将显存消耗精确映射至具体大模型权重、KV Cache 缓存、系统运行时以及图形渲染模块。对于在本地 Mac 或 PC 上频繁运行大模型微调、量化推理与多 Agent 并发的极客而言，该工具提供了不可替代的硬件洞察力。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 / Scott Hanselman 个人技术博客</span>
+      <a class="source-link" href="https://github.com/shanselman/gputaskman" target="_blank" rel="noopener">github.com/shanselman/gputaskman ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. WorldDraft -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.16217" target="_blank" rel="noopener">Hugging Face 每日论文精选：多模态代码智能体框架 WorldDraft 颠覆视频世界生成范式</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 每日论文榜重点推介前沿研究《WorldDraft: If Code Builds the World, Can Video Models Just Render It?》（arXiv:2611.16217）。针对当前世界模型在生成长视频时频发物体形变、重力失真与因果逻辑断裂的问题，研究团队提出了解耦架构：由多模态代码智能体负责构建精确的 4D 物理仿真与几何代码逻辑，而将视频大模型降维为纯粹的“生成式渲染管线”。实验表明，通过先由代码确定物理因果约束再由视频模型上色渲染，生成场景在长期交互中的物理因果一致性相较传统端到端生成提升 3.2 倍，开辟了代码智能体与物理模拟融合的新路径。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文榜 / arXiv:2611.16217</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.16217" target="_blank" rel="noopener">huggingface.co/papers/2611.16217 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
