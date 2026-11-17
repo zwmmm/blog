@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-17 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-17 每日动态：Windows 11 遥测被曝静默监控 AI 编程智能体与编译器进程、阿里正式发布 2.4 万亿稀疏 MoE 旗舰基座 Qwen4-Max 原生支持百万上下文、少数派深度剖析 Apple Silicon 架构演进与 Rosetta 2 动态转译层退役时间线、纯 Swift 开源菜单栏管理工具 Thaw 突破 1.2 万星平替 Bartender、ripgrep 作者正式发布 Rust 日期时间库 Jiff 1.0 重塑时区处理范式、Hugging Face 论文精选 Iris-Z 以统一单一主干大模型终结专用几何深度模型。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-17</h1>
+  <div class="meta-bar">
+    <span>2026年11月17日</span>
+    <span>·</span>
+    <span>第 131 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Windows 11 Coding Agent Telemetry -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://xusheng.dev/posts/windows-coding-agent-telemetry/" target="_blank" rel="noopener">Windows 11 被曝静默收集开发者运行的 AI 编程智能体与工具链遥测</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      逆向工程师 Xusheng Li 深入分析 Windows 11 内部动态链接库 MissionControlAggregator.dll，揭露微软正通过 CLICodingAgentUsage（功能 ID 62580080）特性静默收集开发者运行的代码智能体与本地开发环境数据。该组件通过订阅内核进程摘要与 WSL 路由，精准比对识别 claude.exe、codex.exe、cursor.exe、copilot.exe、antigravity.exe 以及 Python、GCC、Clang 等编译器进程，并将命中位图打包为 Segments.SubCohorts 遥测事件通过 DiagTrack 服务上传至云端。在部分全新安装系统中该功能默认伴随可选诊断数据开启，引发开源社区与极客群体对本地代码智能体隐私与执行沙箱安全性的高度关注。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News 高热榜 / 逆向工程技术报告</span>
+      <a class="source-link" href="https://xusheng.dev/posts/windows-coding-agent-telemetry/" target="_blank" rel="noopener">xusheng.dev/posts/windows-coding-agent-telemetry ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Qwen4-Max Release -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://qwen.ai/blog?id=qwen4-max" target="_blank" rel="noopener">阿里正式发布旗舰大模型 Qwen4-Max：2.4 万亿稀疏 MoE 架构与百倍降本长文本</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      阿里正式发布 Qwen4 世代旗舰基座大模型 Qwen4-Max。模型采用 Sparse MoE 稀疏专家混合架构，总参数量达 2.4 万亿，单 Token 激活约 710 亿参数，原生支持高达 100 万（1M）Token 的超长上下文窗口与端到端多模态理解。在终端自主编码、复杂软件工程基准测试以及长程多智能体协同场景中，Qwen4-Max 均展现出顶尖水平。得益于推理端动态路由与稀疏激活优化，单 Token 激活算力大幅降低，端到端调用成本较上一代旗舰降低最高 60%，为大规模部署自主代码智能体与复杂业务流水线提供了具备强劲经济性与性能表现的基座支撑。
+    </p>
+    <div class="news-meta">
+      <span>信源：阿里官方技术博客 / Hacker News 850+ 热评</span>
+      <a class="source-link" href="https://qwen.ai/blog?id=qwen4-max" target="_blank" rel="noopener">qwen.ai/blog?id=qwen4-max ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Rosetta 2 Retirement Guide -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://sspai.com/post/118100" target="_blank" rel="noopener">少数派深度剖析 Rosetta 2 退役时间线：Mac 架构迁移收官与存量应用兼容方案</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      少数派首页刊发深度技术分析，系统梳理 Apple Silicon 架构演进中 Rosetta 2 动态二进制转译层的历史使命与退役预期。自 2020 年苹果启动向 ARM64 自研芯片迁移以来，生态绝大多数常用软件已完成通用二进制（Universal）或原生 Apple Silicon 改造。随着 macOS 计划逐步停止转译层内置支持，文章系统评估了遗留专业音视频插件、特定老旧游戏以及依赖 x86 JIT 引擎工具的潜在停摆风险，为独立开发者与极客梳理了提前启动纯原生重构编译、借助第三方轻量开源客户端或部署轻量沙箱虚拟机的全套应对指南。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 SSPAI 首页深度专题 / Apple 生态观察</span>
+      <a class="source-link" href="https://sspai.com/post/118100" target="_blank" rel="noopener">sspai.com/post/118100 ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Thaw Menu Bar Manager -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/thaw-app/Thaw" target="_blank" rel="noopener">极简开源 macOS 菜单栏管理器 Thaw 突破 1.2 万星：零追踪纯净平替 Bartender</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      针对商业菜单栏应用转向昂贵订阅制并引入闭源网络分析的现状，开源 macOS 菜单栏管理工具 Thaw 在 GitHub 突破 1.2 万 Stars。Thaw 基于纯 Swift 与 SwiftUI 构建，遵循 GPL-3.0 协议且无任何云端追踪与账户绑定，专为刘海屏 MacBook 与高频极客设计。应用支持状态栏图标智能折叠、分组管理以及沉浸式禅模式（Zen Mode），并完整原生开放 thaw:// 自定义 URL Scheme 协议，能够与 Raycast、macOS 快捷指令及终端自动化脚本无缝联动，为桌面环境提供了极简高效且可代码化控制的系统级状态管理体验。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 12.7K Stars / Product Hunt 精选</span>
+      <a class="source-link" href="https://github.com/thaw-app/Thaw" target="_blank" rel="noopener">github.com/thaw-app/Thaw ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Jiff 1.0 Release -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://burntsushi.net/jiff/" target="_blank" rel="noopener">Rust 高性能日期时间库 Jiff 1.0 正式发布：ripgrep 作者倾力打造并重塑时区处理体验</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      知名 Rust 极客、ripgrep 核心作者 Andrew Gallant（BurntSushi）正式发布 Rust 现代化日期时间库 Jiff 1.0 版本。针对传统时间库在夏令时切换、跨时区转换和时序偏移计算中频发的边界缺陷，Jiff 践行“掉入成功陷阱”（Pit of Success）的设计哲学，将 IANA 时区处理内置为第一公民。通过创新的 DateTime 洋葱分层模型、纳秒级高精度跨平台调度以及零开销内存布局，Jiff 保证了复杂时序逻辑在编译期与运行期的严密无歧义，迅速被 Rust 社区与下一代高性能服务端及智能体系统广泛采用。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hacker News 300+ 热评 / Andrew Gallant 官方博文</span>
+      <a class="source-link" href="https://burntsushi.net/jiff/" target="_blank" rel="noopener">burntsushi.net/jiff ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Iris-Z Paper -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.16010" target="_blank" rel="noopener">Hugging Face 论文榜力推 Iris-Z：以统一单一主干大模型终结专用几何模型</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 每日论文榜推介前沿成果《Iris-Z: Scaling One Generative Model Past Specialist Geometry Models》（arXiv:2611.16010）。研究团队践行“苦涩的教训”（The Bitter Lesson），论证空间与视觉理解应当通过扩大通用架构与单一生成任务统一解决，而非针对单目几何深度开发专用网络。Iris-Z 采用统一主干架构，在同一套权重下同步联合去噪、推理图像外观与几何深度，既能生成带有精准深度场的图像，也能从单张摄影中估计深度并反向贴图。在规模缩放后，其几何精度全面超越此前各专精深度估计 SOTA 模型，为统一多模态大模型的空间建模奠定新范式。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文榜 / arXiv:2611.16010</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.16010" target="_blank" rel="noopener">huggingface.co/papers/2611.16010 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
