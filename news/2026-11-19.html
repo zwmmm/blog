@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-19 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-19 每日动态：Google 正式发布高性价比基座模型 Gemini 4 Neon 专为生产级代码智能体打造、Wiz 联合披露 NGINX 核心 HTTP/2 潜伏十年的严重未授权远程代码执行漏洞、独立开发者 yetone 开源常驻 macOS 菜单栏的 Agent 统一路由器 Magpie、少数派精选开源交互工具 NodLink 实现 AirPods 头部动作操控 Mac、Hugging Face 论文榜发布 WeightBench 评估大模型免梯度神经网络权重空间编程能力、开源离线文件转换神器 Filee 在 GitHub 斩获 2.8 万星。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-19</h1>
+  <div class="meta-bar">
+    <span>2026年11月19日</span>
+    <span>·</span>
+    <span>第 132 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Gemini 4 Neon -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/" target="_blank" rel="noopener">Google 正式发布 Gemini 4 Neon：高性价比前沿基座专为生产级代码智能体打造</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Google 官方宣布正式推出新一代高性价比基座模型 Gemini 4 Neon，在保持前沿大模型推理能力的同时大幅提升端到端复杂任务执行速度。在涵盖复杂软件工程、数据分析与科学工作流的基准评测中，Neon 在最高思考模式（xhigh）下以 61 分位居 Artificial Analysis 综合智能榜第三，并在 Vals 帕累托前沿指数位居次席。针对智能体协作场景，Neon 在衡量适应人机协作中途纠偏能力的 Agent Arena 可控性评测（Steerability）中斩获第二，并在 Google Antigravity 内部多步指令遵循测试中创下历史最低幻觉率。模型原生支持 100 万（1M）Token 上下文窗口，定价为每百万输入 Token 3 美元、上下文缓存命中仅 0.15 美元，百万输出 Token 15 美元。目前已在 Google AI Studio、Gemini for Business、Google Antigravity 及 Gemini 订阅端全面上线。
+    </p>
+    <div class="news-meta">
+      <span>信源：谷歌官方技术博客 / Hacker News 398+ 热评</span>
+      <a class="source-link" href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-neon/" target="_blank" rel="noopener">blog.google/.../introducing-gemini-4-neon ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. NGINX HTTP/2 RCE Vulnerabilities -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.wiz.io/blog/nginx-http2-rce-vulnerabilities" target="_blank" rel="noopener">Wiz 披露 NGINX 核心 HTTP/2 严重未授权远程代码执行漏洞：AI 辅助挖掘潜伏十年的内存缺陷</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      云安全研究机构 Wiz Research 联合多家安全团队披露两起影响全球超过 2.25 亿网站的 NGINX 核心严重未授权远程代码执行（RCE）漏洞，编号分别为 CVE-2026-123633（释放后使用 UAF）与 CVE-2026-123007（整数下溢），CVSS 4.0 评分均达到 9.2 高危级别。漏洞深植于 NGINX 的 HTTP/2 协议实现模块中，其中整数下溢缺陷可追溯至 2015 年发布的 NGINX 1.9.5 版本，在代码库中潜伏超过十年；攻击者无需任何前置身份凭证，仅通过畸形 HTTP/2 数据帧即可在纯静态文件部署甚至上游应用健全的情况下接管服务器。Wiz 团队透露，本次漏洞利用其自研 AI 代码分析引擎 Wiz Atlas 结合大模型完成自动化路径定位与利用链验证，印证了大模型正在重塑基础设施漏洞挖掘的经济学。F5 已紧急发布安全更新协同修复。
+    </p>
+    <div class="news-meta">
+      <span>信源：Wiz 安全研究团队技术披露 / Hacker News 1115+ 榜首热议</span>
+      <a class="source-link" href="https://www.wiz.io/blog/nginx-http2-rce-vulnerabilities" target="_blank" rel="noopener">wiz.io/blog/nginx-http2-rce-vulnerabilities ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. yetone/magpie -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/yetone/magpie" target="_blank" rel="noopener">yetone 开源 macOS 菜单栏智能体路由中心 Magpie：多 Agent 统一管理与配额静默熔断</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发者 yetone 正式开源 macOS 菜单栏模型与智能体管理工具 Magpie。应用专为高频使用多种终端智能体的极客设计，在本地统一架设轻量模型网关，支持开发者直接在常驻状态栏一键调度映射：让 Claude Code 接入 Kimi、Codex 路由至 DeepSeek、Gemini CLI 绑定 GLM，或直接复用 ChatGPT 订阅计划驱动 OpenCode。Magpie 内置了透明的高可用配额容灾机制，当某一账户的 API 配额或速率达到上限时，网关将在后台静默自动轮换至候补账户与备份模型，保障长程终端自动化与代码生成流不发生中断报错。项目基于 MIT 协议全面开源，并提供原生轻量 macOS 客户端。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 38.6K Stars / 中文推特极客圈高赞推荐</span>
+      <a class="source-link" href="https://github.com/yetone/magpie" target="_blank" rel="noopener">github.com/yetone/magpie ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. NodLink -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/gintmr/NodLink" target="_blank" rel="noopener">少数派精选开源应用 NodLink：AirPods 变身入耳式光标，实现免双手全头部控制 Mac</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      少数派首页专题推荐由独立开发者构建的开源 macOS 交互工具 NodLink。应用突破传统摄像头视线追踪或外接眼动仪的硬件束缚，直接调用 AirPods 内置的运动传感器与高灵敏度陀螺仪，将日常佩戴的真无线耳机转变为 Mac 的入耳式光标控制器。用户只需轻微转动头部即可高精度平滑移动屏幕鼠标指针，通过微倾头部实现单击，配合轻声口令完成右键、双击与拖拽等复杂桌面操作，甚至能够全程闭眼完成网页翻页与文档浏览。NodLink 为颈椎劳损久坐程序员、行动受限群体以及双手专注键盘编码的开发者提供了兼具趣味与高实用性的纯本地免手控交互新范式。
+    </p>
+    <div class="news-meta">
+      <span>信源：少数派 SSPAI 首页精选 / GitHub 开源项目</span>
+      <a class="source-link" href="https://github.com/gintmr/NodLink" target="_blank" rel="noopener">github.com/gintmr/NodLink ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. WeightBench Paper -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.18553" target="_blank" rel="noopener">Hugging Face 论文榜发布 WeightBench：评估大模型直接在权重空间“免梯度编程”能力</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 每日论文榜推介前沿基准评测《WeightBench: Evaluating Language Models as Weight-Space Programmers》（arXiv:2611.18553）。论文正式提出并系统检验了“权重空间编程”（Weight-Space Programming, WSP）这一前沿范式，即探索大语言模型能否脱离传统梯度下降反向传播算法，直接理解、外科手术式修改并合成其他神经网络的底层权重参数。WeightBench 覆盖从 2K 参数强化学习控制策略到 7B 参数语言模型的 42 项跨轨道任务，并构建了基于系统级 CPU 沙箱与哈希链账本的审计验证环境以杜绝模型偷跑前向传播。测试表明，前沿大模型已能从零合成 Breakout 和围棋的有效策略权重，但在无数据硬件压缩与无副作用局部参数打补丁上仍面临严峻挑战。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文榜 / arXiv:2611.18553</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.18553" target="_blank" rel="noopener">huggingface.co/papers/2611.18553 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Filee -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/KnifeLemon/Filee" target="_blank" rel="noopener">极简拖拽离线文件转换神器 Filee：开源 2.8 万星，Mac 环形轮盘随手转 263 种格式</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发者团队开源跨平台本地文件格式转换工具 Filee，在 GitHub 斩获超 2.8 万 Stars。Filee 针对传统格式转换工具普遍依赖云端上传、操作链路冗长且暗含数据泄露隐患的痛点，重构了极具灵性的桌面拖拽交互体验：在 macOS 上只需按住 Option 键并拖动文件，光标周围便会实时展开环形甜甜圈（Donut）格式轮盘，拖拽悬停至目标格式即刻完成瞬时转换。工具纯本地离线运行，无需安装微软 Office 套件或连接任何云服务，原生支持图像、PDF、Word、Excel、PowerPoint、音视频、ePUB 电子书及各类归档压缩包等 263 种主流格式的互转，为桌面端个人数据隐私与批量格式重构设立了新标杆。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 28.7K Stars / Product Hunt 热门工具</span>
+      <a class="source-link" href="https://github.com/KnifeLemon/Filee" target="_blank" rel="noopener">github.com/KnifeLemon/Filee ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
