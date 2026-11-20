@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-20 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-20 每日动态：Anthropic 官方宣布 Claude Fable 5.2 成功攻克量子引力与黑洞物理两大二十年未解难题、DeepSeek 开源团队自治代码智能体原型 dsh-superagent 践行最低干扰哲学、独立开发者开源 Claude Code 界面净化技能 unslop 终结模板化 AI 视觉噪声、Veria Labs 披露 Ruby 核心与主流 Web 框架严重单字节溢出 RCE 漏洞 Ruby2ßhell、Hugging Face 论文榜实测 MacBook Air M2 运行 24 款 Ollama 端侧代码模型能耗与解题产出比、纯 Rust 打造的轻量下载神器 Mister Download Manager 开源破万星零遥测平替 IDM。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-20</h1>
+  <div class="meta-bar">
+    <span>2026年11月20日</span>
+    <span>·</span>
+    <span>第 133 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Claude Black Hole Physics -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://www.anthropic.com/research/claude-black-hole-physics" target="_blank" rel="noopener">Anthropic 发布物理学重大突破：Claude Fable 5.2 成功攻克理论物理黑洞与量子引力两大二十年未解难题</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Anthropic 官方科学团队宣布，前沿推理模型 Claude Fable 5.2 成功攻克理论物理与量子引力领域的两个长期悬而未决的公开难题。在第一个问题中，Claude 完整推导并完成了理论物理学家在二十多年前设立的 Hawking-Page 相变计算体系，证明即使在时空失去确定几何形状的极端条件下，黑洞形成过程中的突变特征依然存在；在第二个问题中，Claude 计算出了模块自举模（modular bootstrap）最简形式的精确极限边界，为检验量子引力候选理论确立了新的解析基准。Anthropic 团队表示，在整个推导过程中，研究人员仅提供高层研究方向与形式化条件，具体的数学证明、极限分析与数千步符号计算均由智能体自主执行并闭环验证。两篇论文预印本已同步公开，标志着大语言模型正式从辅助工程与代码编写跨入自主探索基础自然科学前沿的新阶段。
+    </p>
+    <div class="news-meta">
+      <span>信源：Anthropic 官方科学团队技术披露 / Hacker News 384+ 热评</span>
+      <a class="source-link" href="https://www.anthropic.com/research/claude-black-hole-physics" target="_blank" rel="noopener">anthropic.com/.../claude-black-hole-physics ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. DeepSeek dsh-superagent -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/deepseek-ai/dsh-superagent-prototype" target="_blank" rel="noopener">DeepSeek 开源团队自治代码智能体原型 dsh-superagent：践行最低干扰哲学的长程研发智能体</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      DeepSeek 团队在 GitHub 开源其内部日常用于研发协作的自主编码智能体原型 dsh-superagent，项目由团队自研代码智能体主导构建并在社区斩获超 2.3 万 Stars。该项目基于 DeepSeek Harness（DSH）封装，能够常驻监听 GitHub Issues、Pull Requests 以及企业即时通讯群组；当团队成员委派需求时，智能体会自动开启独立工作目录与环境会话，自主完成代码分析、多文件修改、本地测试运行与 Pull Request 提交，并在原对话中同步汇报。dsh-superagent 的核心设计遵循“尽可能少打扰人类，产出尽可能多的实际价值”哲学，智能体默认静默运行，仅在规则允许或必须由人工裁决的关键节点发声，避免多智能体协作时对工程团队注意力的无效消耗。项目采用 TypeScript 编写，并配备完整的交互式引导配置流水线。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 23.9K Stars / DeepSeek 研究原型</span>
+      <a class="source-link" href="https://github.com/deepseek-ai/dsh-superagent-prototype" target="_blank" rel="noopener">github.com/deepseek-ai/dsh-superagent-prototype ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. unslop -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/heydamir/unslop" target="_blank" rel="noopener">独立开发者开源 Claude Code 界面净化技能 unslop：终结 AI 氛围编码产出的模板化低质视觉</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发者 Damir Sokolovsky 正式开源针对前端界面重构的 Agent 技能插件 unslop，迅速在 GitHub 斩获超 1.8 万 Stars。针对当前利用 Cursor、Claude Code 等工具进行氛围编码（Vibe Coding）时模型频繁滥用紫色发光渐变、无意义 Emoji 标签、浮夸营销套话与不规则间距等“AI 塑料感（Slop）”问题，unslop 提供了一套系统化的界面诊断与外科手术式重构规范。该技能原生适配 Claude Code、Codex 与 Google Antigravity，能够自动化执行类似资深 UI/UX 设计师的红线走查流程：精准剔除冗余装饰元素、重构调色板与字体排印层次、统一栅格间距，并在保留业务功能的前提下逐步将半成品页面重写为具备独立产品风格的生产级界面，原生支持 Next.js、React、Vue、Svelte、Tailwind CSS 以及纯静态网页。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 18.6K Stars / X (Twitter) 高热设计话题</span>
+      <a class="source-link" href="https://github.com/heydamir/unslop" target="_blank" rel="noopener">github.com/heydamir/unslop ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Ruby2ßhell -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://verialabs.com/ruby2shell/" target="_blank" rel="noopener">Veria Labs 披露 Ruby 核心与主流 Web 框架严重 RCE 漏洞 Ruby2ßhell：单字节堆溢出致未授权代码执行</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      安全研究机构 Veria Labs 公布影响 Ruby 核心解释器及所有主流 Ruby Web 框架的高危漏洞 Ruby2ßhell（编号 CVE-2026-132825，GHSA-34m4-m9fh-gqp5）。该漏洞源于 Ruby 解释器在对特定 Unicode 大写字符（如德语大写双 S 字符 ß 与长 S 等）进行字符串大小写转换（upcase/downcase）时的单字节堆缓冲区溢出（Heap Overflow）。在 Ruby on Rails、Sinatra、Hanami 等流行框架的默认配置下，攻击者只需发送特制的未授权 HTTP 请求使服务端调用标准字符串大小写方法，即可触发堆内存越界写入并构造任意代码执行（RCE）链。该缺陷影响从 Ruby 2.4.0 至今长达数年的全系列版本，Ruby 官方与主要 Linux 发行版已紧急发布 3.3.14、3.4.13 与 4.0.10 补丁修复，建议所有生产环境服务尽快升级。
+    </p>
+    <div class="news-meta">
+      <span>信源：Veria Labs 安全研究团队官方披露 / Hacker News 385+ 热评</span>
+      <a class="source-link" href="https://verialabs.com/ruby2shell/" target="_blank" rel="noopener">verialabs.com/ruby2shell ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. HF Paper Quantized Code LLMs -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.17605" target="_blank" rel="noopener">Hugging Face 论文榜精选：MacBook Air M2 实测 24 款端侧代码模型能耗与解题产出比</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 每日论文榜重点推介端侧代码大模型量化能效基准研究《Choosing Quantized Code LLMs by File Size and Energy per Solved Task》（arXiv:2611.17605）。研究人员在一台无风扇 MacBook Air M2 上，针对 Qwen2.5-Coder 跨量化阶梯的 24 款 Ollama GGUF 格式模型进行了 542 项 EvalPlus 编码基准任务评测，并通过硬件底层传感器精确采集了 CPU、GPU 及统一内存供电轨的实际功耗与任务能耗（焦耳/解题）。实测数据显示，文件大小同为 3GB 档位时，7B-q2_K 极限低比特量化版相比 3B-q4_K_M 并没有带来统计学意义上的解题率提升，但在整机供电轨上单题能耗却高出 2.03 倍（整机功耗高出 1.66 至 1.81 倍）。该研究为在 Apple Silicon 笔记本及边缘设备上选型本地代码生成模型提供了明确量化依据：盲目追求大参数极限量化得不偿失，中等参数中高量化比特在续航与准确率之间具备显著能效优势。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文榜 / arXiv:2611.17605</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.17605" target="_blank" rel="noopener">huggingface.co/papers/2611.17605 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Mister Download Manager -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/anefzaoui/misterdownloadmanager" target="_blank" rel="noopener">纯 Rust 打造的轻量开源下载神器 Mister Download Manager：零遥测无广告优雅平替 IDM</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      独立开发者在 GitHub 开源跨平台轻量多线程下载管理利器 Mister Download Manager，发布不久即突破 1.3 万 Stars。针对传统商业下载工具（如 Internet Download Manager / IDM）界面老旧、捆绑广告、跨平台缺失以及暗含闭源遥测的顽疾，该项目完全从零采用纯 Rust 与 egui 库重构，构建出无任何 Electron 膨胀的单二进制客户端。软件原生深度适配 macOS、Windows 与 Linux 系统，内置高效的多线程动态分块加速引擎，支持网络断点续传、m3u8 视频流自动聚合下载、磁力链接与 BT 种子解析，并深度集成了 yt-dlp 媒体抓取能力与浏览器扩展联动。其纯粹离线、零用户行为上报与小而美的轻量设计，为追求极致纯净与高吞吐下载的桌面极客提供了理想方案。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 13.7K Stars / 独立开源项目</span>
+      <a class="source-link" href="https://github.com/anefzaoui/misterdownloadmanager" target="_blank" rel="noopener">github.com/anefzaoui/misterdownloadmanager ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
