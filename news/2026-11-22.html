@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日新闻 · 2026-11-22 · 思考与记录</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-22 每日动态：Lean 官方与 Mathlib 社区正式认证数学家 Levent Alpöge 提交的黎曼猜想 1700 万行代码形式化证明、Thinking Machines 发布端侧循环架构模型 Inkling 2 Mini 且开源社区实现 5.4GB 内存全速运行、开源团队 storytold 纯 Rust 净室重构 Photoshop 打造 PhotoCraft 斩获 8 万星、极客深度排查揭秘 Studio Display 扩展坞连接 2.5G 网卡下行暴跌 75% 的硬件控制器瓶颈、Hugging Face 论文榜精选 Coding Agent 原位编程训练光子神经网络、极客打造 ClawDOS 在 1983 年 4.77MHz IBM PC 实机运行 AI 智能体。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Nav */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Header */
+  .header {
+    margin-bottom: 36px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .eyebrow {
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1.2pt;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .title {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--near-black);
+    margin-bottom: 12px;
+  }
+  .meta-bar {
+    display: flex;
+    gap: 16px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .meta-tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+  }
+
+  /* News List */
+  .news-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .news-card {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 24px 28px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .news-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .news-title {
+    font-size: 14pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    flex: 1;
+    min-width: 240px;
+  }
+  .news-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .news-title a:hover {
+    color: var(--brand);
+  }
+
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8.5pt;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .news-summary {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  .news-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 12px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .site-footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .title { font-size: 20pt; }
+    .news-card { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="header">
+  <div class="eyebrow">每日前沿资讯</div>
+  <h1 class="title">极客前沿纪事报 · 2026-11-22</h1>
+  <div class="meta-bar">
+    <span>2026年11月22日</span>
+    <span>·</span>
+    <span>第 135 期</span>
+    <span class="meta-tag">自动聚合生成</span>
+    <span>共 6 条前沿动态</span>
+  </div>
+</header>
+
+<main class="news-stream">
+
+  <!-- 1. Lean Riemann Hypothesis Verification -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://leanprover-community.github.io/blog/posts/riemann-hypothesis/" target="_blank" rel="noopener">Lean FRO 与社区正式认证黎曼猜想形式化证明：1700 万行代码零报错通过多核验证</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Lean FRO 与 Mathlib 社区正式发布联合声明，全面认证数学家 Levent Alpöge 提交的广义黎曼猜想与黎曼猜想形式化证明代码库具备完整正确性。该证明包含 1700 万行 Lean 4 代码，完全直接依赖 Mathlib。全球数十位形式化证明与数论专家在过去 24 小时内进行了分布式编译复现与定理对齐审计。验证满足四项严苛标准：Mathlib 中经过同行评审的标准黎曼猜想命题与 Alpöge 证明的目标定理经由 comparator 与 con-leche 独立比对工具完全吻合；代码库在多机环境下无警告无报错编译；原始导出证明分别通过 Lean 官方内核、拥有严格集合论保真证明的 con-leche 与 con-ron 独立验证器、以及第三方独立语言检查器核验，杜绝了 Lean 编译器自身潜在漏洞或恶意利用的可能。这是人类科学史上首个经受住机器内核严格验证的千年大奖难题证明，标志着形式化数学与代码自动验证迈入全新纪元。
+    </p>
+    <div class="news-meta">
+      <span>信源：Lean FRO 与 Mathlib 联合公报 / Hacker News 810+ 榜首热议</span>
+      <a class="source-link" href="https://leanprover-community.github.io/blog/posts/riemann-hypothesis/" target="_blank" rel="noopener">leanprover-community.github.io/.../riemann-hypothesis/ ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Inkling 2 Mini & lookatmyquant -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://thinkingmachines.ai/news/inkling-2-mini/" target="_blank" rel="noopener">Thinking Machines 发布端侧基座 Inkling 2 Mini：循环架构重塑推理效率，开源社区 5.4GB 内存全速运行</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Thinking Machines 正式发布端侧旗舰小模型 Inkling 2 Mini，专为个人电脑与边缘计算设备上的生产级代码 Agent 设计。架构上创新采用循环 Transformer（Looped Transformer），对模型中间核心推理层按每个 Token 执行三次循环迭代计算，从而在保持轻量参数体积的同时赋予模型更深层次的逻辑推演能力，大幅减少冗长输出并提升解决复杂任务的精度。基准测试中，Inkling 2 Mini 在 DeepSWE v1.1 代码解决率达到 48.2%、Vals Index v2.2 评测达到 46.5%，在 100B 参数以下开源权重模型中全面领跑，同时推理吞吐显著优于同性能竞品。与此同时，开源开发者 ShinMegamiBoson 推出量化编译器项目 lookatmyquant，基于网格编码与 Fisher 信息量逐行分配权重位宽，成功将 Inkling 2 Mini 压缩至 5.4 GB 统一内存，普通 16GB 内存的 MacBook 或消费级 PC 即可纯离线全速运行。
+    </p>
+    <div class="news-meta">
+      <span>信源：Thinking Machines 技术博客 / Hacker News 1370+ 热议 / GitHub lookatmyquant</span>
+      <a class="source-link" href="https://thinkingmachines.ai/news/inkling-2-mini/" target="_blank" rel="noopener">thinkingmachines.ai/news/inkling-2-mini/ ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. PhotoCraft -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://github.com/storytold/photocraft" target="_blank" rel="noopener">纯 Rust 净室重构 Photoshop：开源图像编辑工具 PhotoCraft 斩获 8 万星</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">独立开发</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      由开源团队 storytold 打造的图像编辑桌面工具 PhotoCraft 在 GitHub 斩获超 8 万 Stars。项目采用净室逆向与从零实现理念，使用纯 Rust 语言完整重构了专业图像编辑软件的核心引擎。PhotoCraft 支持图层、蒙版、调整图层、图层样式、矢量路径、专业文字排版与画笔引擎，并完全兼容读取与导出真实的 Adobe PSD 格式文件。得益于 Rust 的零成本抽象、无锁并行像素着色管道以及紧凑的内存布局，PhotoCraft 在多图层超大分辨率画布上的笔刷绘制、滤镜渲染与色彩变换展现出极致的响应速度与毫秒级首帧启动，且完全本地离线运行、免除订阅费用，为创意设计师与极客群体提供了真正自由、安全且可控的开源工业级生产力底座。
+    </p>
+    <div class="news-meta">
+      <span>信源：GitHub 开源社区 80.8K Stars / PhotoCraft 官方项目</span>
+      <a class="source-link" href="https://github.com/storytold/photocraft" target="_blank" rel="noopener">github.com/storytold/photocraft ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Studio Display Ethernet Issue -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://blog.tymscar.com/posts/studiodisplayethernet/" target="_blank" rel="noopener">Apple 极客排查记：Studio Display 连接 2.5G 网卡下行暴跌 75% 的底层机制与调优</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      极客博主 Oscar Molnar 深入排查了 Mac 工作流中一桩隐蔽的硬件带宽陷阱：当通过一条雷雳线将外设全部接入 Apple Studio Display 扩展坞以实现单线桌面时，原本 2.5 Gbps 的对等光纤在搭载 Realtek RTL8156B 芯片的 USB-C 网卡下，测速下行诡异暴跌 75% 至 600 Mbps，而上行却能跑满 2.4 Gbps。排查发现，该问题既非线缆损坏也非 macOS 驱动崩溃，而是由于雷雳拓展坞级联 hub 引入了微秒级 RTT 延迟，且 RTL8156B 在 USB 描述符中设定的单次突发传输上限（bMaxBurst）仅为 3（每次仅发 4 个 1KB 数据包即需等待主机响应确认），导致网卡板载纳秒级小缓冲区在下行高速涌入时迅速溢出并静默丢包。作者随后测试换用支持 USB 3.2 Gen 2 且 bMaxBurst 为 7（8 个突发包）的新一代 RTL8157 网卡，使接口突发承载带宽提升至 4.5 Gbps，彻底消除丢包并完美跑满 2.5G 对等带宽。
+    </p>
+    <div class="news-meta">
+      <span>信源：The Tymscar Blog 深度复盘 / Hacker News 470+ 点赞</span>
+      <a class="source-link" href="https://blog.tymscar.com/posts/studiodisplayethernet/" target="_blank" rel="noopener">blog.tymscar.com/posts/studiodisplayethernet/ ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Coding Agents for Optical Neural Networks -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="https://huggingface.co/papers/2611.23875" target="_blank" rel="noopener">Hugging Face 论文精选：代码智能体实现光子神经网络原位自校准与免梯度物理训练</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      Hugging Face 每日论文榜精选前沿成果《In Situ Training of Optical Neural Networks by Coding Agents》（arXiv:2611.23875），开创了代码驱动光学物理计算（Optics as Code）全新研究范式。传统光子神经网络具备超高算力与极低功耗潜力，但由于每个物理器件在制造中均存在微观物理偏差，原位调谐高度依赖耗时的高成本数字仿真或盲目试错。该研究构建了一套闭环 Harness 环境，由 Coding Agent 实时接收探针传感器采集的图像反馈并提出物理假设。实验表明，具备代码编写与推理能力的大模型展现出对光学物理规律的直观理解能力，能自主将网络重参数化为由硬件直接调优的可解释光学元件组合；在图像分类与编码任务中，该方案不仅显著超越无梯度启发式搜索，更以极小的计算代价逼近了精细校准模型下的反向传播性能，为光子芯片规模化落地提供了无需繁琐标定的大模型自主调试管道。
+    </p>
+    <div class="news-meta">
+      <span>信源：Hugging Face 论文榜 / arXiv:2611.23875</span>
+      <a class="source-link" href="https://huggingface.co/papers/2611.23875" target="_blank" rel="noopener">huggingface.co/papers/2611.23875 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. ClawDOS -->
+  <article class="news-card">
+    <div class="news-header">
+      <h2 class="news-title">
+        <a href="http://ricapar.net/ClawDOS/" target="_blank" rel="noopener">极客打造 ClawDOS：在 1983 年 4.77MHz IBM PC 实机运行 AI 编程智能体</a>
+      </h2>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <p class="news-summary">
+      极客开发者 Ricapar 在个人博客披露并开源了复古硬核实验 ClawDOS，成功将当代 AI 代码智能体 Harness 搬上了一台制造于 1983 年的 IBM PC 5160 实机（配置为 4.77 MHz 的 Intel 8088 处理器、640KB 内存与 CGA 显卡）。面对仅有几百 KB 内存与极端受限 CPU 算力的远古硬件环境，ClawDOS 摒弃了现代重量级运行时，通过精巧紧凑的汇编与低波特率 RS-232 串行管道建立双向通信，将现代大模型的结构化工具调用（Tool Calls）与 DOS 内核原生命令行管道解耦绑定。智能体能够自主在 8088 实机上检查系统目录、编写 Turbo Pascal 与 BASIC 源码、调用旧版编译器构建二进制并在真实 CRT 绿显屏幕上运行调试，以纯粹的极客趣味打通了现代 Agentic 工作流与四十年前个人计算机原型的时空阻隔。
+    </p>
+    <div class="news-meta">
+      <span>信源：个人技术博客 / Hacker News 158+ 热议</span>
+      <a class="source-link" href="http://ricapar.net/ClawDOS/" target="_blank" rel="noopener">ricapar.net/ClawDOS ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
