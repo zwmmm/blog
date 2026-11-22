@@ -37,7 +37,8 @@
    - 更新 `<span class="section-count">N 篇文章</span>` 计数。
 
 ### 2.2 更新每日新闻（Daily News）
-1. **新建或追加日报**：在 `news/<YYYY-MM-DD>.html` 或 `news.html` 中生成当日新闻。
+1. **新建当日纪事日报**：在 `news/<YYYY-MM-DD>.html` 生成当日新闻详情页。
+   - **报刊纪事体排版**：区分于列表页卡片堆叠，采用专刊排版架构。包含 `masthead` 报头、`editorial-lead` 今日导读综述框、`quick-index` 本期条目锚点速览、`digest-entry` 深度纪事流（大号等宽数字编号、分类标签、标题、正文、独立信源出处栏与单线细分割）以及底部的 `issue-pagination` 期数往来导航栏。
 2. **更新 `news.html`**：在列表顶部追加最新一期日报卡片，列出精选资讯要点与真实落地链接。
 3. **更新 `index.html`**：在首页 `<section id="news">` 区域同步展示最新日报摘要与跳转链接。
 4. **Git 推送部署**：提交并推送至 `main` 分支触发 Vercel 自动部署。

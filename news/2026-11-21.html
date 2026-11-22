@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>每日新闻 · 2026-11-21 · 思考与记录</title>
+<title>极客前沿纪事报 · 2026-11-21 · 第 134 期</title>
 <meta name="author" content="Kami">
 <meta name="description" content="2026-11-21 每日动态：Architect Labs 发布首个由 AI 全自主设计验证的通用 CPU 架构 Frostbite 能效比跃升 4.59 倍、arXiv 前沿论文披露大模型无需反传自主改写（Self-Rewriting）自身权重机制、开源工具 rust-anything 以行为录制与单步验证驱动智能体等价重写 Rust 应用、少数派精选独立开发应用浮屏 Floato 智能识别截图常驻灵动岛、开源项目 S2Arm 将 Switch 游戏代码重写为原生 ARM64 直通 Metal 畅跑 Apple 设备、极客开源桌面面板 PhoneBox 让闲置手机秒变 AI 编程触控副屏。">
 <meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
@@ -41,6 +41,10 @@
     --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   html, body {
     background-color: var(--parchment);
     color: var(--near-black);
@@ -51,18 +55,18 @@
   }
 
   body {
-    max-width: 860px;
+    max-width: 820px;
     margin: 0 auto;
     padding: 36px 32px 80px 32px;
   }
 
-  /* Nav */
+  /* Top Navigation */
   .top-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
-    padding-bottom: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
     border-bottom: 0.5px solid var(--border);
     font-size: 9.5pt;
   }
@@ -80,86 +84,157 @@
     text-decoration: none;
   }
 
-  /* Header */
-  .header {
-    margin-bottom: 36px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
+  /* Masthead */
+  .masthead {
+    margin-bottom: 24px;
   }
-  .eyebrow {
-    font-size: 10pt;
+  .masthead-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9pt;
     color: var(--brand);
-    letter-spacing: 1.2pt;
+    letter-spacing: 1.5pt;
     font-weight: 500;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-family: var(--mono);
   }
-  .title {
-    font-size: 24pt;
+  .masthead-title {
+    font-size: 25pt;
     font-weight: 500;
-    line-height: 1.25;
+    line-height: 1.2;
     color: var(--near-black);
     margin-bottom: 12px;
+    letter-spacing: 0.5pt;
   }
-  .meta-bar {
-    display: flex;
-    gap: 16px;
-    font-size: 9.5pt;
-    color: var(--stone);
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .meta-tag {
-    background: var(--tag-bg);
-    color: var(--brand);
-    padding: 2px 8px;
-    border-radius: 3px;
-    font-size: 8.5pt;
-  }
-
-  /* News List */
-  .news-stream {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-  }
-
-  .news-card {
-    background: var(--ivory);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 24px 28px;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .news-card:hover {
-    border-color: var(--brand);
-    box-shadow: 0 4px 16px rgba(27, 54, 93, 0.05);
-  }
-
-  .news-header {
+  .masthead-bar {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 10px;
+    align-items: center;
     flex-wrap: wrap;
+    gap: 12px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .masthead-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .issue-badge {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 500;
   }
 
-  .news-title {
-    font-size: 14pt;
+  /* Editorial Lead */
+  .editorial-lead {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--brand);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 28px 0 32px 0;
+  }
+  .lead-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .lead-label {
+    font-size: 10pt;
     font-weight: 500;
-    color: var(--near-black);
-    line-height: 1.35;
-    flex: 1;
-    min-width: 240px;
+    color: var(--brand);
+    letter-spacing: 0.8pt;
   }
-  .news-title a {
-    color: var(--near-black);
+  .lead-sub {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    letter-spacing: 1pt;
+  }
+  .lead-text {
+    font-size: 10pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin: 0;
+    text-align: justify;
+  }
+
+  /* Quick Table of Contents */
+  .quick-index {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+  .index-caption {
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--olive);
+    letter-spacing: 1pt;
+    margin-bottom: 12px;
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 10px 20px;
+  }
+  .index-link {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--dark-warm);
     text-decoration: none;
+    font-size: 9.5pt;
+    line-height: 1.45;
   }
-  .news-title a:hover {
+  .index-link:hover {
     color: var(--brand);
   }
+  .index-num {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
 
+  /* Editorial Digest Stream */
+  .digest-stream {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .digest-entry {
+    padding-bottom: 36px;
+    margin-bottom: 38px;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .digest-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .entry-num {
+    font-family: var(--mono);
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--brand);
+    line-height: 1;
+  }
   .tag-group {
     display: flex;
     gap: 6px;
@@ -168,29 +243,56 @@
   .tag {
     background: var(--tag-bg);
     color: var(--brand);
-    font-size: 8.5pt;
+    font-size: 8pt;
     font-weight: 500;
-    padding: 2px 8px;
+    padding: 1px 6px;
     border-radius: 3px;
     font-family: var(--mono);
   }
 
-  .news-summary {
+  .entry-title {
+    font-size: 15pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .entry-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .entry-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .entry-body {
     font-size: 10.5pt;
     color: var(--dark-warm);
     line-height: 1.55;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     text-align: justify;
   }
 
-  .news-meta {
+  .entry-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
     font-size: 8.5pt;
     color: var(--stone);
-    padding-top: 12px;
+    padding-top: 10px;
     border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .source-label {
+    color: var(--olive);
+    font-weight: 500;
   }
   .source-link {
     color: var(--brand);
@@ -201,11 +303,58 @@
     text-decoration: underline;
   }
 
-  /* Footer */
-  .site-footer {
-    margin-top: 60px;
-    padding-top: 24px;
+  /* Issue Navigation Footer */
+  .issue-pagination {
+    margin-top: 48px;
+    padding: 20px 0;
     border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 9.5pt;
+  }
+  .page-link {
+    color: var(--brand);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .page-link:hover {
+    text-decoration: underline;
+  }
+  .page-link.archive {
+    text-align: center;
+    color: var(--dark-warm);
+  }
+  .page-link.archive:hover {
+    color: var(--brand);
+  }
+  .page-link.next {
+    text-align: right;
+  }
+  .page-link.disabled {
+    color: var(--stone);
+    cursor: default;
+    text-decoration: none;
+  }
+  .link-caption {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    text-transform: uppercase;
+  }
+  .link-text {
+    font-size: 9.5pt;
+    font-weight: 500;
+  }
+
+  /* Site Footer */
+  .site-footer {
+    margin-top: 36px;
     display: flex;
     justify-content: space-between;
     font-size: 9pt;
@@ -221,8 +370,11 @@
 
   @media (max-width: 640px) {
     body { padding: 24px 18px 60px 18px; }
-    .title { font-size: 20pt; }
-    .news-card { padding: 18px 20px; }
+    .masthead-title { font-size: 20pt; }
+    .index-grid { grid-template-columns: 1fr; }
+    .entry-title { font-size: 13.5pt; }
+    .issue-pagination { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .page-link.next { text-align: left; }
   }
 </style>
 </head>
@@ -233,142 +385,226 @@
   <a class="site-title" href="../index.html">思考与记录</a>
 </nav>
 
-<header class="header">
-  <div class="eyebrow">每日前沿资讯</div>
-  <h1 class="title">极客前沿纪事报 · 2026-11-21</h1>
-  <div class="meta-bar">
-    <span>2026年11月21日</span>
-    <span>·</span>
-    <span>第 134 期</span>
-    <span class="meta-tag">自动聚合生成</span>
-    <span>共 6 条前沿动态</span>
+<header class="masthead">
+  <div class="masthead-eyebrow">
+    <span>KAMI CHRONICLE</span>
+    <span>/</span>
+    <span>极客前沿纪事</span>
+  </div>
+  <h1 class="masthead-title">极客前沿纪事报 · 2026-11-21</h1>
+  <div class="masthead-bar">
+    <div class="masthead-left">
+      <span>2026 年 11 月 21 日</span>
+      <span>·</span>
+      <span class="issue-badge">第 134 期 · 晨报</span>
+    </div>
+    <span>共 6 篇前沿动态</span>
   </div>
 </header>
 
-<main class="news-stream">
+<section class="editorial-lead">
+  <div class="lead-header">
+    <span class="lead-label">本期导读</span>
+    <span class="lead-sub">TODAY'S DIGEST</span>
+  </div>
+  <p class="lead-text">
+    本日精选 6 条前沿动态涵盖芯片底层架构突破、大模型免梯度自改写、智能体行为验证重构、iOS 灵动岛生活凭证卡片、Apple Silicon 原生游戏重编译以及免云端工位触控副屏。从硬件 ISA 的 AI 自主探索到模型权重的原地自我修复，AI 正在从外挂辅助转向自下而上的全栈自主闭环。
+  </p>
+</section>
+
+<nav class="quick-index">
+  <div class="index-caption">本期导读目录</div>
+  <div class="index-grid">
+    <a class="index-link" href="#item-1">
+      <span class="index-num">01</span>
+      <span>AI 发现通用 CPU 架构 Frostbite</span>
+    </a>
+    <a class="index-link" href="#item-2">
+      <span class="index-num">02</span>
+      <span>大模型免反传改写自身权重</span>
+    </a>
+    <a class="index-link" href="#item-3">
+      <span class="index-num">03</span>
+      <span>rust-anything 行为录制重构</span>
+    </a>
+    <a class="index-link" href="#item-4">
+      <span class="index-num">04</span>
+      <span>少数派精选独立应用「浮屏」</span>
+    </a>
+    <a class="index-link" href="#item-5">
+      <span class="index-num">05</span>
+      <span>S2Arm 原生 Switch 重编译</span>
+    </a>
+    <a class="index-link" href="#item-6">
+      <span class="index-num">06</span>
+      <span>PhoneBox 闲置手机变工位副屏</span>
+    </a>
+  </div>
+</nav>
+
+<main class="digest-stream">
 
   <!-- 1. Architect Labs Frostbite -->
-  <article class="news-card">
-    <div class="news-header">
-      <h2 class="news-title">
-        <a href="https://architectlabs.com/blog/frostbite" target="_blank" rel="noopener">Architect Labs 推出首个由 AI 全自主设计验证的通用 CPU 架构 Frostbite：能效比暴增 4.59 倍</a>
-      </h2>
+  <article class="digest-entry" id="item-1">
+    <div class="entry-header">
+      <span class="entry-num">01</span>
       <div class="tag-group">
         <span class="tag">大模型</span>
         <span class="tag">AI编程</span>
       </div>
     </div>
-    <p class="news-summary">
+    <h2 class="entry-title">
+      <a href="https://architectlabs.com/blog/frostbite" target="_blank" rel="noopener">Architect Labs 推出首个由 AI 全自主设计验证的通用 CPU 架构 Frostbite：能效比暴增 4.59 倍</a>
+    </h2>
+    <p class="entry-body">
       芯片前沿研究机构 Architect Labs 正式公开通用处理器微架构 Frostbite，其指令集架构（ISA）、微架构设计、专属编译器、RTL 逻辑实现直至可制造版图 GDS 的全流程均由 AI 智能体系统端到端自主探索完成并闭环验证。与传统人类工程师设计的复杂超标量核心不同，Frostbite 深入利用了交互网（interaction nets）的数学特性，确保运行时的每一步计算在空间上完全局部化、所有数据依赖显式化，并且每个数值仅拥有单一所属权，从而消除了全局共享状态与乱序执行带来的庞大能耗开销。在涵盖 25 项标准基准负载（包括 15 项此前对 AI 隐藏的验证负载）实测中，Frostbite 相比成熟的超标量顺序双发射 CPU 实现了高达 4.59 倍的每瓦性能跃升，证明自主智能体已具备突破人类工程经验瓶颈、重新定义底层通用计算硬件体系的能力。
     </p>
-    <div class="news-meta">
-      <span>信源：Architect Labs 官方技术博客 / Hacker News 618+ 热评</span>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Architect Labs 官方技术博客 / Hacker News 618+ 热评</span>
+      </div>
       <a class="source-link" href="https://architectlabs.com/blog/frostbite" target="_blank" rel="noopener">architectlabs.com/blog/frostbite ↗</a>
     </div>
   </article>
 
   <!-- 2. Self-Rewriting LLMs -->
-  <article class="news-card">
-    <div class="news-header">
-      <h2 class="news-title">
-        <a href="https://arxiv.org/abs/2611.21885" target="_blank" rel="noopener">模型自主改写自身权重无需梯度反传：arXiv 前沿论文披露免训练自改写（Self-Rewriting）机制</a>
-      </h2>
+  <article class="digest-entry" id="item-2">
+    <div class="entry-header">
+      <span class="entry-num">02</span>
       <div class="tag-group">
         <span class="tag">大模型</span>
         <span class="tag">AI编程</span>
       </div>
     </div>
-    <p class="news-summary">
+    <h2 class="entry-title">
+      <a href="https://arxiv.org/abs/2611.21885" target="_blank" rel="noopener">模型自主改写自身权重无需梯度反传：arXiv 前沿论文披露免训练自改写（Self-Rewriting）机制</a>
+    </h2>
+    <p class="entry-body">
       arXiv 人工智能领域最新公布了由 Jiajun Fan 等学者撰写的突破性研究论文《Language Models Can Rewrite Their Own Weights》（arXiv:2611.21885）。该研究彻底颠覆了“大语言模型训练完成后权重即固定冻结”的固有范式，首次证明语言模型能够通过自身的纯文本推理与代码分析能力原地改写底层神经网络权重，全程无需梯度下降与反向传播优化。实验基于开源 27B 参数模型展开，智能体被赋予自身权重张量访问权限、错题评测反馈以及调用自身执行评测的能力；模型通过诊断解题错误成因并直接在参数层面编写改写补丁，在未曾接触过的全新问题集上实现了单次改写准确率提升 6.6 分的成绩。在连续八轮自我重写中其准确率持续保持单调递增，甚至能将一个几乎丧失解题能力的损坏模型副本自主修复至超过 80% 的原始准确率。
     </p>
-    <div class="news-meta">
-      <span>信源：arXiv 预印本 / Hugging Face 每日论文榜精选</span>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>arXiv 预印本 / Hugging Face 每日论文榜精选</span>
+      </div>
       <a class="source-link" href="https://arxiv.org/abs/2611.21885" target="_blank" rel="noopener">arxiv.org/abs/2611.21885 ↗</a>
     </div>
   </article>
 
   <!-- 3. rust-anything -->
-  <article class="news-card">
-    <div class="news-header">
-      <h2 class="news-title">
-        <a href="https://github.com/erkamyaman/rust-anything" target="_blank" rel="noopener">行为录制驱动代码智能体重写应用：开源工具 rust-anything 验证全流程等价移植</a>
-      </h2>
+  <article class="digest-entry" id="item-3">
+    <div class="entry-header">
+      <span class="entry-num">03</span>
       <div class="tag-group">
         <span class="tag">AI编程</span>
         <span class="tag">智能体</span>
       </div>
     </div>
-    <p class="news-summary">
+    <h2 class="entry-title">
+      <a href="https://github.com/erkamyaman/rust-anything" target="_blank" rel="noopener">行为录制驱动代码智能体重写应用：开源工具 rust-anything 验证全流程等价移植</a>
+    </h2>
+    <p class="entry-body">
       面对开发者利用 Claude Code、Cursor、Codex 等智能体将传统项目重构为 Rust 时缺乏行为验证、容易遗漏隐藏边界缺陷的难题，开源项目 rust-anything 在 GitHub 迅速收获超 6600 Stars。该工具确立了“不盲目翻译语法，只证明行为一致”的全新重构范式：它首先挂载至目标应用运行时，全量录制其在命令行、HTTP 服务或函数库调用中的真实行为轨迹与状态变迁账本；随后驱动代码智能体逐模块编写对应的 Rust 实现，并在每一步提交前均严格基于先前录制的行为账本执行差异化自动化检验。目前 rust-anything 原生支持将 TypeScript、Python、C、Go、Ruby 以及 Java 项目逐步重写为高性能安全 Rust，并原生提供 macOS、Linux 与 Windows 的单二进制跨平台支持。
     </p>
-    <div class="news-meta">
-      <span>信源：GitHub 开源社区 6.6K Stars / 独立重构流水线</span>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 开源社区 6.6K Stars / 独立重构流水线</span>
+      </div>
       <a class="source-link" href="https://github.com/erkamyaman/rust-anything" target="_blank" rel="noopener">github.com/erkamyaman/rust-anything ↗</a>
     </div>
   </article>
 
   <!-- 4. Floato (浮屏) -->
-  <article class="news-card">
-    <div class="news-header">
-      <h2 class="news-title">
-        <a href="https://floato.thoamsy.app/" target="_blank" rel="noopener">少数派精选独立开发应用浮屏 Floato：AI 智能解析截图秒变灵动岛与锁屏生活卡片</a>
-      </h2>
+  <article class="digest-entry" id="item-4">
+    <div class="entry-header">
+      <span class="entry-num">04</span>
       <div class="tag-group">
         <span class="tag">Apple</span>
         <span class="tag">独立开发</span>
       </div>
     </div>
-    <p class="news-summary">
+    <h2 class="entry-title">
+      <a href="https://floato.thoamsy.app/" target="_blank" rel="noopener">少数派精选独立开发应用浮屏 Floato：AI 智能解析截图秒变灵动岛与锁屏生活卡片</a>
+    </h2>
+    <p class="entry-body">
       独立开发者 Thomas 打造的 iOS 实用工具“浮屏（Floato）”获得少数派 Matrix 首页置顶推介。日常生活中取餐码、快递提取码、电影选座票、高铁检票口、登机凭证甚至软件自动续费通知往往分散在各类小程序与应用内，用户在户外等候或取件时需要频繁来回切换查找。浮屏将“随手截图”作为统揽一切的核心输入，通过端侧部署的轻量分类决策模型与多级路由识别流水线，在数秒内自动提炼截图内的关键凭证信息并排版为标准化卡片，直接推送到 iOS 灵动岛（Dynamic Island）、锁屏实时活动（Live Activities）和桌面小组件。此外应用还提供日历足迹复盘与周期性订阅账单归纳能力，让原本用后即删的杂乱截图转化为结构清晰、随叫随到的生活凭证记录。
     </p>
-    <div class="news-meta">
-      <span>信源：少数派 Matrix 精选 / App Store (App ID: 6790420404)</span>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>少数派 Matrix 精选 / App Store (App ID: 6790420404)</span>
+      </div>
       <a class="source-link" href="https://floato.thoamsy.app/" target="_blank" rel="noopener">floato.thoamsy.app ↗</a>
     </div>
   </article>
 
   <!-- 5. S2Arm -->
-  <article class="news-card">
-    <div class="news-header">
-      <h2 class="news-title">
-        <a href="https://github.com/jhaizhou-ops/S2Arm" target="_blank" rel="noopener">开源 Switch 原生执行框架 S2Arm：游戏代码重编译为 ARM64 直通 Metal 畅玩 Mac 与 iPhone</a>
-      </h2>
+  <article class="digest-entry" id="item-5">
+    <div class="entry-header">
+      <span class="entry-num">05</span>
       <div class="tag-group">
         <span class="tag">Apple</span>
         <span class="tag">独立开发</span>
       </div>
     </div>
-    <p class="news-summary">
+    <h2 class="entry-title">
+      <a href="https://github.com/jhaizhou-ops/S2Arm" target="_blank" rel="noopener">开源 Switch 原生执行框架 S2Arm：游戏代码重编译为 ARM64 直通 Metal 畅玩 Mac 与 iPhone</a>
+    </h2>
+    <p class="entry-body">
       面向 Apple 原生生态的开源游戏执行框架 S2Arm 正式发布 0.6.0 大版本并在极客社区引发轰动。不同于传统依赖指令逐条解释转译的笨重模拟器，S2Arm 针对现代 Apple Silicon 芯片硬件特性进行了深度重构：框架直接将主机端指令静态重编译为设备原生的 ARM64 机器码在处理器核心全速运行，同时将图形管线绘制调用直通至 Apple 专属 Metal API，实现了近乎无转译损耗的高帧率输出。新版本实现了 iPhone、iPad 与 Mac 的统一库管理体系，用户只需在桌面启动器中点击即可将自备游戏分发同步至移动设备，为苹果生态玩家提供了小而美、高性能且纯粹无多余依赖的掌上畅玩方案。
     </p>
-    <div class="news-meta">
-      <span>信源：GitHub 开源社区 3.7K Stars / s2arm.com 官方发布</span>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 开源社区 3.7K Stars / s2arm.com 官方发布</span>
+      </div>
       <a class="source-link" href="https://github.com/jhaizhou-ops/S2Arm" target="_blank" rel="noopener">github.com/jhaizhou-ops/S2Arm ↗</a>
     </div>
   </article>
 
   <!-- 6. PhoneBox -->
-  <article class="news-card">
-    <div class="news-header">
-      <h2 class="news-title">
-        <a href="https://github.com/ersinkoc/phonebox" target="_blank" rel="noopener">旧手机秒变 AI 编程工位触控副屏：跨端开源工具 PhoneBox 零云端适配 Mac 与桌面系统</a>
-      </h2>
+  <article class="digest-entry" id="item-6">
+    <div class="entry-header">
+      <span class="entry-num">06</span>
       <div class="tag-group">
         <span class="tag">Apple</span>
         <span class="tag">AI编程</span>
         <span class="tag">独立开发</span>
       </div>
     </div>
-    <p class="news-summary">
+    <h2 class="entry-title">
+      <a href="https://github.com/ersinkoc/phonebox" target="_blank" rel="noopener">旧手机秒变 AI 编程工位触控副屏：跨端开源工具 PhoneBox 零云端适配 Mac 与桌面系统</a>
+    </h2>
+    <p class="entry-body">
       极客开发者在 GitHub 开源多功能桌面扩展工具 PhoneBox，上线不久即斩获超 4200 Stars。该项目旨在帮助开发者零成本盘活抽屉中闲置的旧手机或旧平板，将其瞬间改造为专属桌上触控中控屏与状态面板。PhoneBox 完全基于本地 USB 调试或局域网 Wi-Fi 通信工作，无需 Root 权限，不依赖任何第三方云端账号与外部服务器，确保个人与工作机器隐私绝对安全。软件内置 124 种开箱即用的功能小组件与 30 套针对不同场景的预设模板，深度支持对 Claude Code、Cursor、终端 Agent 会话状态的实时监控、整机资源与 GPU 占用追踪、快捷命令一键触发与音乐控制，原生完美兼容 macOS、Windows 与 Linux 平台。
     </p>
-    <div class="news-meta">
-      <span>信源：GitHub 开源社区 4.2K Stars / 独立开源工具</span>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 开源社区 4.2K Stars / 独立开源工具</span>
+      </div>
       <a class="source-link" href="https://github.com/ersinkoc/phonebox" target="_blank" rel="noopener">github.com/ersinkoc/phonebox ↗</a>
     </div>
   </article>
 
 </main>
+
+<nav class="issue-pagination">
+  <a class="page-link prev" href="2026-11-20.html">
+    <span class="link-caption">Previous Issue</span>
+    <span class="link-text">← 2026-11-20 · 第 133 期</span>
+  </a>
+  <a class="page-link archive" href="../news.html">
+    <span class="link-caption">Archive</span>
+    <span class="link-text">每日新闻列表</span>
+  </a>
+  <div class="page-link next disabled">
+    <span class="link-caption">Next Issue</span>
+    <span class="link-text">最新期 · 待发布 →</span>
+  </div>
+</nav>
 
 <footer class="site-footer">
   <span>思考与记录 · 每日新闻</span>
