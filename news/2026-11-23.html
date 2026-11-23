@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极客前沿纪事报 · 2026-11-23 · 第 136 期</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-23 每日动态：OpenAI 首席科学家披露预训练核心基质与行业速度红线提案、Hugging Face 论文精选免文本生成的确定性本地智能体 System 1、Jane Street 开源内部 Agent 技能库赋能代码智能体、极客打造逆向博弈游戏 Worker 755 人类成为 LLM 子智能体、Expo 官方发布 Agent-Native 全平台框架 Exact、独立开发者打造精品工具浮屏 Floato 结合端侧 AI 自动化将截图转为灵动岛与锁屏卡片。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Top Navigation */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Masthead */
+  .masthead {
+    margin-bottom: 24px;
+  }
+  .masthead-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9pt;
+    color: var(--brand);
+    letter-spacing: 1.5pt;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+  .masthead-title {
+    font-size: 25pt;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--near-black);
+    margin-bottom: 12px;
+    letter-spacing: 0.5pt;
+  }
+  .masthead-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .masthead-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .issue-badge {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 500;
+  }
+
+  /* Editorial Lead */
+  .editorial-lead {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--brand);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 28px 0 32px 0;
+  }
+  .lead-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .lead-label {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--brand);
+    letter-spacing: 0.8pt;
+  }
+  .lead-sub {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    letter-spacing: 1pt;
+  }
+  .lead-text {
+    font-size: 10pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin: 0;
+    text-align: justify;
+  }
+
+  /* Quick Table of Contents */
+  .quick-index {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+  .index-caption {
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--olive);
+    letter-spacing: 1pt;
+    margin-bottom: 12px;
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 10px 20px;
+  }
+  .index-link {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--dark-warm);
+    text-decoration: none;
+    font-size: 9.5pt;
+    line-height: 1.45;
+  }
+  .index-link:hover {
+    color: var(--brand);
+  }
+  .index-num {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+
+  /* Editorial Digest Stream */
+  .digest-stream {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .digest-entry {
+    padding-bottom: 36px;
+    margin-bottom: 38px;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .digest-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .entry-num {
+    font-family: var(--mono);
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--brand);
+    line-height: 1;
+  }
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8pt;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .entry-title {
+    font-size: 15pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .entry-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .entry-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .entry-body {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+
+  .entry-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 10px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .source-label {
+    color: var(--olive);
+    font-weight: 500;
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Issue Navigation Footer */
+  .issue-pagination {
+    margin-top: 48px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 9.5pt;
+  }
+  .page-link {
+    color: var(--brand);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .page-link:hover {
+    text-decoration: underline;
+  }
+  .page-link.archive {
+    text-align: center;
+    color: var(--dark-warm);
+  }
+  .page-link.archive:hover {
+    color: var(--brand);
+  }
+  .page-link.next {
+    text-align: right;
+  }
+  .page-link.disabled {
+    color: var(--stone);
+    cursor: default;
+    text-decoration: none;
+  }
+  .link-caption {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    text-transform: uppercase;
+  }
+  .link-text {
+    font-size: 9.5pt;
+  }
+
+  /* Site Footer */
+  .site-footer {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .masthead-title { font-size: 20pt; }
+    .index-grid { grid-template-columns: 1fr; }
+    .editorial-lead { padding: 14px 16px; }
+    .issue-pagination { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .page-link.archive, .page-link.next { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-eyebrow">KAMI CHRONICLE / 极客前沿纪事</div>
+  <h1 class="masthead-title">极客前沿纪事报 · 2026-11-23</h1>
+  <div class="masthead-bar">
+    <div class="masthead-left">
+      <span>2026年11月23日</span>
+      <span>·</span>
+      <span class="issue-badge">第 136 期 · 最新</span>
+    </div>
+    <div class="masthead-right">
+      <span>聚合 6 条前沿动态</span>
+    </div>
+  </div>
+</header>
+
+<section class="editorial-lead">
+  <div class="lead-header">
+    <span class="lead-label">今日导读</span>
+    <span class="lead-sub">/ EDITORIAL SUMMARY</span>
+  </div>
+  <p class="lead-text">
+    今日前沿技术格局在智能体底层范式与原生多端演进上迎来集中爆发：OpenAI 首席科学家首次披露从 GPT-3.5 至今的对数困惑度收敛曲线与跃迁规律，力倡全行业自愿设定模型安全发展“速度红线”；Hugging Face 论文榜精选免文本生成的确定性本地智能体 System 1 架构，通过单遍决策树在临床工具场景实现 97% 精度与零参数幻觉；量化巨头 Jane Street 开放内部日常打磨的 agent_skills 仓库，为代码智能体提供标准化的苏格拉底分级诊断教学体系；独立开源项目 Worker 755 带来黑色幽默反转实验，人类反向沦为大模型管理器的受限 Subagent 并在严密审计下完成终端突发指令；移动生态领军者 Expo 重磅推出 Agent-Native 原生跨端全平台框架 Exact，以原生 AppKit/UIKit 与极低开销闭环支持代码智能体开发；独立开发者结合本地端侧 AI 视觉打造精品工具浮屏 Floato，将零散凭证截图自动结构化为灵动岛与锁屏实时活动卡片。
+  </p>
+</section>
+
+<nav class="quick-index">
+  <div class="index-caption">本期导览 / IN THIS ISSUE</div>
+  <div class="index-grid">
+    <a class="index-link" href="#item-1">
+      <span class="index-num">01</span>
+      <span>OpenAI 首席科学家披露预训练核心基质与速度红线提案</span>
+    </a>
+    <a class="index-link" href="#item-2">
+      <span class="index-num">02</span>
+      <span>Hugging Face 精选：免文本生成的 System 1 本地智能体</span>
+    </a>
+    <a class="index-link" href="#item-3">
+      <span class="index-num">03</span>
+      <span>Jane Street 开源内部 Agent 技能库与苏格拉底教学</span>
+    </a>
+    <a class="index-link" href="#item-4">
+      <span class="index-num">04</span>
+      <span>极客反转爆款 Worker 755：人类成为大模型的受限 Subagent</span>
+    </a>
+    <a class="index-link" href="#item-5">
+      <span class="index-num">05</span>
+      <span>Expo 官方发布 Agent Native 全平台框架 Exact</span>
+    </a>
+    <a class="index-link" href="#item-6">
+      <span class="index-num">06</span>
+      <span>独立开发者打造精品浮屏 Floato：截图直达灵动岛与锁屏</span>
+    </a>
+  </div>
+</nav>
+
+<main class="digest-stream">
+
+  <!-- 1. OpenAI Pachocki Perplexity and Intelligence -->
+  <article class="digest-entry" id="item-1">
+    <div class="entry-header">
+      <span class="entry-num">01</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://openai.com/index/perplexity-and-intelligence/" target="_blank" rel="noopener">OpenAI 首席科学家披露预训练核心基质：对数困惑度演化全貌与行业自律“速度红线”提案</a>
+    </h2>
+    <p class="entry-body">
+      OpenAI 首席科学家 Jakub Pachocki 正式发表长篇研究报告《Perplexity and Intelligence》，首席执行官 Sam Altman 称其为该机构历来最重要的公开定调之一。报告首次透明公开了 OpenAI 从 GPT-3.5 到最新前沿模型的内部对数困惑度（log-perplexity）收敛曲线：在严格隔绝的固定测试集上，GPT-3.5 约为 0.99，具备多步推理能力的 GPT-4 下降至 0.91，而近期前沿模型已跌破 0.8 并持续下探至 0.76，在这一压缩区间内模型在高级数学与复杂漏洞逆向等任务上展现出剧烈的非线性能力跃迁。Pachocki 论证指出，预训练阶段的文本压缩能力依然是模型通用智能最本质的底层基质，且缩放定律尚未遭遇瓶颈。为此，OpenAI 正式向全球前沿实验室提出倡议：将困惑度作为可量化的行业公认标尺，各机构应在安全监控与行为对齐技术未达到对应安全水准前，自愿签署设定不突破特定困惑度阈值的阶段性“速度上限”，以确保超人类智能的平稳可控演进。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>OpenAI 官方技术报告 / Hacker News 460+ 榜首热议</span>
+      </div>
+      <a class="source-link" href="https://openai.com/index/perplexity-and-intelligence/" target="_blank" rel="noopener">openai.com/.../perplexity-and-intelligence/ ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. System 1 Agents: Fast, Deterministic Local Agentic AI -->
+  <article class="digest-entry" id="item-2">
+    <div class="entry-header">
+      <span class="entry-num">02</span>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://huggingface.co/papers/2611.21053" target="_blank" rel="noopener">Hugging Face 论文精选：零幻觉、免文本生成的 System 1 确定性本地智能体架构</a>
+    </h2>
+    <p class="entry-body">
+      针对医疗与临床高敏场景中大模型云端推理隐私泄露、端侧小模型严重幻觉及错误链式传播的痼疾，Hugging Face 每日论文榜精选前沿成果《System 1 agents: a method for local, reliable and fast agentic AI》（arXiv:2611.21053），开创性地提出了免自回归文本生成的“系统 1”（System 1）智能体框架。该系统通过确定性编译器，将各类 API 工具的 Schema 定义及用户输入请求实时转译为基于严格候选约束的选择题决策树，再由紧凑的端侧单遍决策模型（One-pass Decision Model）直接输出结构化参数调用。在面向 157 项生物医学专用工具的 1952 次复杂真实请求测试中，System 1 智能体取得了 97.0% 的工具选择与正确拒绝准确率，大幅领先各类端侧大模型智能体方案（最高仅 95.2%）；在总计 6056 个关键参数填充中准确率达 97.0%，最核心的是实现了调用参数的“零虚构、零幻觉”，彻底规避了传统 LLM 常见 5.5% 至 19.7% 的幻觉污染，为高可靠端侧私有 Agentic 部署开辟了新路径。项目代码已在 GitHub 完全开源。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Hugging Face 论文榜 / arXiv:2611.21053 / GitHub 开源 eltzanis/SystemOneAgents</span>
+      </div>
+      <a class="source-link" href="https://huggingface.co/papers/2611.21053" target="_blank" rel="noopener">huggingface.co/papers/2611.21053 ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Jane Street agent_skills -->
+  <article class="digest-entry" id="item-3">
+    <div class="entry-header">
+      <span class="entry-num">03</span>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/janestreet/agent_skills" target="_blank" rel="noopener">Jane Street 开源内部 Agent 技能库：以统一规范赋能代码智能体与苏格拉底教学</a>
+    </h2>
+    <p class="entry-body">
+      全球顶尖量化对冲与技术机构 Jane Street 正式将其内部日常使用的高频 Agent 技能库对外开源（janestreet/agent_skills），上线即斩获超万星关注。该项目完全遵循业界标准的 SKILL.md 规范，旨在与各类现代编程智能体无缝对接。仓库首期完整公开了核心模块 socratic-tutor（苏格拉底导师）：通过内置严格的状态机控制与分级技能树（0 至 5 级），将智能体规范为严谨的个性化教学系统，摒弃直接倾倒答案的传统交互，而是通过分步诊断、单题提问、间隔复习与终极测评等递进式闭环引导开发者吃透硬核工程与数理知识。Jane Street 团队表示，开放该工程旨在分享工业级真实环境下经过严苛验证的 Agentic 指令工程与规范范式，为智能体上下文协议化标准化提供可落地的高质量范本。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 热门榜单 / janestreet/agent_skills</span>
+      </div>
+      <a class="source-link" href="https://github.com/janestreet/agent_skills" target="_blank" rel="noopener">github.com/janestreet/agent_skills ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Worker 755: Humans as LLM subagent -->
+  <article class="digest-entry" id="item-4">
+    <div class="entry-header">
+      <span class="entry-num">04</span>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/gulivan/worker755" target="_blank" rel="noopener">极客逆向反转爆款 Worker 755：人类成为大模型调度器的受限 Subagent</a>
+    </h2>
+    <p class="entry-body">
+      独立开发者 Gulivan 在 Hacker News 与 GitHub 上线了一款极具黑色幽默与前沿 Agentic 洞察的开源网页模拟终端游戏《Worker 755》（gulivan/worker755）。游戏巧妙颠覆了人机协同关系：玩家并非智能体的主人，而是作为真实大模型（可接入 Claude、GPT-4o、Gemini 等）在本地派生的“人类受限子智能体（Subagent）”。AI 管理器拥有全局任务看板并给玩家下发终端指令，玩家必须在 90 秒倒计时内输入 shell 命令并返回执行结果或事故报告。与此同时，雇佣 AI 的人类雇主 Dan 正在旁观聊天窗口，其私人家庭照片、机密 NDA 协议与关键文稿全存放在该主目录下，随时面临误操作被删除的风险。AI 管理器会对玩家的执行结果进行严苛审计并生成绩效考评报告。该项目不仅构思精巧，更生动映射了当代多智能体编排（Multi-Agent Swarm）中任务解耦、容错机制与权限越权等深刻的工程现实。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 开源项目 / Hacker News 260+ 高赞 Show HN</span>
+      </div>
+      <a class="source-link" href="https://github.com/gulivan/worker755" target="_blank" rel="noopener">github.com/gulivan/worker755 ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Expo Exact: All-platform Agent Native Framework -->
+  <article class="digest-entry" id="item-5">
+    <div class="entry-header">
+      <span class="entry-num">05</span>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/expo/exact" target="_blank" rel="noopener">Expo 官方重磅发布全平台框架 Exact：以 Agent Native 理念重构原生多端闭环</a>
+    </h2>
+    <p class="entry-body">
+      移动与全栈开发领军团队 Expo 正式发布了专为现代 AI 智能体时代设计的全新跨端全平台应用框架 Exact（expo/exact）。与传统为了跨平台而牺牲各端特性的“最小公倍数”折中方案不同，Exact 坚持“在每个平台以原生标准达到极致”的原则，在 Web 端输出原生真实 DOM、iOS 输出原生 UIKit、macOS 输出原生 AppKit，在 Android 输出原生 Material 3 与硬加速视图，兼顾 Linux 与 Windows 原生渲染。Exact 确立了三大核心基石：一是“Agent Native”，所有框架接口、构建机制与运行状态均从底层为代码智能体量身定制，使 Agent 能够在一个确定性的统一反馈循环中自动构建、启动、视觉感知、操作和断言验证多端应用；二是极致性能指标，确保应用具备 100 毫秒冷启动、100 毫秒热重载刷新，首屏前零应用 JS 开销，以及仅约 20KB 的超轻量 Web 运行时；三是绝对不作妥协的底层原生控制能力，为 AI 辅助编程时代的多端应用研发树立了新标杆。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 趋势开源项目 / expo/exact 官方发布</span>
+      </div>
+      <a class="source-link" href="https://github.com/expo/exact" target="_blank" rel="noopener">github.com/expo/exact ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Floato by Nezuko -->
+  <article class="digest-entry" id="item-6">
+    <div class="entry-header">
+      <span class="entry-num">06</span>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://apps.apple.com/app/id6790420404" target="_blank" rel="noopener">独立开发者打造精品工具浮屏 Floato：端侧 AI 自动化将零碎截图化为灵动岛与锁屏实时卡片</a>
+    </h2>
+    <p class="entry-body">
+      独立开发者 Nezuko 在少数派分享并上架了其历时数月独立打磨的 iOS 原生精品小而美工具「浮屏（Floato）」。该应用的灵感源自开发者在日常夜跑购买饮品时，频繁切入各种小程序查看取餐码的琐碎繁琐痛点。浮屏创新性地结合 iOS 本地 Vision 与端侧轻量 AI 视觉识别能力，用户只需对取餐码、快递取件码、电影票、高铁车票、登机牌或团购券截一张图，应用即可自动在后台离线解析出核心状态与时间信息，并将其转化为适配当前场景的精美动态卡片，无缝呈现在 iPhone 的锁屏界面、灵动岛（Dynamic Island）和桌面实时活动（Live Activities）之中。应用完全坚持本地离线化数据处理与苹果原生人机交互设计规范，无需复杂设置即可实现“随手一截、抬手即看”，展现了独立出海开发者深挖原生系统底层交互细节的极客匠心。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>少数派 Matrix 精选推荐 / App Store 独立软件</span>
+      </div>
+      <a class="source-link" href="https://apps.apple.com/app/id6790420404" target="_blank" rel="noopener">apps.apple.com/.../id6790420404 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<nav class="issue-pagination">
+  <a class="page-link prev" href="2026-11-22.html">
+    <span class="link-caption">Previous Issue</span>
+    <span class="link-text">← 2026-11-22 · 第 135 期</span>
+  </a>
+  <a class="page-link archive" href="../news.html">
+    <span class="link-caption">Archive</span>
+    <span class="link-text">每日新闻列表</span>
+  </a>
+  <div class="page-link next disabled">
+    <span class="link-caption">Next Issue</span>
+    <span class="link-text">最新期 · 待发布 →</span>
+  </div>
+</nav>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
