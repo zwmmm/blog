@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极客前沿纪事报 · 2026-11-24 · 第 137 期</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-24 每日动态：智谱 AI 正式发布首款循环 Transformer 旗舰模型 GLM-5.4 将推理转移至隐空间迭代、Hugging Face 精选意图契约 Intent Contracts 剥夺智能体直接工具持有权、开源工具 fast-anything 借助 AI 编程智能体定点性能加速 5% 瓶颈、Zed 编辑器团队将高性能跨平台渲染引擎 GPUI 独立拆仓开源、极客开源项目 Nospeaker 利用 MacBook 触控板震动马达实现语音合成与声学播音、开源笔记应用 FSNotes 遭欧盟 App Store 下架引发苹果生态独立开发者对 DSA 强制合规与平台壁垒的深度反思。">
+<meta name="keywords" content="每日新闻, Apple, 大模型, 智能体, AI编程, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Top Navigation */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Masthead */
+  .masthead {
+    margin-bottom: 24px;
+  }
+  .masthead-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9pt;
+    color: var(--brand);
+    letter-spacing: 1.5pt;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+  .masthead-title {
+    font-size: 25pt;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--near-black);
+    margin-bottom: 12px;
+    letter-spacing: 0.5pt;
+  }
+  .masthead-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .masthead-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .issue-badge {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 500;
+  }
+
+  /* Editorial Lead */
+  .editorial-lead {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--brand);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 28px 0 32px 0;
+  }
+  .lead-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .lead-label {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--brand);
+    letter-spacing: 0.8pt;
+  }
+  .lead-sub {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    letter-spacing: 1pt;
+  }
+  .lead-text {
+    font-size: 10pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin: 0;
+    text-align: justify;
+  }
+
+  /* Quick Table of Contents */
+  .quick-index {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+  .index-caption {
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--olive);
+    letter-spacing: 1pt;
+    margin-bottom: 12px;
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 10px 20px;
+  }
+  .index-link {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--dark-warm);
+    text-decoration: none;
+    font-size: 9.5pt;
+    line-height: 1.45;
+  }
+  .index-link:hover {
+    color: var(--brand);
+  }
+  .index-num {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+
+  /* Editorial Digest Stream */
+  .digest-stream {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .digest-entry {
+    padding-bottom: 36px;
+    margin-bottom: 38px;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .digest-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .entry-num {
+    font-family: var(--mono);
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--brand);
+    line-height: 1;
+  }
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8pt;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .entry-title {
+    font-size: 15pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .entry-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .entry-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .entry-body {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+
+  .entry-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 10px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .source-label {
+    color: var(--olive);
+    font-weight: 500;
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Issue Navigation Footer */
+  .issue-pagination {
+    margin-top: 48px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 9.5pt;
+  }
+  .page-link {
+    color: var(--brand);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .page-link:hover {
+    text-decoration: underline;
+  }
+  .page-link.archive {
+    text-align: center;
+    color: var(--dark-warm);
+  }
+  .page-link.archive:hover {
+    color: var(--brand);
+  }
+  .page-link.next {
+    text-align: right;
+  }
+  .page-link.disabled {
+    color: var(--stone);
+    cursor: default;
+    text-decoration: none;
+  }
+  .link-caption {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    text-transform: uppercase;
+  }
+  .link-text {
+    font-size: 9.5pt;
+  }
+
+  /* Site Footer */
+  .site-footer {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .masthead-title { font-size: 20pt; }
+    .index-grid { grid-template-columns: 1fr; }
+    .editorial-lead { padding: 14px 16px; }
+    .issue-pagination { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .page-link.archive, .page-link.next { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-eyebrow">KAMI CHRONICLE / 极客前沿纪事</div>
+  <h1 class="masthead-title">极客前沿纪事报 · 2026-11-24</h1>
+  <div class="masthead-bar">
+    <div class="masthead-left">
+      <span>2026年11月24日</span>
+      <span>·</span>
+      <span class="issue-badge">第 137 期 · 最新</span>
+    </div>
+    <div class="masthead-right">
+      <span>聚合 6 条前沿动态</span>
+    </div>
+  </div>
+</header>
+
+<section class="editorial-lead">
+  <div class="lead-header">
+    <span class="lead-label">今日导读</span>
+    <span class="lead-sub">/ EDITORIAL SUMMARY</span>
+  </div>
+  <p class="lead-text">
+    今日前沿技术格局在模型微架构创新、智能体控制边界与苹果底层生态探索上迎来深度演进：智谱 AI 正式发布首款基于循环 Transformer 架构的旗舰模型 GLM-5.4，在 750B 规模下通过 28 层权重共享循环两遍对齐 2T 至 3T 智能水平，通过动态门控与滑动窗口 KV 共享避免显存爆炸，使大量思考逻辑从表面显式 Token 转移至隐空间；Hugging Face 每日论文榜重磅推出意图契约 Intent Contracts 授权架构，首创剥夺规划模型的直接工具持有权，每一步仅允许提交包含目标、引用和范围的契约日志，交由可信端侧校验并代为写入工具调用，以机制约束杜绝智能体越权；开源社区推出突破性工程 fast-anything，颠覆全量 Rust 重写的重度负担，配合 Claude Code 等智能体自动探测分析瓶颈，仅针对耗时占比 5% 的热点函数进行自动化 Rust 转译与行为等价双向验证；高性能编辑器 Zed 团队正式将底层跨平台 GPU 渲染引擎 GPUI 独立拆仓开源，为 Rust 开发者提供声明式且媲美终端极致帧率的原生桌面开发基础设施；极客开源硬核玩味项目 Nospeaker 绕过音频硬件，以 4000Hz 高频直接驱动 MacBook 触控板下的线性振动马达，将触觉回馈转化为空气声波发声；运营九年的知名 macOS 与 iOS 开源笔记软件 FSNotes 突遭欧洲区 App Store 整体下架，暴露出欧盟数字服务法案 DSA 强制交易者信息披露背景下独立开发者与出海团队面临的合规陷阱与苹果平台沟通壁垒。
+  </p>
+</section>
+
+<nav class="quick-index">
+  <div class="index-caption">本期导览 / IN THIS ISSUE</div>
+  <div class="index-grid">
+    <a class="index-link" href="#item-1">
+      <span class="index-num">01</span>
+      <span>智谱 AI 发布首款循环 Transformer 旗舰模型 GLM-5.4</span>
+    </a>
+    <a class="index-link" href="#item-2">
+      <span class="index-num">02</span>
+      <span>Hugging Face 精选：意图契约剥夺智能体工具持有权</span>
+    </a>
+    <a class="index-link" href="#item-3">
+      <span class="index-num">03</span>
+      <span>fast-anything：AI 编程智能体定点加速 5% 性能瓶颈</span>
+    </a>
+    <a class="index-link" href="#item-4">
+      <span class="index-num">04</span>
+      <span>Zed 官方将跨平台 GPU 渲染框架 GPUI 独立拆仓</span>
+    </a>
+    <a class="index-link" href="#item-5">
+      <span class="index-num">05</span>
+      <span>极客开源 Nospeaker：驱动触控板马达让 MacBook 说话</span>
+    </a>
+    <a class="index-link" href="#item-6">
+      <span class="index-num">06</span>
+      <span>FSNotes 遭欧洲区下架：欧盟 DSA 合规与独立开发困境</span>
+    </a>
+  </div>
+</nav>
+
+<main class="digest-stream">
+
+  <!-- 1. GLM-5.4 Loop Transformer -->
+  <article class="digest-entry" id="item-1">
+    <div class="entry-header">
+      <span class="entry-num">01</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://z.ai/blog/glm-5.4" target="_blank" rel="noopener">智谱 AI 正式发布首款循环架构旗舰模型 GLM-5.4：隐空间深层思考与高效代码工程</a>
+    </h2>
+    <p class="entry-body">
+      智谱 AI 正式公布了其首款基于循环 Transformer（Loop Transformer）架构的大语言模型 GLM-5.4。该模型在 750B 参数基座上，将中间 28 层网络通过权重共享执行两轮循环迭代，成功在不增加参数规模的前提下达到了原本需要 2T 至 3T 密集参数模型才能具备的复杂逻辑推理水平。为了解决多轮迭代中激活值爆炸与 KV 缓存显存占用翻倍的工程难题，GLM-5.4 引入了逐 Token 的独立写入门控机制与跨循环滑动窗口 KV 共享方案，在 100 万超长上下文推理场景下将部署成本增幅压制在极低范围。在严格控制训练算力的同参数对比测试中，循环架构使得 GPQA 和 MMLU 等高阶评测的平均输出长度缩短了 10% 至 14%，表明模型已将一部分推理计算从显式的长思维链有效转移到了内部隐空间的连续表征优化中。该能力在复杂代码仓库重构、长程智能体工程以及漏洞挖掘场景中展现出了显著高于传统单向层级模型的准确度与执行韧性。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>智谱技术博客 / Hacker News 1040+ 热榜</span>
+      </div>
+      <a class="source-link" href="https://z.ai/blog/glm-5.4" target="_blank" rel="noopener">z.ai/blog/glm-5.4 ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Intent Contracts -->
+  <article class="digest-entry" id="item-2">
+    <div class="entry-header">
+      <span class="entry-num">02</span>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://huggingface.co/papers/2611.24025" target="_blank" rel="noopener">Hugging Face 论文精选：意图契约架构 Intent Contracts，从根源剥夺智能体的直接工具持有权</a>
+    </h2>
+    <p class="entry-body">
+      在 Hugging Face 每日精选论文榜单中，《Intent Contracts: Taking Tools Away from Agents》提出了一种全新的大模型智能体授权与安全控制架构。针对当前自主智能体频繁调用底层终端与敏感 API 带来的越权破坏隐患，该研究彻底剥离了规划模型直接持有和组装工具的能力。在执行工作流中，规划智能体在每一步骤仅允许输出一份简短的意图契约，包含当前子目标、用户原始指令的精确引用以及受影响实体的作用域约束。系统通过确定性代码校验契约结构，并交由轻量级、受信任的判定模型严格核对契约是否符合人类意图，再由该可信实体代为生成具体的底层工具调用参数。在权限越权基准测试中，当规划模型试图擅自添加未经用户许可的额外任务时，意图契约在 30 次运行中成功阻断非预期动作并完成核心目标 27 次，表现大幅优于仅做命令拦截的传统审批流，为生产级自主智能体的可控部署提供了全新的安全基座。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Hugging Face 每日论文精选 / arXiv:2611.24025</span>
+      </div>
+      <a class="source-link" href="https://huggingface.co/papers/2611.24025" target="_blank" rel="noopener">huggingface.co/papers/2611.24025 ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. fast-anything -->
+  <article class="digest-entry" id="item-3">
+    <div class="entry-header">
+      <span class="entry-num">03</span>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/EL4CTEO/fast-anything" target="_blank" rel="noopener">开源热榜 fast-anything：告别盲目全量重构，AI 编程智能体自动化转译与验证 5% 性能瓶颈</a>
+    </h2>
+    <p class="entry-body">
+      在 GitHub 上获得超过 3100 颗星标的开源项目 fast-anything 针对当前开发者滥用 AI 盲目进行全量 Rust 重写所带来的编译负担与维护债务，提出了一种高度务实的局部加速范式。项目主张不要将整个应用用 Rust 重写，而应专注于拖慢系统的那 5% 关键函数。fast-anything 提供了无缝接入 Claude Code 等主流智能体的命令行工具与 MCP 服务，能够端到端挂载分析 Python、Node.js、Ruby、Go 或 Java 应用的运行时耗时，自动定位最具优化价值的热点计算单元；随后驱动本地或云端代码智能体，仅针对这部分核心算法转译出高内聚的 Rust 原生模块并通过 FFI 绑定，同时利用生产环境中真实捕获的输入输出调用轨迹对新旧函数进行严格的黑盒行为等价证明与边界用例比对。整个优化替换过程支持一键执行与原子回滚，为中小型工程借助 AI 智能体低风险提升服务吞吐提供了成熟路径。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 开源趋势榜 / Trendshift 推荐</span>
+      </div>
+      <a class="source-link" href="https://github.com/EL4CTEO/fast-anything" target="_blank" rel="noopener">github.com/EL4CTEO/fast-anything ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. GPUI standalone repo -->
+  <article class="digest-entry" id="item-4">
+    <div class="entry-header">
+      <span class="entry-num">04</span>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/zed-industries/gpui" target="_blank" rel="noopener">Zed 官方将跨平台 GPU 原生渲染框架 GPUI 独立拆仓：为 Rust 原生桌面生态铺路</a>
+    </h2>
+    <p class="entry-body">
+      高性能开源代码编辑器 Zed 的核心开发团队正式将支撑其极致流畅交互的图形界面渲染框架 GPUI 从主仓库中解耦，拆分为独立的开源代码仓库 zed-industries/gpui，并同步上线独立站点 gpui.rs。GPUI 是一套完全基于 Rust 构建、深度利用现代 GPU 硬件加速的声明式 UI 框架，专为构建帧率达到 120Hz、响应敏捷且内存开销极小的桌面应用程序而设计。此前该框架深度耦合在 Zed 编辑器整体工程之中，其他独立开发者在试图将其用于自身开源项目或 macOS 原生桌面小工具时面临庞大的依赖与编译摩擦；此次独立拆仓不仅梳理了核心 API 边界与跨平台渲染后端，对 macOS Metal、Linux Vulkan 以及 Windows 渲染层提供直接支持，还进一步理清了组件库的开源协议边界，为极客群体利用 Rust 构建下一代高性能桌面应用与 AI 交互工位提供了崭新的底层支撑。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 独立仓库 / Hacker News 讨论</span>
+      </div>
+      <a class="source-link" href="https://github.com/zed-industries/gpui" target="_blank" rel="noopener">github.com/zed-industries/gpui ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Nospeaker -->
+  <article class="digest-entry" id="item-5">
+    <div class="entry-header">
+      <span class="entry-num">05</span>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/os6/nospeaker" target="_blank" rel="noopener">极客硬核开源 Nospeaker：以 4000Hz 驱动触控板马达，MacBook 纯靠触觉反馈发声说话</a>
+    </h2>
+    <p class="entry-body">
+      极客开发者在 GitHub 开源了一项极具趣味与底层极客精神的小工具 Nospeaker。众所周知，现代 MacBook 的触控板内部并不包含扬声器硬件，其点击手感完全依赖于玻璃面板下方的一组微型触觉线性振动马达（Taptic Engine）。Nospeaker 深入挖掘了 macOS 私有驱动与硬件接口，通过绕过常规 CoreAudio 管道直接向触控板马达注入高频调制信号，以最高每秒 4000 次的极限震颤频率驱动物理玻璃面板震动周遭空气，直接发出了人耳可闻的声音。用户即便将 Mac 系统的扬声器完全静音，触控板依然能够通过纯粹的物理振动完成清晰的语音合成、说唱乃至节拍演奏；当手指按压在玻璃面板上时，声音还会随着压力阻尼发生微妙的音色变化。该项目以不足百行的底层调优代码，展现了开发者对苹果硬件原生底层细节极其精湛的逆向探索与黑客幽默。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 开源发布 / Hacker News 270+ 热榜</span>
+      </div>
+      <a class="source-link" href="https://github.com/os6/nospeaker" target="_blank" rel="noopener">github.com/os6/nospeaker ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. FSNotes EU App Store removal -->
+  <article class="digest-entry" id="item-6">
+    <div class="entry-header">
+      <span class="entry-num">06</span>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/glushchenko/fsnotes/discussions/2056" target="_blank" rel="noopener">运营九年开源应用 FSNotes 突遭欧洲 App Store 下架：欧盟 DSA 合规与独立开发者生存困境</a>
+    </h2>
+    <p class="entry-body">
+      在 macOS 与 iOS 平台深耕九年的知名开源笔记应用 FSNotes 开发者 Oleksandr Hlushchenko 在 GitHub 社区发文披露，其应用在未获得任何实质预警或明确违规通知的情况下，突然被苹果从欧洲全部国家与地区的 App Store 中整体下架，且十月份的常规销售结算款项亦被无故冻结。该事件迅速在 Hacker News、Reddit 与独立出海开发者圈子引发强烈震动。经行业开发者分析，下架根源在于欧盟近期严格推行的数字服务法案（DSA）合规要求，该法案强制要求在应用商店中提供付费内容或增值订阅的交易者必须公开展示企业注册地址、真实法人姓名与电话等隐私信息；而作为乌克兰注册的个体独立开发者，Hlushchenko 虽然数次按规范上传了合规材料，却因苹果死板缓慢的工单审核机制陷入了长期无人工回应的黑洞。该事件再次将独立出海开发者在面对跨国法案合规重压、隐私泄露风险与巨头单边审核平台霸权时的脆弱处境推向了讨论风口。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>FSNotes 官方 GitHub 社区 / Hacker News 500+ 热评</span>
+      </div>
+      <a class="source-link" href="https://github.com/glushchenko/fsnotes/discussions/2056" target="_blank" rel="noopener">github.com/glushchenko/fsnotes/.../2056 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<nav class="issue-pagination">
+  <a class="page-link prev" href="2026-11-23.html">
+    <span class="link-caption">Previous Issue</span>
+    <span class="link-text">← 2026-11-23 · 第 136 期</span>
+  </a>
+  <a class="page-link archive" href="../news.html">
+    <span class="link-caption">Archive</span>
+    <span class="link-text">每日新闻列表</span>
+  </a>
+  <div class="page-link next disabled">
+    <span class="link-caption">Next Issue</span>
+    <span class="link-text">最新期 · 待发布 →</span>
+  </div>
+</nav>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
