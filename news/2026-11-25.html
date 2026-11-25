@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极客前沿纪事报 · 2026-11-25 · 第 138 期</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-25 每日动态：PrismML 发布 5.9GB 三值压缩模型 Ternary Bonsai 2.5 27B 补齐端侧智能体编程能力、OpenAI 披露 GPT-6 仅凭代码与通用推理完成湿实验级蛋白质设计、Anthropic 推出 GitHub 协同套件 Claude Ship 自动化 PR 审查与修复、开源自训练引擎 Songe 利用 Mac 闲置算力在夜间通过后见之明蒸馏本地模型、老牌开发者 John Siracusa 发布用智能体打磨三个半月的 macOS Dock 替代应用 Jetty Pro、Hugging Face 论文精选 SWE-Gym-Verified 审计揭示 74% 未解编程任务源于测试标签错误。">
+<meta name="keywords" content="每日新闻, 大模型, 智能体, AI编程, Apple, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Top Navigation */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Masthead */
+  .masthead {
+    margin-bottom: 24px;
+  }
+  .masthead-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9pt;
+    color: var(--brand);
+    letter-spacing: 1.5pt;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+  .masthead-title {
+    font-size: 25pt;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--near-black);
+    margin-bottom: 12px;
+    letter-spacing: 0.5pt;
+  }
+  .masthead-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .masthead-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .issue-badge {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 500;
+  }
+
+  /* Editorial Lead */
+  .editorial-lead {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--brand);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 28px 0 32px 0;
+  }
+  .lead-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .lead-label {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--brand);
+    letter-spacing: 0.8pt;
+  }
+  .lead-sub {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    letter-spacing: 1pt;
+  }
+  .lead-text {
+    font-size: 10pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin: 0;
+    text-align: justify;
+  }
+
+  /* Quick Table of Contents */
+  .quick-index {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+  .index-caption {
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--olive);
+    letter-spacing: 1pt;
+    margin-bottom: 12px;
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 10px 20px;
+  }
+  .index-link {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--dark-warm);
+    text-decoration: none;
+    font-size: 9.5pt;
+    line-height: 1.45;
+  }
+  .index-link:hover {
+    color: var(--brand);
+  }
+  .index-num {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+
+  /* Editorial Digest Stream */
+  .digest-stream {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .digest-entry {
+    padding-bottom: 36px;
+    margin-bottom: 38px;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .digest-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .entry-num {
+    font-family: var(--mono);
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--brand);
+    line-height: 1;
+  }
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8pt;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .entry-title {
+    font-size: 15pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .entry-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .entry-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .entry-body {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+
+  .entry-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 10px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .source-label {
+    color: var(--olive);
+    font-weight: 500;
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Issue Navigation Footer */
+  .issue-pagination {
+    margin-top: 48px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 9.5pt;
+  }
+  .page-link {
+    color: var(--brand);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .page-link:hover {
+    text-decoration: underline;
+  }
+  .page-link.archive {
+    text-align: center;
+    color: var(--dark-warm);
+  }
+  .page-link.archive:hover {
+    color: var(--brand);
+  }
+  .page-link.next {
+    text-align: right;
+  }
+  .page-link.disabled {
+    color: var(--stone);
+    cursor: default;
+    text-decoration: none;
+  }
+  .link-caption {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    text-transform: uppercase;
+  }
+  .link-text {
+    font-size: 9.5pt;
+  }
+
+  /* Site Footer */
+  .site-footer {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .masthead-title { font-size: 20pt; }
+    .index-grid { grid-template-columns: 1fr; }
+    .editorial-lead { padding: 14px 16px; }
+    .issue-pagination { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .page-link.archive, .page-link.next { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-eyebrow">KAMI CHRONICLE / 极客前沿纪事</div>
+  <h1 class="masthead-title">极客前沿纪事报 · 2026-11-25</h1>
+  <div class="masthead-bar">
+    <div class="masthead-left">
+      <span>2026年11月25日</span>
+      <span>·</span>
+      <span class="issue-badge">第 138 期 · 最新</span>
+    </div>
+    <div class="masthead-right">
+      <span>聚合 6 条前沿动态</span>
+    </div>
+  </div>
+</header>
+
+<section class="editorial-lead">
+  <div class="lead-header">
+    <span class="lead-label">今日导读</span>
+    <span class="lead-sub">/ EDITORIAL SUMMARY</span>
+  </div>
+  <p class="lead-text">
+    过去 24 小时的技术动态聚焦于端侧智能体密度跃升、代码生成后的工程闭环与桌面极客工具回归：PrismML 发布三值压缩模型 Ternary Bonsai 2.5 27B，在保留 5.9 GB 小体积的同时把 SWE-bench Verified 推升至 75.6 并支持 Mac 原生 MLX 运行；OpenAI 公开 GPT-6 家族新研究，证明通用模型无需生物专用模型，仅靠逻辑推理与编写代码即可从头设计出通过湿实验验证的蛋白质结构与序列；Anthropic 上线面向代码合并全流程的 Claude Ship 套件，联合 PR Steward 与策略审批把智能体编程的效率延展至提交之后；开源自训练引擎 Songe 让本地模型在夜间接通电源闲置时读取白天的工具报错进行同策略蒸馏，实现安全无云端的持续进化；老牌 Mac 开发者 John Siracusa 推出用编程智能体打磨三个半月的桌面 Dock 替代软件 Jetty Pro，脱离沙盒限制调用私有 API 找回可定制的悬浮面板体验；Hugging Face 精选论文 SWE-Gym-Verified 完成系统审计，揭示代码智能体未通过题目中有 74% 源自错误测试标签，用数据清洗换来实质基准提升。
+  </p>
+</section>
+
+<nav class="quick-index">
+  <div class="index-caption">本期导览 / IN THIS ISSUE</div>
+  <div class="index-grid">
+    <a class="index-link" href="#item-1">
+      <span class="index-num">01</span>
+      <span>Ternary Bonsai 2.5 27B：5.9GB 三值模型跑通端侧 Agent</span>
+    </a>
+    <a class="index-link" href="#item-2">
+      <span class="index-num">02</span>
+      <span>OpenAI GPT-6 仅凭推理与代码实现湿实验级蛋白质设计</span>
+    </a>
+    <a class="index-link" href="#item-3">
+      <span class="index-num">03</span>
+      <span>Anthropic 推出 Claude Ship 自动化 PR 审查、修复与审批</span>
+    </a>
+    <a class="index-link" href="#item-4">
+      <span class="index-num">04</span>
+      <span>Songe：利用 Mac 闲置算力在夜间让本地模型自我蒸馏</span>
+    </a>
+    <a class="index-link" href="#item-5">
+      <span class="index-num">05</span>
+      <span>John Siracusa 发布 Jetty Pro：脱离沙盒的 macOS Dock 替代器</span>
+    </a>
+    <a class="index-link" href="#item-6">
+      <span class="index-num">06</span>
+      <span>SWE-Gym-Verified 审计：74% 未解编程题源于测试标签错误</span>
+    </a>
+  </div>
+</nav>
+
+<main class="digest-stream">
+
+  <!-- 1. Ternary Bonsai 2.5 27B -->
+  <article class="digest-entry" id="item-1">
+    <div class="entry-header">
+      <span class="entry-num">01</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://prismml.com/news/bonsai-2-5-27b" target="_blank" rel="noopener">PrismML 发布 Ternary Bonsai 2.5 27B：5.9GB 三值模型补齐端侧智能体编程能力</a>
+    </h2>
+    <p class="entry-body">
+      PrismML 正式推出开源三值权重语言模型 Ternary Bonsai 2.5 27B，基于 Qwen3.8 27B 进行极致三值量化压缩，在仅占用 5.9 GB 内存空间（约每权重 1.76 bit）的前提下，重点攻克了前代小体积模型在多轮工具调用与长程代码代理任务中容易出现的过度思考、循环卡死与状态漂移难题。实测数据显示，Bonsai 2.5 27B 在 SWE-bench Verified 上的得分从上一代的 60.8 跃升至 75.6（逼近全精度基座的 80.6），DeepSWE v1.1 从 0 提升至 27，AppWorld 从 51.2 大幅提升至 90.5，在多轮交互评测 τ³-Bench 上以 73.9 反超全精度原版模型的 72.8。模型权重遵循 Apache 2.0 协议开放，原生支持通过 MLX 框架部署于 Mac、iPhone 与 iPad 等 Apple 设备，并可通过 llama.cpp 运行于消费级显卡，在单张 H100 与 RTX 4090 上分别实现 291 tokens/s 与 204 tokens/s 的生成速度。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>PrismML 官方博客 / Hacker News 312+ 热榜</span>
+      </div>
+      <a class="source-link" href="https://prismml.com/news/bonsai-2-5-27b" target="_blank" rel="noopener">prismml.com/news/bonsai-2-5-27b ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. GPT-6 Protein Design -->
+  <article class="digest-entry" id="item-2">
+    <div class="entry-header">
+      <span class="entry-num">02</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/" target="_blank" rel="noopener">OpenAI 发布 GPT-6 科学研究进展：仅凭通用推理与代码完成湿实验级蛋白质设计</a>
+    </h2>
+    <p class="entry-body">
+      OpenAI 公布最新科学预印本《GPT-6 as a Universal Foundation Model for Protein Biology: Beyond Specialized Models》，首次在湿实验中证实 GPT-6 系列通用模型（包含 GPT-6.2）无需调用任何专用生物计算模型，仅依靠自身推理能力与通用编程工具即可直接生成全新的蛋白质三维构象及对应氨基酸序列。研究团队通过自然语言提示指定靶点结合区域与预期结构形态，模型在思维链中自主调用数学、物理、化学与生物结构知识并编写分析脚本筛选方案。在生物技术公司 Onava 执行的实验室合成测试中，GPT-6.2 设计的多组小分子结合蛋白在五个不同靶点上均测得结合活性，重设计的抗体互补决定区也保留了原有靶向结合能力，展现出通用大模型借助代码工具链直接切入硬核生命科学工程的跨界潜力。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>OpenAI 官方研究博客 / Hacker News 149+ 热榜</span>
+      </div>
+      <a class="source-link" href="https://openai.com/index/gpt-6-models-demonstrate-intrinsic-protein-design-capabilities/" target="_blank" rel="noopener">openai.com/index/gpt-6-models... ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Anthropic Claude Ship -->
+  <article class="digest-entry" id="item-3">
+    <div class="entry-header">
+      <span class="entry-num">03</span>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://claude.com/resources/articles/introducing-claude-ship" target="_blank" rel="noopener">Anthropic 推出 Claude Ship：用 PR Steward 与策略审批打通代码提交后的合并闭环</a>
+    </h2>
+    <p class="entry-body">
+      针对代码智能体大幅加快开发速度后，Pull Request 提交之后的审查、返工与排队合成为工程团队新瓶颈的痛点，Anthropic 正式发布集成于 GitHub 的自动化交付套件 Claude Ship。该套件整合了已全面开放的 Code Review 与处于 Beta 阶段的 PR Steward、Claude Approvals 两大新智能体。其中 Code Review 负责多维度深度审校并对检出问题进行对抗性验证，Claude Code 内部团队自 6 月至 9 月启用后周均合并 PR 数量翻倍且回滚率降低超 40%；PR Steward 专职监听审阅反馈、修补 CI 失败与处理分支冲突，并在设计上严格禁止越权合并；Claude Approvals 则依据仓库中的策略文件自动判断低风险变更并给出审批，同时保留敏感模块的人工签字门槛，开发者亦可直接在 Claude Code 终端通过 /ship 命令一键托管从开 PR 到修复待合的全程。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Anthropic 官方发布 / 开发者社区讨论</span>
+      </div>
+      <a class="source-link" href="https://claude.com/resources/articles/introducing-claude-ship" target="_blank" rel="noopener">claude.com/resources/articles/introducing-claude-ship ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Songe -->
+  <article class="digest-entry" id="item-4">
+    <div class="entry-header">
+      <span class="entry-num">04</span>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/sous-labs/songe" target="_blank" rel="noopener">开源自训练引擎 Songe：利用 Mac 闲置算力在夜间让本地编程模型从报错中蒸馏进化</a>
+    </h2>
+    <p class="entry-body">
+      Sous Labs 在 GitHub 开源本地模型自训练引擎 Songe，支持通过 uv、pipx 或 macOS Homebrew 一键安装，并直接接入 LM Studio（支持 Apple Silicon MLX 量化模型）以及 opencode、pi 等 OpenAI 兼容编程助手。Songe 的核心设计基于“后见之明（Hindsight）”同策略蒸馏原则：白天开发者照常使用本地智能体写代码时，系统在后台静默记录每次工具调用后的真实后果，包括报错信息、命令返回值、重试动作与人工纠正；夜间当设备接通电源且处于空闲状态时，Songe 启动 Quick Dream 或 Deep Dream，让同一模型结合事后日志充当教师，针对自己曾踩坑的交互构建沙盒练习并微调轻量适配器。整个过程完全离线在本地执行，绝不重跑危险终端指令，且新生成的适配器必须在历史纠错测试集上明确胜出后才会被启用，支持随时一条命令回退版本。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 开源发布 / Hacker News 172+ 热榜</span>
+      </div>
+      <a class="source-link" href="https://github.com/sous-labs/songe" target="_blank" rel="noopener">github.com/sous-labs/songe ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. Jetty Pro -->
+  <article class="digest-entry" id="item-5">
+    <div class="entry-header">
+      <span class="entry-num">05</span>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://hypercritical.co/jetty-pro/" target="_blank" rel="noopener">老牌 Mac 开发者发布 Jetty Pro：用编程智能体打磨三个半月的 macOS Dock 替代器</a>
+    </h2>
+    <p class="entry-body">
+      知名 Mac 独立开发者 John Siracusa 正式推出桌面效率工具 Jetty Pro，并在次日火速发布 v1.0.1 修复更新。该工具允许用户在 Mac 屏幕任意边缘创建高度可定制的悬浮面板，自由收纳文件、目录、磁盘卷、应用、快捷指令、间隔条乃至废纸篓，既可作为原版程序坞的补充，也能彻底取而代之。他在随笔中坦承，原本只是想把六年前 SwitchGlass 的旧版 SwiftUI 代码喂给编程智能体，花一两天时间做出一个只放常用文件夹的小面板，结果在持续完善优化下投入了三个半月，并因为普通版受困于 Mac App Store 沙盒限制，索性放弃商店渠道转向官网直接分发。借助脱离沙盒与私有 API 调用，Jetty Pro 实现了官方 Dock 都未提供的细粒度控制，例如隐藏 macOS 27 中的“后台运行”图标列表、按面板屏蔽系统设置等应用的角标红点、打破图标圆角矩形限制以及按显示器独立配置显示策略，提供 14 天免费试用与每年 9.99 美元订阅方案。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Hypercritical 官方发布 / Hacker News 265+ 热榜</span>
+      </div>
+      <a class="source-link" href="https://hypercritical.co/jetty-pro/" target="_blank" rel="noopener">hypercritical.co/jetty-pro ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. SWE-Gym-Verified -->
+  <article class="digest-entry" id="item-6">
+    <div class="entry-header">
+      <span class="entry-num">06</span>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://huggingface.co/papers/2611.30207" target="_blank" rel="noopener">Hugging Face 论文精选 SWE-Gym-Verified：审计揭示 74% 智能体未解题源于测试标签错误</a>
+    </h2>
+    <p class="entry-body">
+      强化学习正在成为训练代码修复智能体的主流手段，但长期以来训练任务集的隐藏单元测试只验证了参考答案，很少有人核查测试反馈本身是否准确。Hugging Face 每日论文榜收录的研究《What Makes Good Data for Training Coding Agents? A Systematic Study on SWE-Gym》使用两组大模型对 SWE-Gym 进行了逐条执行复现审计，结果发现：在 9B 基座模型始终无法解出的题目中，高达 74% 存在测试集误判正确补丁的“假阴性”缺陷；而在全部通过测试的补丁中，也有约四分之一属于宽松测试放行的“假阳性”错误修复。研究团队随后修复并清理问题任务，在 GitHub 开源包含 1,087 条全执行证据验证任务的 SWE-Gym-Verified 数据集及审计管线（github.com/Arist12/SWE-Gym-Verified）。对比实验表明，在同等模型规模下使用清洗后的数据集训练策略，其在 SWE-bench Verified 与 SWE-bench Pro 上的得分分别提高 2.4 分与 2.7 分，印证了奖励信号可信度比单纯扩充样本量更为关键。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Hugging Face 每日论文精选 / arXiv:2611.30207</span>
+      </div>
+      <a class="source-link" href="https://huggingface.co/papers/2611.30207" target="_blank" rel="noopener">huggingface.co/papers/2611.30207 ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<nav class="issue-pagination">
+  <a class="page-link prev" href="2026-11-24.html">
+    <span class="link-caption">Previous Issue</span>
+    <span class="link-text">← 2026-11-24 · 第 137 期</span>
+  </a>
+  <a class="page-link archive" href="../news.html">
+    <span class="link-caption">Archive</span>
+    <span class="link-text">每日新闻列表</span>
+  </a>
+  <div class="page-link next disabled">
+    <span class="link-caption">Next Issue</span>
+    <span class="link-text">最新期 · 待发布 →</span>
+  </div>
+</nav>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
