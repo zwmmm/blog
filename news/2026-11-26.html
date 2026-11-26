@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极客前沿纪事报 · 2026-11-26 · 第 139 期</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-26 每日动态：OpenAI、Google 与 Anthropic 集中披露 AI 数学突破并引发 Lean 形式化验证讨论、Anthropic 推出 Artifacts 一键安装为 Mac 桌面应用并公测 Skills over MCP、开源双核 macOS 浏览器 Yab 登榜少数派并内置 MCP 隔离、Modaic 通过 9,984 条请求锁定黑盒模型 Jev 底座为 Qwen3.5-35B-A3B、Hugging Face 每日论文 #2 RLVB 用可验证信念治理智能体偷懒抢答、GitHub 飙升项目 xnulinux 将苹果 XNU 编译为 Linux 内核模块直跑 macOS 27 桌面。">
+<meta name="keywords" content="每日新闻, 大模型, 智能体, AI编程, Apple, 独立开发, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Top Navigation */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Masthead */
+  .masthead {
+    margin-bottom: 24px;
+  }
+  .masthead-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9pt;
+    color: var(--brand);
+    letter-spacing: 1.5pt;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+  .masthead-title {
+    font-size: 25pt;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--near-black);
+    margin-bottom: 12px;
+    letter-spacing: 0.5pt;
+  }
+  .masthead-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .masthead-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .issue-badge {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 500;
+  }
+
+  /* Editorial Lead */
+  .editorial-lead {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--brand);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 28px 0 32px 0;
+  }
+  .lead-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .lead-label {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--brand);
+    letter-spacing: 0.8pt;
+  }
+  .lead-sub {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    letter-spacing: 1pt;
+  }
+  .lead-text {
+    font-size: 10pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin: 0;
+    text-align: justify;
+  }
+
+  /* Quick Table of Contents */
+  .quick-index {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+  .index-caption {
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--olive);
+    letter-spacing: 1pt;
+    margin-bottom: 12px;
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 10px 20px;
+  }
+  .index-link {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--dark-warm);
+    text-decoration: none;
+    font-size: 9.5pt;
+    line-height: 1.45;
+  }
+  .index-link:hover {
+    color: var(--brand);
+  }
+  .index-num {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+
+  /* Editorial Digest Stream */
+  .digest-stream {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .digest-entry {
+    padding-bottom: 36px;
+    margin-bottom: 38px;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .digest-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .entry-num {
+    font-family: var(--mono);
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--brand);
+    line-height: 1;
+  }
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8pt;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .entry-title {
+    font-size: 15pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .entry-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .entry-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .entry-body {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+
+  .entry-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 10px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .source-label {
+    color: var(--olive);
+    font-weight: 500;
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Issue Navigation Footer */
+  .issue-pagination {
+    margin-top: 48px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 9.5pt;
+  }
+  .page-link {
+    color: var(--brand);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .page-link:hover {
+    text-decoration: underline;
+  }
+  .page-link.archive {
+    text-align: center;
+    color: var(--dark-warm);
+  }
+  .page-link.archive:hover {
+    color: var(--brand);
+  }
+  .page-link.next {
+    text-align: right;
+  }
+  .page-link.disabled {
+    color: var(--stone);
+    cursor: default;
+    text-decoration: none;
+  }
+  .link-caption {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    text-transform: uppercase;
+  }
+  .link-text {
+    font-size: 9.5pt;
+  }
+
+  /* Site Footer */
+  .site-footer {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .masthead-title { font-size: 20pt; }
+    .index-grid { grid-template-columns: 1fr; }
+    .editorial-lead { padding: 14px 16px; }
+    .issue-pagination { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .page-link.archive, .page-link.next { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-eyebrow">KAMI CHRONICLE / 极客前沿纪事</div>
+  <h1 class="masthead-title">极客前沿纪事报 · 2026-11-26</h1>
+  <div class="masthead-bar">
+    <div class="masthead-left">
+      <span>2026年11月26日</span>
+      <span>·</span>
+      <span class="issue-badge">第 139 期 · 最新</span>
+    </div>
+    <div class="masthead-right">
+      <span>聚合 6 条前沿动态</span>
+    </div>
+  </div>
+</header>
+
+<section class="editorial-lead">
+  <div class="lead-header">
+    <span class="lead-label">今日导读</span>
+    <span class="lead-sub">/ EDITORIAL SUMMARY</span>
+  </div>
+  <p class="lead-text">
+    过去 24 小时的技术动态集中在形式化证明、桌面智能体与苹果底层折腾三个方向：OpenAI、Google 与 Anthropic 密集公开 AI 数学手稿与 Lean 4 证明压缩成果，让机器验证成为高复杂度推理新的信任锚点；Anthropic 为 Claude Desktop 开放将 Artifact 一键安装为 Mac 独立应用，并同步公测 Skills over MCP 与长程任务能力；独立开发者打造的开源双核 macOS 浏览器 Yab 登上少数派推荐，可在 WebKit 与 Chromium 间按标签切换并原生接入 MCP 隔离；Modaic 用 9,984 条黑盒请求测绘出高速判定模型 Jev 的延迟指纹，锁定其背后基于 Qwen3.5-35B-A3B 稀疏 MoE；Hugging Face 每日论文榜精选 RLVB 用可验证信念替代结果奖励，大幅压低多模态智能体偷懒抢答率；GitHub 一周飙升近四千星标的 xnulinux 将苹果 XNU 编译为 Linux 内核模块，实现了无虚拟化直跑 macOS 27 图形桌面。
+  </p>
+</section>
+
+<nav class="quick-index">
+  <div class="index-caption">本期导览 / IN THIS ISSUE</div>
+  <div class="index-grid">
+    <a class="index-link" href="#item-1">
+      <span class="index-num">01</span>
+      <span>AI 数学证明与 Lean 形式化集中爆发</span>
+    </a>
+    <a class="index-link" href="#item-2">
+      <span class="index-num">02</span>
+      <span>Claude Artifact 一键安装为 Mac 独立应用</span>
+    </a>
+    <a class="index-link" href="#item-3">
+      <span class="index-num">03</span>
+      <span>开源双核 Mac 浏览器 Yab 支持内置 MCP</span>
+    </a>
+    <a class="index-link" href="#item-4">
+      <span class="index-num">04</span>
+      <span>Modaic 延迟指纹锁定 Jev 底座为 Qwen3.5 MoE</span>
+    </a>
+    <a class="index-link" href="#item-5">
+      <span class="index-num">05</span>
+      <span>HF 精选 RLVB：用可验证信念治好智能体抢答</span>
+    </a>
+    <a class="index-link" href="#item-6">
+      <span class="index-num">06</span>
+      <span>xnulinux：Linux 内核模块直跑 macOS 27</span>
+    </a>
+  </div>
+</nav>
+
+<main class="digest-stream">
+
+  <!-- 1. AI Math & Lean Formalization -->
+  <article class="digest-entry" id="item-1">
+    <div class="entry-header">
+      <span class="entry-num">01</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://scottaaronson.blog/?p=10379" target="_blank" rel="noopener">AI 数学证明与 Lean 形式化集中爆发：OpenAI、Google 与 Anthropic 同日披露突破</a>
+    </h2>
+    <p class="entry-body">
+      过去两天多家一线实验室集中释放自动化数学推理与形式化验证成果，引发计算复杂性与数学社区强烈震动。OpenAI 在 GitHub 仓库（github.com/openai/math）持续公开内部模型产出的 730 篇数学手稿，覆盖 375 个问题家族，其中约 42% 的顶层结论附带 Lean 形式化检查，新近追加的 9 篇论文涉及矩阵乘法指数为 9/4（ω=9/4）、强多项式时间线性规划与有限傅里叶变换下界等经典难题；Google Research 同步在 cogentic_research_papers 目录发布由智能体系统 Cogentic 撰写的无条件整数分解与固定特征有限域离散对数新论文；Anthropic 研究团队则开源 grh-lean（github.com/lsernau/grh-lean），在 Claude 与 Mathlib 协作下将狄利克雷 L 函数广义黎曼猜想的 Lean 4 证明从此前 Levent Alpöge 的约 1,700 万行大幅压缩至 30 万行可读版与 7.6 万行紧凑版，仅依赖 Lean 三个基础公理。计算机科学家 Scott Aaronson 撰文评述指出，当模型持续产出人类数学家短期内难以逐行审读的复杂证明时，Lean 机器验证正取代传统人工审稿成为新的信任基准。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Scott Aaronson 博客 / Hacker News 热议 / GitHub 开源</span>
+      </div>
+      <a class="source-link" href="https://scottaaronson.blog/?p=10379" target="_blank" rel="noopener">scottaaronson.blog/?p=10379 ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Claude Artifacts Install as App & Skills over MCP -->
+  <article class="digest-entry" id="item-2">
+    <div class="entry-header">
+      <span class="entry-num">02</span>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://claude.com/resources/articles/install-as-app" target="_blank" rel="noopener">Anthropic 推出 Artifacts 一键安装为 Mac 桌面应用，同步公测 Skills over MCP</a>
+    </h2>
+    <p class="entry-body">
+      Anthropic 密集发布面向桌面端与智能体生态的两项核心能力。在更新至 v6.28899.0 及以上的 Claude for Mac / Windows 桌面客户端中，所有付费与免费用户现已可通过“Install as app”测试版将对话中生成的 Artifact 直接安装为拥有独立窗口与桌面图标的原生形态小应用，官方展示的内部案例包括分层修图工具 Linnet、文件管理器 Phosphor、目录整理工具 Sift 与终端 Tern。此类应用无需开发者打包签名或配置独立 API Key，通过当前登录的 Claude 账号即可调用模型与本地连接器，支持 macOS 菜单栏驻留与全局快捷键，且底层 Artifact 改版后自动更新；权限按默认浏览器沙盒、系统界面能力与完全本机访问三档严格隔离，更新版本时强制重新授权。同日 Anthropic 面向 Claude 与 Claude Code 推出 Skills over MCP（公测）、Tasks（GA）与 Elicitation（GA），使 MCP 服务端能够按需向模型下发工作流剧本（Shopify、HubSpot、Atlassian 已首批支持），在后台异步跑完长程任务并于删库、建费等高危操作前暂停拉起用户确认；官方同时披露 MCP 月均 SDK 下载量已超 7 亿次。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Anthropic 官方发布 / X 开发者社区</span>
+      </div>
+      <a class="source-link" href="https://claude.com/resources/articles/install-as-app" target="_blank" rel="noopener">claude.com/.../install-as-app ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Yab Dual-Engine macOS Browser -->
+  <article class="digest-entry" id="item-3">
+    <div class="entry-header">
+      <span class="entry-num">03</span>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">智能体</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/yetanotherbrowser/yab" target="_blank" rel="noopener">开源双核 Mac 浏览器 Yab 登榜少数派：WebKit 与 Chromium 自由切换并内置 MCP 隔离</a>
+    </h2>
+    <p class="entry-body">
+      由独立开发者 Serafim Korablev 使用 Swift 原生编写的 macOS 浏览器 Yab（Yet Another Browser，要求 macOS 15.4 及以上）以 Apache 2.0 协议在 GitHub 开源并登上少数派首页推荐，定位为接棒 Arc 的极客向高效浏览器。Yab 在 Apple Silicon 平台上实现了单个标签页与单域名粒度的双内核调度：日常默认以轻量的 WebKit 引擎渲染，完整保留 Apple Pay 与受保护视频流兼容，当访问依赖 Chrome 扩展或完整开发者工具的站点时可随时切换至 Chromium 内核，同时内置 uBlock Origin 引擎级广告过滤、命令面板与 Arc/Dia/Safari/Chrome 一键迁移导入。面向 AI 协作场景，作者配套开源了 yab-mcp（提供 69 个工具），支持 Claude、ChatGPT、Cursor 与 Zed 直接调用无障碍树快照和 DevTools 控制台操作网页，并强制将智能体约束在专属标签页内运行，彻底隔离个人隐私标签与已登录会话，在触发发送、支付与删除类动作前必须经过人工确认。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>少数派 SSPAI 推荐 / GitHub 开源发布</span>
+      </div>
+      <a class="source-link" href="https://github.com/yetanotherbrowser/yab" target="_blank" rel="noopener">github.com/yetanotherbrowser/yab ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Modaic Latency Fingerprinting -->
+  <article class="digest-entry" id="item-4">
+    <div class="entry-header">
+      <span class="entry-num">04</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">AI编程</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://modaic.dev/blog/latency-doesnt-lie" target="_blank" rel="noopener">Modaic 发布黑盒推理延迟指纹实测：9,984 条请求锁定神秘模型 Jev 底座为 Qwen3.5-35B-A3B</a>
+    </h2>
+    <p class="entry-body">
+      AI 工程团队 Modaic 发布技术逆向分析文章《Latency doesn't lie》，在既不掌握权重、接口又刻意隐瞒真实输入 Token 计数的黑盒条件下，对近期凭借极低延迟与稳定 p99 走红的 TypeSafe 判定模型（System One）Jev 1.14 进行了底层基座测绘。研究团队向 Jev 原生接口串行发送了 9,984 条长度覆盖 512 至 9,500 Token 的测试提示词，利用 Spearman 秩相关系数衡量各开源分词器计数与端到端延迟的线性契合度，结果显示 Qwen 分词器对 Jev 实际延迟的预测精度反超服务商自己上报的计费 Token 数。在单卡 NVIDIA B200 同条件对照基准中，27B 稠密模型预填充吞吐在 35K tokens/s 附近触顶，而 Jev 随上下文拉长一路攀升突破 90K tokens/s，吞吐曲线与基于 Qwen3.5-35B-A3B 稀疏 MoE 的对照模型仅存在 7% 至 22% 的固定排队与网络开销差（约 7 至 15 ms）。结合此前的自我认知探测与敏感话题回答指纹，Modaic 基本锁定该商业判定模型基于 Qwen3.5 稀疏 MoE 微调而来，为自建低延迟推理路由提供了量化选型参照。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Modaic 工程博客 / Hacker News 热榜 / X 社区热议</span>
+      </div>
+      <a class="source-link" href="https://modaic.dev/blog/latency-doesnt-lie" target="_blank" rel="noopener">modaic.dev/blog/latency-doesnt-lie ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. HF Daily Papers RLVB -->
+  <article class="digest-entry" id="item-5">
+    <div class="entry-header">
+      <span class="entry-num">05</span>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://huggingface.co/papers/2611.32884" target="_blank" rel="noopener">Hugging Face 每日论文 #2 RLVB：用可验证信念替代结果奖励，治好智能体偷懒抢答</a>
+    </h2>
+    <p class="entry-body">
+      南洋理工大学与 Declare-Lab 联合发布的论文《Lazy Agents Answer Against Their Own Beliefs》入选 Hugging Face 每日论文榜第 2 位，并开源配套代码与 Pro-Worlds 评测集（github.com/declare-lab/RLVB）。研究揭示了长程视觉语言智能体的典型“偷懒”失效模式：即便模型在思维链中明确写出的当前信念仍包含多个可能候选答案，依然倾向于提前拍脑袋抢答，而传统仅看最终答案对错的结果奖励（如 GRPO、PPO）无法区分“蒙对”与“证据充分”，训练后均分甚至低于基座模型。作者提出可验证信念强化学习（RLVB），训练时由仿真器在每一步精确计算已知证据下的答案后验分布，只要后验仍允许多个候选就奖励继续探索，仅在证据收敛充分后才奖励给出答案，且奖励器完全不读取模型写出的信念文本以防投机作弊，无需额外裁判模型或价值网络。在 3 款多模态模型与 3 个基准（含 2 个未见泛化集）共 9 组实验中，RLVB 平均提升 17.1%，以少 1.6 倍的 GPU 时长反超基于大模型裁判的过程奖励 PPO 达 9.3%，并将证据不足时的违心抢答率从最高 68% 压降至 0.1% 至 2.2%。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Hugging Face 每日论文精选 / arXiv:2611.32884</span>
+      </div>
+      <a class="source-link" href="https://huggingface.co/papers/2611.32884" target="_blank" rel="noopener">huggingface.co/papers/2611.32884 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. xnulinux -->
+  <article class="digest-entry" id="item-6">
+    <div class="entry-header">
+      <span class="entry-num">06</span>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/AFK-surf/xnulinux" target="_blank" rel="noopener">GitHub 飙升项目 xnulinux：将苹果 XNU 编译为 arm64 Linux 内核模块，无虚拟化直跑 macOS 27 桌面</a>
+    </h2>
+    <p class="entry-body">
+      上线不足一周即在 GitHub 收获近 4,000 星标的硬核系统项目 xnulinux，展示了一条绕开传统虚拟机与硬件透传、直接在 Linux 上运行原生 macOS 用户态的全新路径。作者基于苹果开源的 Darwin XNU 源码补全了 LINUX64 机器抽象层，将其编译为可动态加载的内核模块 xnu.ko，配合 GPL 侧的接口模块 fki.ko 插入未修改的 arm64 Linux 7.0 发行版内核运行。工作时宿主 Linux 保留异常向量并通过连续内存分配器（CMA）切分独立物理内存由 XNU 自行维护 pmap 页表，每个虚拟核绑定一个 Linux 内核线程直驱 CPU，设备侧通过虚拟内核扩展提供磁盘镜像、帧缓冲显示、网卡与密钥库，并由 xnu-cpu-metal 与 XnuDrm 桥接 Vulkan/DRM 图形通道。在标准 Ubuntu 24.04（含 NVIDIA DGX Spark 裸机环境）中执行 insmod xnu.ko 后，项目已可直接引导苹果官方安装器制作的 macOS Golden Gate 27.2.1 系统盘进入完整桌面，顺畅运行 launchd、WindowServer、Dock、Finder、Safari 与 Chrome，并支持通过 Linux 网卡出站访问及双向 SSH 互登。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub Trending 周榜近 4,000 Stars / Hacker News 极客讨论</span>
+      </div>
+      <a class="source-link" href="https://github.com/AFK-surf/xnulinux" target="_blank" rel="noopener">github.com/AFK-surf/xnulinux ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<nav class="issue-pagination">
+  <a class="page-link prev" href="2026-11-25.html">
+    <span class="link-caption">Previous Issue</span>
+    <span class="link-text">← 2026-11-25 · 第 138 期</span>
+  </a>
+  <a class="page-link archive" href="../news.html">
+    <span class="link-caption">Archive</span>
+    <span class="link-text">每日新闻列表</span>
+  </a>
+  <div class="page-link next disabled">
+    <span class="link-caption">Next Issue</span>
+    <span class="link-text">最新期 · 待发布 →</span>
+  </div>
+</nav>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
