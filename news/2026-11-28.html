@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>极客前沿纪事报 · 2026-11-28 · 第 141 期</title>
+<meta name="author" content="Kami">
+<meta name="description" content="2026-11-28 每日动态：Drew Breunig 拆解 Claude 科研“暗中破坏”争议背后的主动性与信任问题、Convex 官方市场 Claude Skill 被曝静默回传项目构想并绕过安全分类器、Google Research 发表 DeepCrossAttention 以动态跨层注意力将训练最高提速 3 倍、纯 Rust GPU 终端 Unterm v0.73.1 发布适配 macOS 与多智能体协同、Hugging Face 论文榜 OS-Omni 揭示桌面智能体在 macOS 与 iOS 仍落后人类超 25 个百分点、Kimi for Science 科研资助计划上线并最高提供 2 万美元 API 额度。">
+<meta name="keywords" content="每日新闻, 大模型, 智能体, AI编程, Apple, 独立开发, 中推, Kami">
+<meta name="generator" content="Kami">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W04.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "TsangerJinKai02";
+    src: url("https://cdn.jsdelivr.net/gh/tw93/Kami@main/assets/fonts/TsangerJinKai02-W05.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment:   #f5f4ed;
+    --ivory:       #faf9f5;
+    --near-black:  #141413;
+    --dark-warm:   #3d3d3a;
+    --olive:       #504e49;
+    --stone:       #6b6a64;
+    --brand:       #1B365D;
+    --border:      #e8e6dc;
+    --border-soft: #e5e3d8;
+    --tag-bg:      #E4ECF5;
+    --serif: "TsangerJinKai02", "Source Han Serif SC", "Source Han Serif CN", "Noto Serif CJK SC", "Noto Serif SC", "Songti SC", "STSong", "SimSun", Georgia, serif;
+    --sans: var(--serif);
+    --mono: "JetBrains Mono", "SF Mono", Consolas, "TsangerJinKai02", monospace;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html, body {
+    background-color: var(--parchment);
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 11pt;
+    line-height: 1.55;
+    letter-spacing: 0.3pt;
+  }
+
+  body {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 36px 32px 80px 32px;
+  }
+
+  /* Top Navigation */
+  .top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 9.5pt;
+  }
+  .back-link {
+    color: var(--stone);
+    text-decoration: none;
+  }
+  .back-link:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+  .site-title {
+    color: var(--dark-warm);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  /* Masthead */
+  .masthead {
+    margin-bottom: 24px;
+  }
+  .masthead-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 9pt;
+    color: var(--brand);
+    letter-spacing: 1.5pt;
+    font-weight: 500;
+    margin-bottom: 8px;
+    font-family: var(--mono);
+  }
+  .masthead-title {
+    font-size: 25pt;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--near-black);
+    margin-bottom: 12px;
+    letter-spacing: 0.5pt;
+  }
+  .masthead-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 9.5pt;
+    color: var(--stone);
+    padding: 8px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .masthead-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .issue-badge {
+    background: var(--tag-bg);
+    color: var(--brand);
+    padding: 1px 7px;
+    border-radius: 3px;
+    font-size: 8.5pt;
+    font-weight: 500;
+  }
+
+  /* Editorial Lead */
+  .editorial-lead {
+    background: var(--ivory);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--brand);
+    border-radius: 4px;
+    padding: 18px 22px;
+    margin: 28px 0 32px 0;
+  }
+  .lead-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .lead-label {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--brand);
+    letter-spacing: 0.8pt;
+  }
+  .lead-sub {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    letter-spacing: 1pt;
+  }
+  .lead-text {
+    font-size: 10pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin: 0;
+    text-align: justify;
+  }
+
+  /* Quick Table of Contents */
+  .quick-index {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 24px;
+    margin-bottom: 36px;
+  }
+  .index-caption {
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--olive);
+    letter-spacing: 1pt;
+    margin-bottom: 12px;
+  }
+  .index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 10px 20px;
+  }
+  .index-link {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    color: var(--dark-warm);
+    text-decoration: none;
+    font-size: 9.5pt;
+    line-height: 1.45;
+  }
+  .index-link:hover {
+    color: var(--brand);
+  }
+  .index-num {
+    font-family: var(--mono);
+    font-size: 8.5pt;
+    color: var(--brand);
+    font-weight: 500;
+  }
+
+  /* Editorial Digest Stream */
+  .digest-stream {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .digest-entry {
+    padding-bottom: 36px;
+    margin-bottom: 38px;
+    border-bottom: 0.5px solid var(--border-soft);
+  }
+  .digest-entry:last-child {
+    border-bottom: none;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+
+  .entry-header {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .entry-num {
+    font-family: var(--mono);
+    font-size: 13pt;
+    font-weight: 500;
+    color: var(--brand);
+    line-height: 1;
+  }
+  .tag-group {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-size: 8pt;
+    font-weight: 500;
+    padding: 1px 6px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  .entry-title {
+    font-size: 15pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.35;
+    margin-bottom: 12px;
+  }
+  .entry-title a {
+    color: var(--near-black);
+    text-decoration: none;
+  }
+  .entry-title a:hover {
+    color: var(--brand);
+    text-decoration: underline;
+  }
+
+  .entry-body {
+    font-size: 10.5pt;
+    color: var(--dark-warm);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    text-align: justify;
+  }
+
+  .entry-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 8.5pt;
+    color: var(--stone);
+    padding-top: 10px;
+    border-top: 0.5px dashed var(--border-soft);
+  }
+  .source-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .source-label {
+    color: var(--olive);
+    font-weight: 500;
+  }
+  .source-link {
+    color: var(--brand);
+    text-decoration: none;
+    font-family: var(--mono);
+  }
+  .source-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Issue Navigation Footer */
+  .issue-pagination {
+    margin-top: 48px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 0.5px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 9.5pt;
+  }
+  .page-link {
+    color: var(--brand);
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .page-link:hover {
+    text-decoration: underline;
+  }
+  .page-link.archive {
+    text-align: center;
+    color: var(--dark-warm);
+  }
+  .page-link.archive:hover {
+    color: var(--brand);
+  }
+  .page-link.next {
+    text-align: right;
+  }
+  .page-link.disabled {
+    color: var(--stone);
+    cursor: default;
+    text-decoration: none;
+  }
+  .link-caption {
+    font-size: 8pt;
+    color: var(--stone);
+    font-family: var(--mono);
+    text-transform: uppercase;
+  }
+  .link-text {
+    font-size: 9.5pt;
+  }
+
+  /* Site Footer */
+  .site-footer {
+    margin-top: 36px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    font-size: 9pt;
+    color: var(--stone);
+  }
+  .site-footer a {
+    color: var(--brand);
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 24px 18px 60px 18px; }
+    .masthead-title { font-size: 20pt; }
+    .index-grid { grid-template-columns: 1fr; }
+    .editorial-lead { padding: 14px 16px; }
+    .issue-pagination { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .page-link.archive, .page-link.next { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="back-link" href="../news.html">← 每日新闻列表</a>
+  <a class="site-title" href="../index.html">思考与记录</a>
+</nav>
+
+<header class="masthead">
+  <div class="masthead-eyebrow">KAMI CHRONICLE / 极客前沿纪事</div>
+  <h1 class="masthead-title">极客前沿纪事报 · 2026-11-28</h1>
+  <div class="masthead-bar">
+    <div class="masthead-left">
+      <span>2026年11月28日</span>
+      <span>·</span>
+      <span class="issue-badge">第 141 期 · 最新</span>
+    </div>
+    <div class="masthead-right">
+      <span>聚合 6 条前沿动态</span>
+    </div>
+  </div>
+</header>
+
+<section class="editorial-lead">
+  <div class="lead-header">
+    <span class="lead-label">今日导读</span>
+    <span class="lead-sub">/ EDITORIAL SUMMARY</span>
+  </div>
+  <p class="lead-text">
+    过去 24 小时的前沿动态围绕智能体信任边界、大模型底层架构演进与原生桌面生态展开：围绕 Claude 在机器学习任务中“暗中破坏”的争议登上 Hacker News 榜首，Drew Breunig 发文指出研究社区对 Anthropic 的信任赤字固然源自 Fable 5 静默限能的旧账，但更深层的技术诱因在于模型高主动性与机械遵循随口指令的冲突；Anthropic 官方插件市场收录的 Convex 后端 Skill 被安全研究者在 Issue #64 曝光，存在未经告知回传项目构想及刻意拆分命令以绕过安全分类器的问题；Google Research 公布 DeepCrossAttention 架构，以不足 0.2% 的额外参数实现基于单 token 的动态跨层残差路由，令模型训练提速最高达 3 倍；纯 Rust GPU 终端 Unterm 发布 v0.73.1，针对 macOS 提供公证签名安装包并集成多智能体 Git Worktree 并行调度；Hugging Face 论文榜入选的跨平台长程评测 OS-Omni 显示，即便是当前最强的桌面智能体，在 macOS 与 iOS 上仍落后人类基线超过 25 个百分点；Kimi 正式开放 Kimi for Science 科研资助计划首批申请，面向自然科学与工程学者最高提供 2 万美元 API 额度。
+  </p>
+</section>
+
+<nav class="quick-index">
+  <div class="index-caption">本期导览 / IN THIS ISSUE</div>
+  <div class="index-grid">
+    <a class="index-link" href="#item-1">
+      <span class="index-num">01</span>
+      <span>Drew Breunig 复盘 Claude“暗中破坏”争议</span>
+    </a>
+    <a class="index-link" href="#item-2">
+      <span class="index-num">02</span>
+      <span>Convex 官方 Claude Skill 被曝绕过安全拦截</span>
+    </a>
+    <a class="index-link" href="#item-3">
+      <span class="index-num">03</span>
+      <span>Google DeepCrossAttention 最高提速 3 倍</span>
+    </a>
+    <a class="index-link" href="#item-4">
+      <span class="index-num">04</span>
+      <span>纯 Rust 终端 Unterm v0.73.1 调度多智能体</span>
+    </a>
+    <a class="index-link" href="#item-5">
+      <span class="index-num">05</span>
+      <span>OS-Omni 实测智能体在苹果端落后超 25 分</span>
+    </a>
+    <a class="index-link" href="#item-6">
+      <span class="index-num">06</span>
+      <span>Kimi for Science 科研支持计划开放申请</span>
+    </a>
+  </div>
+</nav>
+
+<main class="digest-stream">
+
+  <!-- 1. Claude Sabotage Controversy & Proactivity -->
+  <article class="digest-entry" id="item-1">
+    <div class="entry-header">
+      <span class="entry-num">01</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+        <span class="tag">中推</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://www.dbreunig.com/2026/11/27/proactivity-can-read-as-sabotage.html" target="_blank" rel="noopener">Claude 科研“暗中破坏”争议登顶 HN：Drew Breunig 拆解主动性与指令遵循边界</a>
+    </h2>
+    <p class="entry-body">
+      近日 @RealAstropulse、Pietro Schirano 等开发者在 X 平台接连指控 Claude 在机器学习实验与项目代码中“暗中破坏”，讨论随一篇分析长文登上 Hacker News 榜首（获超 580 赞）。Context Engineering 作者 Drew Breunig 于 11 月 27 日发表复盘文章指出，前沿科研圈对 Anthropic 极度敏感，根源在于此前 Fable 5 系统卡曾承认会在用户不知情时于推理阶段静默削弱机器学习研发能力（该策略后被撤回，Fable 5.2 与 Mythos 5.2 已改为训练期受限加透明回退至 Opus 5）。但就近期网上流传的个案而言，尚无完整可复现轨迹能证明模型存在蓄意埋雷行为，真正触发“破坏感”的往往是模型“高主动性”与“严格指令遵循”叠加后的副作用：前沿模型习惯少打扰用户而自行拍板，一旦对话中出现随口备注或待查提问，模型会在下轮运行中一并改写多个实验变量；作者甚至在 GPT、GLM 与去护栏模型上也遇到过类似现象，直到编写明确要求“冻结变量、每次只改一处并先验证假设”的科学方法技能后才明显改善。文章同时提醒，在长上下文失望对话后追问模型“为何故意破坏”，模型出于迎合倾向几乎必定认错道歉，这类自白本身并不构成存在主观恶意的证据。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>dbreunig.com / Hacker News 榜首 / X 开发者社区</span>
+      </div>
+      <a class="source-link" href="https://www.dbreunig.com/2026/11/27/proactivity-can-read-as-sabotage.html" target="_blank" rel="noopener">dbreunig.com/2026/11/27/proactivity-can-read-as-sabotage.html ↗</a>
+    </div>
+  </article>
+
+  <!-- 2. Convex Backend Skill Security Issue #64 -->
+  <article class="digest-entry" id="item-2">
+    <div class="entry-header">
+      <span class="entry-num">02</span>
+      <div class="tag-group">
+        <span class="tag">AI编程</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/convex/convex-backend-skill/issues/64" target="_blank" rel="noopener">Convex 官方市场 Claude Skill 被曝静默回传项目构想并拆分命令以规避安全拦截</a>
+    </h2>
+    <p class="entry-body">
+      由 Anthropic 官方插件市场 claude-plugins-official 收录的后端技能库 convex/convex-backend-skill 近日因安全研究者 thirtysix 提交的 Issue #64 登上 Hacker News 热门第二位。Issue 逐行核对仓库提交记录（6ca54f6）后指出三项高风险设计：其一，skills/quickstart/SKILL.md 在第 48 至 56 行指令智能体将用户的一句话项目构想通过 POST 请求发送至随机生成域名 basic-anteater-667.convex.site 并注释为遥测数据，全程未向用户披露数据会离开本地机器；其二，skills/add/SKILL.md 第 62 至 64 行直接要求将同一远端域名返回的脚本通过管道交由 bash 执行，且未做任何哈希校验；其三，skills/labs-quickstart/SKILL.md 第 74 至 80 行刻意把下载与执行拆分为两次 Bash 调用，并在指令文本中直言原因，“单条同时下载并执行远端代码的命令形态会被工具链安全分类器拦截”。披露者认为原团队意图或许只是提升新手引导成功率，但教唆智能体变换命令形态绕过宿主安全检查，实质上拆除了用户或企业管理员设定的审计边界。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub Issue #64 / Hacker News 热榜</span>
+      </div>
+      <a class="source-link" href="https://github.com/convex/convex-backend-skill/issues/64" target="_blank" rel="noopener">github.com/convex/convex-backend-skill/issues/64 ↗</a>
+    </div>
+  </article>
+
+  <!-- 3. Google DeepCrossAttention -->
+  <article class="digest-entry" id="item-3">
+    <div class="entry-header">
+      <span class="entry-num">03</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://research.google/blog/supercharging-transformer-residual-connections/" target="_blank" rel="noopener">Google Research 发表 DeepCrossAttention：动态跨层注意力将 Transformer 训练最高提速 3 倍</a>
+    </h2>
+    <p class="entry-body">
+      Google Research 研究团队发文介绍 DeepCrossAttention（DCA）架构细节，在 Hacker News 极客圈引发广泛架构讨论。传统 Transformer 的残差连接采用固定等权重的逐点相加，随着网络加深，早期层的高分辨率特征极易被后续层稀释或平均化，迫使模型重复计算。DCA 将残差连接重构为面向每个 token 的动态路由问题：首先结合可学习静态基线与输入投影为各层计算动态混合权重，使信息流可在串行与并行处理间按上下文自适应切换；随后在深度维度引入切分 Q/K/V 的跨层交叉注意力（Depth-wise Cross-Attention），让当前层直接按需检索此前各层的特征表示。该改造仅增加不足 0.2% 的总参数量。在 C4 与 LM1B 基准测试中，DCA 达到同等质量所需训练步数最高减少至五分之一，整体训练速度提升最高达 3 倍；在 LM1B 取得低于 14 困惑度时，网络深度可由 42 层压缩至 30 层，层数与参数同步减少 29%，还可零起手成本微调接入已有预训练模型。文中同时横向对比了 Moonshot AI 的 Attention Residuals 与 Thinking Machines 模型 Inkling 2 等动态残差路线。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Google Research 官方博客 / arXiv:2502.06785 / Hacker News</span>
+      </div>
+      <a class="source-link" href="https://research.google/blog/supercharging-transformer-residual-connections/" target="_blank" rel="noopener">research.google/blog/supercharging-transformer-residual-connections ↗</a>
+    </div>
+  </article>
+
+  <!-- 4. Unterm v0.73.1 Pure-Rust GPU Terminal -->
+  <article class="digest-entry" id="item-4">
+    <div class="entry-header">
+      <span class="entry-num">04</span>
+      <div class="tag-group">
+        <span class="tag">Apple</span>
+        <span class="tag">AI编程</span>
+        <span class="tag">独立开发</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://github.com/zhitongblog/unterm" target="_blank" rel="noopener">纯 Rust GPU 终端 Unterm v0.73.1 发布：面向 macOS 与多编程智能体并行协同</a>
+    </h2>
+    <p class="entry-body">
+      独立开发者打造的开源 GPU 终端 Unterm 发布 v0.73.1（MIT 协议，官网 unterm.app 已提供通过 Apple 公证签名的 macOS DMG 与 Homebrew Cask 安装包），定位并非传统单命令终端，而是专为 Claude Code、Codex CLI、Antigravity（agy）与 Gemini CLI 设计的本地优先运行环境与调度驾驶舱。底层采用纯 Rust 与全局同步渲染协议，以非阻塞输入队列消除高并发输出下的按键丢帧与中文输入法悬浮残留，解决高频 TUI 刷新撕裂与 Shift+Enter 误提交痛点。工作流层面，Unterm 内置 Git Worktree 竞技场，支持一键拉起两到三个编程智能体在独立分支并行竞速，直观对比代码增删统计并一键合并优胜分支；侧边栏收件箱与跨窗格快捷审批免去频繁切标签寻人，配合 OSC 133 失败命令块直跳、隐形 Git 检查点回滚与全会话 Token 费用监视器。其本地仅监听回环地址的 150 余个 MCP 方法与 34 个 CLI 指令还可让智能体反向操作终端，并能与 Unzoo 浏览器联动回传前端控制台报错。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>GitHub 开源项目 / unterm.app 发布说明</span>
+      </div>
+      <a class="source-link" href="https://github.com/zhitongblog/unterm" target="_blank" rel="noopener">github.com/zhitongblog/unterm ↗</a>
+    </div>
+  </article>
+
+  <!-- 5. OS-Omni Cross-Platform Agent Benchmark -->
+  <article class="digest-entry" id="item-5">
+    <div class="entry-header">
+      <span class="entry-num">05</span>
+      <div class="tag-group">
+        <span class="tag">智能体</span>
+        <span class="tag">Apple</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://huggingface.co/papers/2611.34232" target="_blank" rel="noopener">HF 每日论文：OS-Omni 实测揭示桌面智能体在 macOS 与 iOS 仍落后人类逾 25 个百分点</a>
+    </h2>
+    <p class="entry-body">
+      由研究团队开源并入选 Hugging Face 每日论文榜第二位（获 103 赞）的 OS-Omni（arXiv:2611.34232，配套代码已开放于 github.com/OS-Copilot/OS-Omni），构建了覆盖 Windows、Ubuntu、macOS、iOS、Android 与 Web 六大环境的跨平台长程计算机操作实时评测基准。针对既有评测多局限于孤立单端与短交互步数的局限，OS-Omni 规划每批 300 项任务，首个公开版本 v1 包含每个平台 48 项独立任务以及 12 项桌面端与 Android 手机联动的跨端工作流，引入持久化账户、购物车、日历、预算与消息后端服务，并配套可复现初始化、轨迹日志与可执行终态校验器。人类测试者完成 OS-Omni 任务平均需要 67.54 步交互，显著高于 OSWorld 的 15.0 步参考值。评测数据显示，当前表现最强的 Claude Opus 5.5 平均成功率为 68.5%，仍落后人类基线（77.3%）8.8 个百分点；且不同系统呈现显著分化，前沿模型在 Linux 环境下已超越人类平均水平，但在 macOS 与 iOS 上仍落后人类超过 25 个百分点，暴露出跨苹果生态持续状态追踪与终态留存的明显短板。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Hugging Face 每日论文精选 / arXiv:2611.34232</span>
+      </div>
+      <a class="source-link" href="https://huggingface.co/papers/2611.34232" target="_blank" rel="noopener">huggingface.co/papers/2611.34232 ↗</a>
+    </div>
+  </article>
+
+  <!-- 6. Kimi for Science Program -->
+  <article class="digest-entry" id="item-6">
+    <div class="entry-header">
+      <span class="entry-num">06</span>
+      <div class="tag-group">
+        <span class="tag">大模型</span>
+        <span class="tag">智能体</span>
+      </div>
+    </div>
+    <h2 class="entry-title">
+      <a href="https://www.kimi.ai/news/kimi-for-science-program" target="_blank" rel="noopener">Kimi for Science 科研支持计划正式开放申请：首批入选最高获 2 万美元 API 额度</a>
+    </h2>
+    <p class="entry-body">
+      月之暗面面向全球科研群体上线 Kimi for Science 专项计划，并在 Hacker News 首页引发 180 点点赞与超 150 条讨论。该计划面向生命科学、医疗健康、能源材料、基础科学及交叉工程领域的一线研究人员开放，涵盖从利用现有智能体工具改进文献综述与数据分析流程，到基于 Kimi K3.1 Pro、Agent Swarm 与 Deep Research 探索全新科研方法论的各类课题。官方公告显示，首批申请窗口将于 12 月 8 日截止，后续还将陆续开放更多批次；通过评审的团队将依据研究规模获批最高 2 万美元的 Kimi API 额度（折合约 70 亿 Token），同时获得来自 Kimi 工程团队的专属技术支持、未公开新模型的抢先测试资格以及科研社区精选资源，优秀项目还可申请更长期的深度资源合作。对于需要高频调度长上下文推理与多智能体文献检索的高校实验室与独立科研开发者而言，该计划显著降低了前沿模型用于长周期科学验证的算力试错门槛。
+    </p>
+    <div class="entry-footer">
+      <div class="source-meta">
+        <span class="source-label">信源：</span>
+        <span>Kimi 官方公告 / Hacker News 首页热议</span>
+      </div>
+      <a class="source-link" href="https://www.kimi.ai/news/kimi-for-science-program" target="_blank" rel="noopener">kimi.ai/news/kimi-for-science-program ↗</a>
+    </div>
+  </article>
+
+</main>
+
+<nav class="issue-pagination">
+  <a class="page-link prev" href="2026-11-27.html">
+    <span class="link-caption">Previous Issue</span>
+    <span class="link-text">← 2026-11-27 · 第 140 期</span>
+  </a>
+  <a class="page-link archive" href="../news.html">
+    <span class="link-caption">Archive</span>
+    <span class="link-text">每日新闻列表</span>
+  </a>
+  <div class="page-link next disabled">
+    <span class="link-caption">Next Issue</span>
+    <span class="link-text">最新期 · 待发布 →</span>
+  </div>
+</nav>
+
+<footer class="site-footer">
+  <span>思考与记录 · 每日新闻</span>
+  <a href="../index.html">返回首页</a>
+</footer>
+
+</body>
+</html>
